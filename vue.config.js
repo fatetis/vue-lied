@@ -90,7 +90,7 @@ module.exports = {
                 }
             },
             sass: {
-                prependData: `@import "@assets/sass/common";`
+                prependData: `@import "@assets/scss/common.scss";`
             }
         }
     },
