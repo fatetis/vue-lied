@@ -1,18 +1,33 @@
 <template>
     <div class="city">
         <!-- <SearchCities /> -->
-        <CityList />
+        <city-list></city-list>
+        <city-letters></city-letters>
     </div>
 </template>
 
 <script>
-import SearchCities from '@/views/city/components/SearchCities.vue'
-import CityList from '@/views/city/components/CityList.vue'
+import searchCities from '@/views/city/components/searchCities'
+import cityList from '@/views/city/components/cityList'
+import cityLetters from '@/views/city/components/cityLetters'
+import {city} from '@/service/getData'
 export default {
-    'name': 'City',
+    'name': 'city',
+    data () {
+        return {
+            citiess: {},
+        }
+    },
     components: {
         // SearchCities,
-        CityList
+        cityList,
+        cityLetters
+    },
+    mounted () {
+        city().then(res => {
+            console.log(res);
+            // this.cities = res;
+        })
     }
 }
 </script>

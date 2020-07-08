@@ -73,3 +73,16 @@ $fc:#fff;
     }
     *height: 1%;
 }
+
+// border
+.border_topbottom::after {
+    border: 1px solid #000;
+}
+
+.border_topbottom::before {
+    border: 1px solid #000;
+}
+
+.border_bottom::after {
+    border: 1px solid #000;
+}

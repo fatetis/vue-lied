@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import City from '../views/city/City.vue'
+import city from '../views/city/city.vue'
 
 Vue.use(VueRouter)
 
@@ -21,8 +21,8 @@ Vue.use(VueRouter)
   },
   {
     path: '/city',
-    name: 'City',
-    component: City
+    name: 'city',
+    component: city
   }
 ]
 

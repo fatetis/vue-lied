@@ -15,7 +15,7 @@
 
 <script>
 export default {
-    'name': 'SearchCities',
+    'name': 'searchCities',
 }
 </script>
 
