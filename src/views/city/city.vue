@@ -1,8 +1,14 @@
 <template>
     <div class="city">
         <!-- <SearchCities /> -->
-        <city-list></city-list>
-        <city-letters></city-letters>
+        <city-list 
+        :cities="cities"
+        :letter="letter"
+        ></city-list>
+        <city-letters 
+        :alphabet="alphabet"
+        @change="handleLetterChange"
+        ></city-letters>
     </div>
 </template>
 
@@ -15,7 +21,9 @@ export default {
     'name': 'city',
     data () {
         return {
-            citiess: {},
+            cities: [],
+            alphabet: [],
+            letter: ''
         }
     },
     components: {
@@ -23,10 +31,15 @@ export default {
         cityList,
         cityLetters
     },
+    methods: {
+        handleLetterChange (letter) {
+            this.letter = letter;
+        }
+    },
     mounted () {
         city().then(res => {
-            console.log(res);
-            // this.cities = res;
+            this.cities = res.cityList;
+            this.alphabet = res.alphabet;
         })
     }
 }

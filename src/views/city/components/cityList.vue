@@ -18,10 +18,10 @@
             </div>
           </div>
         </div>
-        <div class="area">
-          <div class="hotCity border_topbottom">A</div>
-          <div class="botton_wrapper">
-            <div class="botton_item">阿米尔</div>
+        <div class="area" v-for="item of cities" :key="item.idx" :ref="item.idx">
+          <div class="hotCity border_topbottom">{{ item.idx }}</div>
+          <div class="botton_wrapper" v-for="item of item.cities" :key="item.id">
+            <div class="botton_item">{{ item.name }}</div>
           </div>
         </div>
       </div>
@@ -34,6 +34,18 @@ import BScroll from "better-scroll";
 
 export default {
   name: "cityList",
+  props: {
+    cities: Array,
+    letter: String
+  },
+  watch: {
+    letter() {
+      if(this.letter) {
+        const element = this.$refs[this.letter][0];
+        this.scroll.scrollToElement(element);
+      }
+    }
+  },
   mounted() {
     this.$nextTick(() => {
       this.scroll = new BScroll(this.$refs.list, {});
@@ -58,7 +70,7 @@ export default {
   border: 1px solid #ccc;
 }
 .city_list .area .hotCity {
-  padding: 6px 8px;
+  padding: 12px 18px;
   line-height: 37.5px;
   background: #eee;
   color: #666;
@@ -73,7 +85,7 @@ export default {
   width: 33.3%;
 }
 .city_list .area .city_wrapper .city_item .button_item {
-  line-height: 37.5px;
+  line-height: 48px;
   border-radius: 7.5px;
   border: 1px solid #ccc;
   padding: 6px;
@@ -86,10 +98,7 @@ export default {
   padding-left: 18px;
   line-height: 64px;
   color: #666;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #f5f5f5;
   font-size: 6px;
-}
-.city_list .area .botton_wrapper .botton_item:last-child {
-  border: none;
 }
 </style>
