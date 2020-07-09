@@ -69,7 +69,7 @@ export default {
     flex-direction: column
     justify-content: center
     position: absolute
-    right: 16px
+    right: 10px
     bottom: 0
     top: 0
     width: 46px
@@ -77,7 +77,7 @@ export default {
     line-height: 32px
     font-size: 20px
     color: #666
-    padding: 6px
+    padding: 4px 6px
     text-align: center
 </style>
 

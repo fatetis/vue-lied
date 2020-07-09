@@ -100,14 +100,14 @@ module.exports = {
             errors: true
         },
         host: "localhost",
-        port: 8082,
         // 端口号
-        https: false,
+        port: 8082,
         // https:{type:Boolean}
-        open: false,
+        https: false,
         //配置自动启动浏览器
-        hotOnly: true,
+        open: true,
         // 热更新
+        hotOnly: true,
         // proxy: 'http://localhost:8080' // 配置跨域处理,只有一个代理
         proxy: { //配置多个跨域
             "/api": {

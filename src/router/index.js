@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import city from '../views/city/city.vue'
+import index from '@views/index/index'
+import city from '@views/city/city'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'index',
+    component: index
   },
   {
     path: '/about',

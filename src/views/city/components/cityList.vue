@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import BScroll from "better-scroll";
+import Bscroll from "better-scroll";
 
 export default {
   name: "cityList",
@@ -40,24 +40,27 @@ export default {
   },
   watch: {
     letter() {
-      if(this.letter) {
+      if (this.letter) {
         const element = this.$refs[this.letter][0];
-        this.scroll.scrollToElement(element);
+        this.scroll.scrollToElement(element, 600);
       }
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.list, {});
+      this.scroll = new Bscroll(this.$refs.list, {});
     });
   }
 };
 </script>
 
 <style lang="scss" scoped>
+.city_list {
+  height: 89.41vh;
+}
 .list {
   position: absolute;
-  top: 0;
+  top: $cityTop;
   left: 0;
   right: 0;
   bottom: 0;
@@ -74,7 +77,7 @@ export default {
   line-height: 37.5px;
   background: #eee;
   color: #666;
-  font-size: 20px;
+  font-size: 26px;
 }
 .city_list .area .city_wrapper {
   overflow: hidden;
@@ -89,16 +92,19 @@ export default {
   border-radius: 7.5px;
   border: 1px solid #ccc;
   padding: 6px;
-  font-size: 7.5px;
+  font-size: 18px;
   text-align: center;
   margin: 8px;
 }
+.city_list .area .botton_wrapper {
+  margin: 0 18px;
+}
 .city_list .area .botton_wrapper .botton_item {
-  background: #fff;
-  padding-left: 18px;
+  background: $fc;
   line-height: 64px;
-  color: #666;
+  color: #333;
   border-bottom: 1px solid #f5f5f5;
-  font-size: 6px;
+  font-size: 14px;
+  padding: 8px 0;
 }
 </style>

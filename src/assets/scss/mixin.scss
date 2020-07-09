@@ -46,7 +46,7 @@
 }
 
 
-/* 箭头
+/* 实心箭头
 arrow(direction,
 size,
 color);
@@ -80,5 +80,39 @@ $color) {
         border-style: dashed solid dashed dashed;
         border-color: transparent $color transparent transparent;
         border-left: none;
+    }
+}
+
+/* 透明边框箭头
+arrow(direction,
+size,
+color);
+*/
+@mixin borderArrow($direction,
+$size,
+$color) {
+    width: $size;
+    height: $size;
+    cursor: pointer;
+    display: inline-block;
+    @if $direction == top {
+        border-top: 1px solid $color;
+        border-left: 1px solid $color;
+        transform: rotate(45deg);
+    }
+    @else if $direction == bottom {
+        border-bottom: 1px solid $color;
+        border-left: 1px solid $color;
+        transform: rotate(-45deg);
+    }
+    @else if $direction == right {
+        border-top: 1px solid $color;
+        border-right: 1px solid $color;
+        transform: rotate(45deg);
+    }
+    @else if $direction == left {
+        border-bottom: 1px solid $color;
+        border-left: 1px solid $color;
+        transform: rotate(45deg);
     }
 }
