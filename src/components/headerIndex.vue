@@ -1,9 +1,12 @@
 <template>
   <div class="headerIndex">
     <div class="margin_content clearfix">
-      <div class="padding_city">
-        <div class="city">广州</div>
-      </div>
+      <router-link :to="{name: 'city'}">
+        <div class="padding_city">
+          <div class="city">广州</div>
+        </div>
+      </router-link>
+      
       <div class="search_wrapper">
         <div class="search">
             <i class="logo"></i>
