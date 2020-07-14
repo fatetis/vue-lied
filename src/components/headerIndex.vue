@@ -53,10 +53,10 @@ export default {
             margin-top: 14px
             position: relative
             .logo
-                @include bis("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAeCAMAAABpA6zvAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAzUExURUdwTOo8Puo7Peo7Pek7Peo7Pe0/Qek7PvE+SP9SUuo7Peo7Peo7Pus8P+o7Peo7Pek7PZSxd20AAAAQdFJOUwBV8eG+hyGkEQbGmWs/rthNA0r+AAAA5klEQVQ4y63T0RaDIAgAUEDRUjP//2u3CI/T1vJhvM3uVBAANGx5xwLgiwSZ3TI6uMYANSyuc7AUs03CUvgHRMTEflcZ76FezDGJTE/wTYNI9whhDePhNxAcDVveQWDJbgK6Y8FPQDBH2WdgPlZmYNQvj5D7tP8Ap4+2s8lQX56g4AK34bGPshJ8gbl/wrXoASOUDanlgvVFB3g2T5sGZ2on9xCp23BJ8tusPVzw7O/zhuxtHSIZDYGRo891WUemjeVZgsu4kmY8ju8Ifb2f/i3WV+/gzq0Zgs0xba0eHCSsj4zLR91f1fAfiWsqzlEAAAAASUVORK5CYII=")
-                @include wh(40px, 30px)
+                @include bis("../assets/images/logo/small_letter.png")
+                @include wh(40px, 40px)
                 display: block
-                margin: 16px 16px 0 30px
+                margin: 12px 16px 0 30px
                 position: relative
                 z-index: 1
                 float: left
@@ -66,6 +66,7 @@ export default {
                 height: 31px
                 position: absolute
                 left: 54px
+                top: 6px
             .icon
                 display: block
                 @include wh(36px, 36px)

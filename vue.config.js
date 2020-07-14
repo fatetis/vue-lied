@@ -82,18 +82,23 @@ module.exports = {
         requireModuleExtension: false,
         // 去掉文件名中的 .module
         loaderOptions: {
+            css: {
+
+            },
             // 给 less-loader 传递 Less.js 相关选项
             less: {
                 // `globalVars` 定义全局对象，可加入全局变量
                 globalVars: {
-                    primary: '#333'
+                    // primary: '#333'
                 }
             },
             sass: {
                 prependData: `@import "@assets/scss/common.scss";`
             }
+            
         }
     },
+    
     devServer: {
         overlay: { // 让浏览器 overlay 同时显示警告和错误
             warnings: true,
@@ -105,7 +110,7 @@ module.exports = {
         // https:{type:Boolean}
         https: false,
         //配置自动启动浏览器
-        open: true,
+        open: false,
         // 热更新
         hotOnly: true,
         // proxy: 'http://localhost:8080' // 配置跨域处理,只有一个代理
@@ -130,4 +135,6 @@ module.exports = {
             },
         }
     }
+    
+    
 }
