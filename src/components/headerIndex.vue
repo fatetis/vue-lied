@@ -30,7 +30,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 .headerIndex
-    background-color: $theam
+    // background-color: $theam
     .margin_content
         margin-left: 15px 
     .padding_city
