@@ -72,11 +72,11 @@ export default {
 
 <style lang="sass" scoped>
 .search_cities
+    background: #fff
     .search_wrapper
         width: 100%
-        padding: 0 16px
+        padding: 20px 20px
         box-sizing: border-box
-        margin: 16px 0px
         .search_content
             color: #666
             width: 100%

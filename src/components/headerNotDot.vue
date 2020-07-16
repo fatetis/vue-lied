@@ -21,7 +21,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 .headerNotDot
-  padding: 0 16px
+  padding: 0 20px
   background: $theam
   .wrapper
     .back

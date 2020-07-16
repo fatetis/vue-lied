@@ -8,11 +8,29 @@
             <div class="city_item">
               <div class="button_item">广州</div>
             </div>
+            <div class="city_item">
+              <div class="button_item">广州</div>
+            </div>
+            <div class="city_item">
+              <div class="button_item">广州</div>
+            </div>
+            <div class="city_item">
+              <div class="button_item">广州</div>
+            </div>
           </div>
         </div>
         <div class="area">
           <div class="hotCity border_topbottom">热门城市</div>
           <div class="city_wrapper">
+            <div class="city_item">
+              <div class="button_item">广州</div>
+            </div>
+            <div class="city_item">
+              <div class="button_item">广州</div>
+            </div>
+            <div class="city_item">
+              <div class="button_item">广州</div>
+            </div>
             <div class="city_item">
               <div class="button_item">广州</div>
             </div>
@@ -66,6 +84,9 @@ export default {
   bottom: 0;
   overflow: hidden;
 }
+.city_list .area {
+  background-color: #fff;
+}
 .city_list .area .border_topbottom::before {
   border: 1px solid #ccc;
 }
@@ -73,7 +94,7 @@ export default {
   border: 1px solid #ccc;
 }
 .city_list .area .hotCity {
-  padding: 12px 18px;
+  padding: 12px 20px;
   line-height: 37.5px;
   background: #eee;
   color: #666;
@@ -81,7 +102,7 @@ export default {
 }
 .city_list .area .city_wrapper {
   overflow: hidden;
-  padding: 7.5px 64px 7.5px 7.5px;
+  padding: 12px 56px 12px 12px;
 }
 .city_list .area .city_wrapper .city_item {
   float: left;
@@ -91,13 +112,13 @@ export default {
   line-height: 48px;
   border-radius: 7.5px;
   border: 1px solid #ccc;
-  padding: 6px;
+  padding: 6px 0;
   font-size: 18px;
   text-align: center;
   margin: 8px;
 }
 .city_list .area .botton_wrapper {
-  margin: 0 18px;
+  margin: 0 20px;
 }
 .city_list .area .botton_wrapper .botton_item {
   background: $fc;

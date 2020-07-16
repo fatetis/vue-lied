@@ -47,8 +47,8 @@ export default {
 <style lang="sass">
 .swiper-container
   .swiper-pagination-bullet
-    // width: 20px
-    // height: 4px
+    width: 10px
+    height: 10px
   .swiper-pagination-bullet-active
     // width: 28px
     background-color: $theam
@@ -61,6 +61,7 @@ export default {
   padding-bottom: 280px
   overflow: hidden
   touch-action: none
+  margin-top: 88px
   .slider-bg
     background-image: -webkit-gradient(linear, left bottom, left top, from(#ffb97e),color-stop(50%, $theam))
     background-image: -webkit-linear-gradient(bottom, #ffb97e, $theam 50%)
@@ -74,7 +75,7 @@ export default {
     border-bottom-left-radius: 100%
     border-bottom-right-radius: 100%
   .lunbo
-    width: calc(100% - 46px)
+    width: calc(100% - 40px)
     margin: 0 auto
     overflow: hidden
     border-radius: 10px

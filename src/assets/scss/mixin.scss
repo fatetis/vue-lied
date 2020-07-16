@@ -116,3 +116,16 @@ $color) {
         transform: rotate(45deg);
     }
 }
+
+@mixin overwrap() {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+@mixin overwraps($line) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+    overflow: hidden;
+}

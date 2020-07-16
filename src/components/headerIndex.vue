@@ -30,9 +30,13 @@ export default {
 </script>
 <style lang="sass" scoped>
 .headerIndex
-    // background-color: $theam
+    position: fixed
+    width: 100%
+    height: 88px
+    background-color: $theam
+    z-index: 10
     .margin_content
-        margin-left: 15px 
+        margin-left: 20px 
     .padding_city
         padding: 14px 14px 14px 0
         float: left
@@ -52,7 +56,7 @@ export default {
         .search
             position: relative
             height: 60px
-            margin-right: 64px
+            margin-right: 56px
             margin-top: 14px
             position: relative
             .logo

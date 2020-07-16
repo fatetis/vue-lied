@@ -20,7 +20,74 @@
               />
               <span class="text">领券2</span>
             </router-link>
+            <router-link :to="{name: 'city'}" class="link">
+              <img
+                class="img_category"
+                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
+                alt
+              />
+              <span class="text">领券4</span>
+            </router-link>
+            <router-link :to="{name: 'city'}" class="link">
+              <img
+                class="img_category"
+                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
+                alt
+              />
+              <span class="text">领券4</span>
+            </router-link>
+            <router-link :to="{name: 'city'}" class="link">
+              <img
+                class="img_category"
+                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
+                alt
+              />
+              <span class="text">领券4</span>
+            </router-link>
+            <router-link :to="{name: 'city'}" class="link">
+              <img
+                class="img_category"
+                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
+                alt
+              />
+              <span class="text">领券4</span>
+            </router-link>
+            <router-link :to="{name: 'city'}" class="link">
+              <img
+                class="img_category"
+                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
+                alt
+              />
+              <span class="text">领券4</span>
+            </router-link>
+            <router-link :to="{name: 'city'}" class="link">
+              <img
+                class="img_category"
+                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
+                alt
+              />
+              <span class="text">领券4</span>
+            </router-link>
+            <router-link :to="{name: 'city'}" class="link">
+              <img
+                class="img_category"
+                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
+                alt
+              />
+              <span class="text">领券4</span>
+            </router-link>
+            <router-link :to="{name: 'city'}" class="link">
+              <img
+                class="img_category"
+                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
+                alt
+              />
+              <span class="text">领券4</span>
+            </router-link>
+            
           </div>
+
+          
           <div class="content swiper-slide">
             <router-link :to="{name: 'city'}" class="link">
               <img
@@ -85,6 +152,8 @@ export default {
     .box_item
         width: 100%
     .content
+        height: 288px
+        overflow: hidden
         .link
             width: 20%
             text-align: center
