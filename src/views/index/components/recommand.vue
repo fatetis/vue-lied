@@ -107,7 +107,7 @@ export default {
                         padding: 18px
                         box-sizing: border-box
                         vertical-align: top
-                        width: 352px
+                        width: 100%
                         background: #fff
                         .title
                             @include overwraps(2)

@@ -170,6 +170,7 @@ export default {
                             @include overwrap()
                         .p2
                             @include sc(12px, #222222)
+                            @include overwrap()
                     .img
                         @include wh(120px, 120px)
                         display: inline-block

@@ -6,6 +6,8 @@
       <special-banner></special-banner>
       <stroll-day></stroll-day>
       <recommand></recommand>
+      <copy-right></copy-right>
+      <footer-index></footer-index>
       
   </div>
 </template>
@@ -18,6 +20,8 @@ import category from "@views/index/components/category";
 import specialBanner from "@views/index/components/specialBanner";
 import strollDay from "@views/index/components/strollDay";
 import recommand from "@views/index/components/recommand";
+import copyRight from "@views/index/components/copyRight";
+import footerIndex from "@components/footerIndex";
 export default {
   name: 'index',
   components: {
@@ -26,7 +30,9 @@ export default {
     category,
     specialBanner,
     strollDay,
-    recommand
+    recommand,
+    copyRight,
+    footerIndex
   }
 }
 </script>

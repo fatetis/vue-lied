@@ -34,7 +34,9 @@ export default {
     width: 100%
     height: 88px
     background-color: $theam
-    z-index: 10
+    z-index: 99
+    top: 0
+    left: 0
     .margin_content
         margin-left: 20px 
     .padding_city

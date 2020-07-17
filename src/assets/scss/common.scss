@@ -7,15 +7,40 @@ address, cite, dfn, em, var { font-style:normal; }
 code, kbd, pre, samp { font-family:couriernew, courier, monospace; } 
 small{ font-size:12px; } 
 ul, ol { list-style:none; } 
-a { text-decoration:none; } 
-a:hover { text-decoration:underline; } 
+a,a:hover,a:active,a:visited,a:link,a:focus{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+    outline:none;
+    background: none;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-user-select: none;
+    -moz-user-focus: none;
+    -moz-user-select: none; 
+    color: inherit;
+}
+::selection { 
+    background: #FFF; 
+    color: #333; 
+} 
+::-moz-selection { 
+    background: #FFF; 
+    color: #333; 
+} 
+::-webkit-selection { 
+    background: #FFF; 
+    color: #333; 
+}
 sup { vertical-align:text-top; } 
 sub{ vertical-align:text-bottom; } 
 legend { color:#000; } 
 fieldset, img { border:0; } 
 button, input, select, textarea { font-size:100%; } 
 table { border-collapse:collapse; border-spacing:0; }
-input { outline: none; border: 0 }
+input { 
+    outline: none; 
+    border: 0 
+}
 
 $blue: #3190e8;  
 $bc: #e4e4e4;

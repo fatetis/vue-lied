@@ -146,13 +146,12 @@ export default {
 .category
     position: relative
     width: 100%
-    height: 328px
+    height: 332px
     touch-action: none
     overflow: hidden
     .box_item
         width: 100%
     .content
-        height: 288px
         overflow: hidden
         .link
             width: 20%
