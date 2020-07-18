@@ -42,7 +42,7 @@ export default {
       content: ''
       position: absolute
       left: 24px
-      top: 22px
-      @include borderArrow(left, 28px, $fc)
+      top: 24px
+      @include borderArrow(left, 20px, $fc)
       
 </style>

@@ -74,7 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 .city_list {
-  height: 89.41vh;
+  height: 88vh;
 }
 .list {
   position: absolute;

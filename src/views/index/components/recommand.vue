@@ -56,6 +56,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="item">
+                        <div class="show_img">
+                            <img src="@assets/images/index/product_2.jpg" alt="">
+                        </div>
+                        <div class="text">
+                            <p class="title">产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题</p>
+                            <div class="detail clearfix">
+                                <div class="float price">￥<span>20.00</span></div>
+                                <div class="right buy_num">35人付款</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

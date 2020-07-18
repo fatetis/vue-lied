@@ -1,0 +1,96 @@
+<template>
+    <div class="headerSearch">
+        <div class="container">
+            <div class="wrapper">
+                <div class="content clearfix">
+                    <div class="item left" @click="back">
+                        <span class="arrow"></span>
+                    </div>
+                    <div class="item search">
+                      <div class="input">
+                        <input type="text" placeholder="请输入分类名称">
+                      </div>
+                    </div>
+                    <not></not>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import not from '@components/common/not'
+export default {
+    name: 'headerSearch',
+    components: {
+      not
+    },
+    methods:{
+      back(){
+          this.$router.go(-1);//返回上一层
+      },
+    },
+}
+</script>
+<style lang="sass" scoped>
+.headerSearch
+  .container
+    width: 100%
+    background: $fc
+    height: $headerIndexTop
+    border-bottom: 1px solid #e5e5e5
+    box-sizing: border-box
+    .wrapper
+      .content
+        .item
+          float: left
+        .left
+          position: absolute
+          left: 0
+          padding-left: 20px
+          width: 66px
+          box-sizing: border-box
+          height: $headerIndexTop
+          .arrow
+            display: inline-block
+            position: relative
+          .arrow:before
+            content: ''
+            position: absolute
+            top: 5px
+            left: 5px
+            @include borderArrow(left, 20px, #252525)
+        .search
+          height: 60px
+          margin-top: 14px
+          box-sizing: border-box
+          overflow: hidden
+          position: relative
+          width: 100%
+          .input
+            height: 60px
+            background: #f7f7f7
+            position: absolute
+            top: 0
+            left: 0
+            width: 76vw
+            margin-left: 66px
+            border-radius: 30px
+            padding-left: 30px
+            @include bis('../assets/images/icon/search_32x32.png')
+            background-size: 6%
+            background-position: 20px center
+            input
+              color: #232326;
+              padding-left: 10px;
+              box-sizing: border-box;
+              -webkit-box-flex: 1;
+              height: 60px;
+              vertical-align: middle;
+              line-height: 30px;
+              background-color: #f7f7f7
+              display: inline-block
+              margin: 0px 40px
+              width: 70vw
+              border-radius: 30px
+
+</style>
