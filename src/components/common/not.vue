@@ -1,15 +1,14 @@
 <template>
     <div class="not">
-        <div class="click_bg" ref="click_bg"  @click="handleShowNav"></div>
+        <div class="click_bg" v-show="showNav" @click="handleShowNav"></div>
         <div class="container" @click="handleShowNav">
             <div class="wrapper">
                 <div class="content">
                     <img src="@assets/images/icon/not.png" alt="">
                 </div>
-                
             </div>
         </div>
-        <div class="show_nav" ref="show_nav">
+        <div class="show_nav" v-show="showNav">
             <div class="list">
                 <ul>
                     <li>
@@ -44,21 +43,12 @@ export default {
     name: 'not',
     data () {
         return {
-            showNav: true
+            showNav: false
         }
     },
     methods: {
         handleShowNav () {
-            if(this.showNav) {
-                this.showNav = !this.showNav
-                this.$refs.show_nav.style.display = 'block'
-                this.$refs.click_bg.style.display = 'block'
-            }else{
-                this.showNav = !this.showNav
-                this.$refs.show_nav.style.display = 'none'
-                this.$refs.click_bg.style.display = 'none'
-            }
-
+            this.showNav = !this.showNav
         }
     }
 }
@@ -71,8 +61,6 @@ export default {
     bottom: 0
     left: 0
     z-index: 998
-    display: none
-    // background-color: red
 .container
     position: fixed
     top: 0
@@ -86,7 +74,6 @@ export default {
                 @include wh(100%, auto)
                 transform: scale(0.8)
 .show_nav
-    display: none
     .list
         ul::before
             content: ''
