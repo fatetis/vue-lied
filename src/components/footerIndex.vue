@@ -93,7 +93,7 @@ export default {
         position: fixed
         bottom: 0
         left: 0
-        z-index: 99
+        z-index: $fixedPositionZIndex
         width: 100%
         box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, .6)
         -webkit-box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, .6)

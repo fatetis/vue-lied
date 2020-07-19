@@ -55,13 +55,10 @@ export default {
     overflow: hidden
     height: 100vh
     .index_container
-      height: 89vh
       .index_wrapper
-        position: absolute
-        top: $headerIndexTop
-        left: 0
-        right: 0
-        bottom: 0
-        height: 89vh
-        overflow: hidden
+        height: $hftop
+        .index_content
+          position: relative
+
+        
 </style>

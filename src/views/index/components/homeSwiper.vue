@@ -45,18 +45,7 @@ export default {
 };
 </script>
 <style lang="sass">
-.slider-bg
-  background-image: -webkit-gradient(linear, left bottom, left top, from(#ffb97e),color-stop(50%, $theam))
-  background-image: -webkit-linear-gradient(bottom, #ffb97e, $theam 50%)
-  background-image: linear-gradient(0deg, #ffb97e, $theam 50%)
-  position: absolute
-  top: -$headerIndexTop
-  left: -25%
-  height: 280px
-  z-index: -1
-  width: 150%
-  border-bottom-left-radius: 100%
-  border-bottom-right-radius: 100%
+
 .swiper-container
   .swiper-pagination-bullet
     width: 10px
@@ -73,7 +62,18 @@ export default {
   padding-bottom: 280px
   overflow: hidden
   touch-action: none
-  margin-top: 88px
+  .slider-bg
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#ffb97e),color-stop(50%, $theam))
+    background-image: -webkit-linear-gradient(bottom, #ffb97e, $theam 50%)
+    background-image: linear-gradient(0deg, #ffb97e, $theam 50%)
+    position: absolute
+    top: -$headerIndexTop
+    left: -25%
+    height: 280px
+    z-index: 1
+    width: 150%
+    border-bottom-left-radius: 100%
+    border-bottom-right-radius: 100%
   .lunbo
     width: calc(100% - 60px)
     margin: 0 auto

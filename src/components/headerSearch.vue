@@ -11,10 +11,11 @@
                         <input type="text" placeholder="请输入分类名称">
                       </div>
                     </div>
-                    <not></not>
+                    
                 </div>
             </div>
         </div>
+        <not></not>
     </div>
 </template>
 <script>
@@ -33,12 +34,18 @@ export default {
 </script>
 <style lang="sass" scoped>
 .headerSearch
+  height: $headerIndexTop
   .container
+    position: fixed
     width: 100%
     background: $fc
     height: $headerIndexTop
     border-bottom: 1px solid #e5e5e5
     box-sizing: border-box
+    top: 0
+    left: 0
+    width: 100%
+    z-index: $fixedPositionZIndex
     .wrapper
       .content
         .item
