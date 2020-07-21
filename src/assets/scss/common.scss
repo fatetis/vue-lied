@@ -45,12 +45,27 @@ input {
 $blue: #3190e8;  
 $bc: #e4e4e4;
 $fc:#fff;
+// 头部主题色
 $theam: #ff8620;
+// 头部的标准灰色
+$headerBlack: #252525;
+// 头部的返回箭头颜色
+$arrowGrey: #8b8b8b;
+// 头部下边框的border颜色
+$headerBorderColor: #e5e5e5;
 // 城市选择页面距离顶部的距离
+
 $cityTop: 172px;
+// 头部标准高度
 $headerIndexTop: 88px;
-$hftop: 88.5vh;
+// 尾部标准高度
+$footerIndexTop: 98px;
+// 头部与尾部的中间区域的可视高
+$hftop: calc(100vh - 186px);
+// 头部与尾部的z-index层级
 $fixedPositionZIndex: 99;
+// 头部左边箭头大小
+$borderArrowSize: 20px;
 
 //定位全屏
 .allcover{

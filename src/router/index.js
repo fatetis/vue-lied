@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import index from '@views/index/index'
 import city from '@views/city/city'
 import category from '@views/category/category'
+import cart from '@views/cart/cart'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ Vue.use(VueRouter)
     path: '/category',
     name: 'category',
     component: category
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: cart
   }
 ]
 

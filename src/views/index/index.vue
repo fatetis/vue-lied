@@ -51,14 +51,14 @@ export default {
 <style lang="sass" scoped>
   .index
     background-color: #f6f6f6
-    position: relative
     overflow: hidden
     height: 100vh
+    width: 100%
+    position: relative
     .index_container
       .index_wrapper
         height: $hftop
-        .index_content
-          position: relative
+        overflow: hidden
 
         
 </style>

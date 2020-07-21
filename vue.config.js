@@ -6,7 +6,7 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 const resolve = (dir) => path.join(__dirname, dir);
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/site/vue-demo/' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/vue/lied/dist/' : '/',
     // 公共路径
     indexPath: 'index.html',
     // 相对于打包路径index.html的路径

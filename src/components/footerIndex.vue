@@ -34,14 +34,14 @@
                         <!-- </router-link> -->
                     </div>
                     <div class="item">
-                        <!-- <router-link :to="{name: 'cart'}"> -->
+                        <router-link :to="{name: 'cart'}">
                             <div class="show_icon">
                                 <img :src="this.$route.name === 'cart' ? img.selected[3] : img.select[3]" alt="">
                             </div>
                             <div :class="this.$route.name === 'cart' ? 'text_hover' : 'text'">
                                 <p>购物车</p>
                             </div>
-                        <!-- </router-link> -->
+                        </router-link>
                     </div>
                     
                     <div class="item">
@@ -88,7 +88,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 .footerIndex
-    height: 94px
+    height: $footerIndexTop
     .nav
         position: fixed
         bottom: 0
@@ -108,13 +108,16 @@ export default {
                     width: 20%
                     text-align: center
                     .show_icon
-                        height: 42px
+                        height: 40px
                         img
                             height: 100%
                     .text
-                        transform: scale(0.9)
+                        transform: scale(0.8)
+                        margin-top: 2px
                         color: #8B8B8B
                     .text_hover
+                        transform: scale(0.8)
+                        margin-top: 2px
                         color: $theam
                     
 

@@ -4,6 +4,7 @@
         <div class="container" @click="handleShowNav">
             <div class="wrapper">
                 <div class="content">
+                    <!-- <img v-if="type == 1" src="@assets/images/icon/write_not.png" alt=""> -->
                     <img src="@assets/images/icon/not.png" alt="">
                 </div>
             </div>
@@ -41,6 +42,9 @@
 <script>
 export default {
     name: 'not',
+    props: {
+        type: String
+    },
     data () {
         return {
             showNav: false

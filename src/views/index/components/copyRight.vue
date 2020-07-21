@@ -25,8 +25,12 @@
           </div>
         </div>
         <div class="copy_right border">
-          <p>粤ICP备15073814号-2</p>
-          <p>Copyright © 2014-2020 八块钱家装商城. All rights reserved.</p>
+          <!-- <p>粤ICP备74568512号-2</p> -->
+          <!-- <p>Copyright © 2014-2020 lied. All rights reserved.</p> -->
+          <a href="https://m.jd.com">
+            <p>网站仿京东(https://m.jd.com)的风格。如有任何侵权纠纷，可及时联系开发者处理，以免造成不必要的麻烦</p>
+          </a>
+          <p>开发者：fatetis QQ：2580926706</p>
         </div>
       </div>
     </div>
@@ -77,7 +81,7 @@ export default {
             border-top: none
             p  
                 @include sc(12px, #848689)    
-                @include overwrap()
+                // @include overwrap()
             p:last-child
                 padding-top: 10px
            

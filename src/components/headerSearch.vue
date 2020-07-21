@@ -40,7 +40,7 @@ export default {
     width: 100%
     background: $fc
     height: $headerIndexTop
-    border-bottom: 1px solid #e5e5e5
+    border-bottom: 1px solid $headerBorderColor
     box-sizing: border-box
     top: 0
     left: 0
@@ -65,7 +65,7 @@ export default {
             position: absolute
             top: 5px
             left: 5px
-            @include borderArrow(left, 20px, #252525)
+            @include borderArrow(left, 20px, $arrowGrey)
         .search
           height: 60px
           margin-top: 14px
@@ -87,13 +87,13 @@ export default {
             background-size: 6%
             background-position: 20px center
             input
-              color: #232326;
-              padding-left: 10px;
-              box-sizing: border-box;
-              -webkit-box-flex: 1;
-              height: 60px;
-              vertical-align: middle;
-              line-height: 30px;
+              color: #232326
+              padding-left: 10px
+              box-sizing: border-box
+              -webkit-box-flex: 1
+              height: 60px
+              vertical-align: middle
+              line-height: 30px
               background-color: #f7f7f7
               display: inline-block
               margin: 0px 40px
