@@ -580,6 +580,7 @@ export default {
     height: 36px
     @include bis('../../assets/images/icon/cart_checkbox.png') 
 .cart
+    background-color: #f2f2f2
     .container
         height: $hfcarttop
         overflow: hidden
@@ -587,6 +588,7 @@ export default {
             .content
                 padding: 20px
                 .item
+                    background-color: #fff
                     padding: 20px
                     margin-bottom: 40px
                     border-radius: 20px
