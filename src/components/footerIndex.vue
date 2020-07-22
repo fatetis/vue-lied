@@ -95,7 +95,7 @@ export default {
         left: 0
         z-index: $fixedPositionZIndex
         width: 100%
-        box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, .6)
+        // box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, .6)
         -webkit-box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, .6)
         -moz-box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, .6)
         .wrapper

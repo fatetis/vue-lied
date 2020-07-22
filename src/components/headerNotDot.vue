@@ -24,9 +24,10 @@ export default {
   padding: 0 20px
   background: $theam
   .wrapper
+    height: $headerIndexTop
     .back
       width: 76px
-      height: 76px
+      height: $headerIndexTop
       position: absolute
       left: 0px
       top: 0px
@@ -34,15 +35,16 @@ export default {
       z-index: 1
     .text
       line-height: 46px
-      padding: 16px 24px 
+      padding: 22px 24px 
       text-align: center
       font-size: 36px
       color: $fc
+      position: relative
     .text::before
       content: ''
       position: absolute
-      left: 24px
-      top: 24px
+      left: 0
+      top: 32px
       @include borderArrow(left, 20px, $fc)
       
 </style>

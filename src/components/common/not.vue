@@ -43,7 +43,9 @@
 export default {
     name: 'not',
     props: {
-        type: String
+        type: {
+            default: ''
+        }
     },
     data () {
         return {
@@ -74,6 +76,8 @@ export default {
         .content
             width: 80px
             height: $headerIndexTop
+            display: flex
+            justify-content: center
             img
                 @include wh(100%, auto)
                 transform: scale(0.8)

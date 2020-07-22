@@ -1,6 +1,6 @@
 <template>
-  <div class="headerDot" :class=" type === 1 ? 'headerDot_fff' : ''">
-      <div class="wrapper">
+  <div class="headerDot">
+      <div class="wrapper"  :class=" type === 1 ? 'wrapper_fff' : ''">
         <span class="back" @click="back"></span>
         <p class="arrow text" :class="type === 1 ? 'text_grey' : ''">{{ title }}</p>
       </div>
@@ -13,7 +13,10 @@ export default {
   name: 'headerDot',
   props: {
     title: String,
-    type: String
+    type: {
+      default: ''
+    }
+      
   },
   components: {
     not
@@ -28,12 +31,19 @@ export default {
 <style lang="sass" scoped>
 
 .headerDot
-  padding: 0 20px
-  background: $theam
+  height: $headerIndexTop
+  .wrapper_fff
+    background: $fc 
+    border-bottom: 1px solid $headerBorderColor  
   .wrapper
+    background: $theam
+    z-index: $fixedPositionZIndex
+    height: $headerIndexTop
+    position: relative
+    padding: 0 20px
     .back
-      width: 76px
-      height: 76px
+      width: $headerIndexTop
+      height: $headerIndexTop
       position: absolute
       left: 0px
       top: 0px
@@ -41,25 +51,29 @@ export default {
       z-index: 1
     .text
       line-height: 46px
-      padding: 16px 24px 
+      padding: 22px 24px 
       text-align: center
       font-size: 36px
       color: $fc
+      position: relative
     .text::before
       content: ''
       position: absolute
-      left: 24px
-      top: 24px
+      left: 0px
+      top: 32px
       @include borderArrow(left, 20px, $fc)
     .text_grey
       color: $headerBlack
     .text_grey::before
       content: ''
       position: absolute
-      left: 24px
-      top: 24px
+      left: 0px
+      top: 32px
       @include borderArrow(left, $borderArrowSize, $arrowGrey)
-.headerDot_fff
-  background: $fc 
-  border-bottom: 1px solid $headerBorderColor     
+   
+.headerDot
+  height: $headerIndexTop
+  .wrapper_fff
+    background: $fc 
+    border-bottom: 1px solid $headerBorderColor  
 </style>
