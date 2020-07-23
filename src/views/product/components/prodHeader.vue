@@ -2,7 +2,7 @@
     <div class="prodHeader">
         <div class="wrapper">
             <div class="content">
-                <div class="left">
+                <div class="left" @click="back">
                     <span></span>
                 </div>
             </div>
@@ -21,7 +21,12 @@ export default {
     },
     components: {
         dot
-    }
+    },
+    methods: {
+        back(){
+            this.$router.go(-1);//返回上一层
+        },
+    },
 }
 </script>
 <style lang="sass" scoped>
@@ -32,8 +37,16 @@ export default {
         top: 0
         left: 0
         height: $headerIndexTop
+        z-index: $fixedPositionZIndex
         .content
             margin: 20px 20px 0 20px
             .left
-                @include borderArrow(left, 20px, $arrowGrey)
+                background-color: #666
+                border-radius: 60px
+                @include wh(60px, 60px)
+                line-height: 60px
+                text-align: center
+                span
+                    margin-left: 15px
+                    @include borderArrow(left, 20px, $fc)
 </style>
