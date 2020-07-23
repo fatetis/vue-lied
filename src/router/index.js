@@ -4,6 +4,8 @@ import index from '@views/index/index'
 import city from '@views/city/city'
 import category from '@views/category/category'
 import cart from '@views/cart/cart'
+import login from '@views/user/login'
+import product from '@views/product/product'
 
 Vue.use(VueRouter)
 
@@ -35,7 +37,18 @@ Vue.use(VueRouter)
     path: '/cart',
     name: 'cart',
     component: cart
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: login
+  },
+  {
+    path: '/product',
+    name: 'product',
+    component: product
   }
+
 ]
 
 const router = new VueRouter({

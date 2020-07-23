@@ -15,15 +15,15 @@
                 </div>
             </div>
         </div>
-        <not></not>
+        <dot></dot>
     </div>
 </template>
 <script>
-import not from '@components/common/not'
+import dot from '@components/common/dot'
 export default {
     name: 'headerSearch',
     components: {
-      not
+      dot
     },
     methods:{
       back(){

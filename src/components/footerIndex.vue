@@ -45,14 +45,14 @@
                     </div>
                     
                     <div class="item">
-                        <!-- <router-link :to="{name: 'user_center'}"> -->
+                        <router-link :to="{name: 'login'}">
                             <div class="show_icon">
                                 <img :src="this.$route.name === 'user_center' ? img.selected[4] : img.select[4]" alt="">
                             </div>
                             <div :class="this.$route.name === 'user_center' ? 'text_hover' : 'text'">
                                 <p>未登录</p>
                             </div>
-                        <!-- </router-link> -->
+                        </router-link>
                     </div>
                 </div>
             </div>

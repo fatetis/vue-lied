@@ -4,11 +4,11 @@
         <span class="back" @click="back"></span>
         <p class="arrow text" :class="type === 1 ? 'text_grey' : ''">{{ title }}</p>
       </div>
-      <not :type="type"></not>
+      <dot></dot>
   </div>
 </template>
 <script>
-import not from '@components/common/not'
+import dot from '@components/common/dot'
 export default {
   name: 'headerDot',
   props: {
@@ -19,7 +19,7 @@ export default {
       
   },
   components: {
-    not
+    dot
   },
   methods:{
     back(){

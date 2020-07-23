@@ -711,6 +711,7 @@ export default {
             height: 100px
             overflow: hidden
             width: 100%
+            border-top: 1px solid #f2f2f2
             .wrapper
                 margin: 0px 20px
                 .content

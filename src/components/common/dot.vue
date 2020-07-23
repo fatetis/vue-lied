@@ -1,11 +1,13 @@
 <template>
-    <div class="not">
+    <div class="dot">
         <div class="click_bg" v-show="showNav" @click="handleShowNav"></div>
         <div class="container" @click="handleShowNav">
             <div class="wrapper">
                 <div class="content">
-                    <!-- <img v-if="type == 1" src="@assets/images/icon/write_not.png" alt=""> -->
-                    <img src="@assets/images/icon/not.png" alt="">
+                    <!-- 带阴影的白色省略号 -->
+                    <img class="grey_bg" v-if="type == 2" src="@assets/images/icon/write_not.png" alt="">
+                    <!-- 不带阴影的黑色省略号 -->
+                    <img v-else src="@assets/images/icon/dot.png" alt="">
                 </div>
             </div>
         </div>
@@ -41,7 +43,7 @@
 </template>
 <script>
 export default {
-    name: 'not',
+    name: 'dot',
     props: {
         type: {
             default: ''
@@ -79,8 +81,15 @@ export default {
             display: flex
             justify-content: center
             img
-                @include wh(100%, auto)
-                transform: scale(0.8)
+                @include wh(70px, 70px)
+                margin-top: 9px 
+                margin-right: 3px
+            .grey_bg
+                background: #666
+                border-radius: 60px
+                margin-right: 8px
+                margin-top: 16px
+                @include wh(60px, 60px)
 .show_nav
     .list
         ul::before
@@ -107,19 +116,19 @@ export default {
                     line-height: 80px
                     background-position: center
                 .not_icon1
-                    @include bis('../../assets/images/icon/not_index.png')
+                    @include bis('../../assets/images/icon/dot_index.png')
                     background-size: 46%
                 .not_icon2
-                    @include bis('../../assets/images/icon/not_category.png')
+                    @include bis('../../assets/images/icon/dot_category.png')
                     background-size: 46%
                 .not_icon3
-                    @include bis('../../assets/images/icon/not_cart.png')
+                    @include bis('../../assets/images/icon/dot_cart.png')
                     background-size: 46%
                 .not_icon4
-                    @include bis('../../assets/images/icon/not_user.png')
+                    @include bis('../../assets/images/icon/dot_user.png')
                     background-size: 46%
                 .not_icon5
-                    @include bis('../../assets/images/icon/not_brower.png')
+                    @include bis('../../assets/images/icon/dot_brower.png')
                     background-size: 46%
 
                 .text
