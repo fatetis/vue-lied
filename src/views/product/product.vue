@@ -186,7 +186,6 @@ export default {
 .product .container .border_wrap .item:last-child
     border: 0
 .product
-    height: 100vh
     background-color: #f2f2f2
     .container
         .wrapper
@@ -357,28 +356,27 @@ export default {
                 .divide-bar
                     background-color: #f2f2f2
                     color: #999
-                    display: -webkit-box;
-                    display: -webkit-flex;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 20px 0;
-                    font-size: 0;
+                    display: -webkit-box
+                    display: -webkit-flex
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    padding-bottom: 20px
+                    font-size: 0
                     border-bottom: 1px solid #efefef
                     .line
-                        display: inline-block;
+                        display: inline-block
                         width: 84px
-                        border-top: 1px solid #999;
+                        border-top: 1px solid #999
                     .icon-info
-                        position: relative;
+                        position: relative
                         top: -1px
-                        margin: 0 20px;
-                        display: -webkit-box;
-                        display: -webkit-flex;
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: center;
+                        margin: 0 20px
+                        display: -webkit-flex
+                        display: flex
+                        flex-direction: row
+                        align-items: center
+                        justify-content: center
                         .icon-text
                             font-size: 26px
                             margin-left: 8px
