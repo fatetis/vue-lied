@@ -134,7 +134,7 @@ export default {
                 .text
                     position: absolute
                     top: 50%
-                    margin-top: -40px
+                    transform: translateY(-50%)
                     left: 80px
                     font-weight: 400
                     display: inline-block

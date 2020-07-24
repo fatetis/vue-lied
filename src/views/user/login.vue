@@ -87,7 +87,7 @@ export default {
                         position: absolute
                         top: 50%
                         right: 10px
-                        margin-top: -27px
+                        transform: translateY(-50%)
                     span
                         display: inline-block
                         position: absolute
@@ -127,7 +127,7 @@ export default {
                         position: absolute
                         top: 50%
                         left: -40px
-                        margin-top: -27px
+                        transform: translateY(-50%)
                     .btn_yzm
                         position: absolute
                         @include sc(28px, #848689)
@@ -135,7 +135,7 @@ export default {
                         line-height: 60px
                         right: 20px
                         top: 50%
-                        margin-top: -30px
+                        transform: translateY(-50%)
                     .btn_yzm_hover
                         color: #e2231a
                     .input_wrap

@@ -131,15 +131,16 @@ export default {
 </script>
 
 <style lang="sass">
-.swiper-container1
-  .swiper-pagination-bullet
-    width: 10px
-    height: 10px
-  .swiper-pagination-bullet-active
-    width: 20px
-    height: 10px
-    border-radius: 10px
-    background-color: $theam
+.category
+  .swiper-container1
+    .swiper-pagination-bullet
+      width: 10px
+      height: 10px
+    .swiper-pagination-bullet-active
+      width: 20px
+      height: 10px
+      border-radius: 10px
+      background-color: $theam
 </style>
 
 <style lang="sass" scoped>

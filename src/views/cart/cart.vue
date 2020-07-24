@@ -625,7 +625,7 @@ export default {
                                 .checkbox_product
                                     position: absolute
                                     top: 50%
-                                    margin-top: -18px
+                                    transform: translateY(-50%)
                             .text 
                                 float: left
                                 width: calc( 100% - 36px )
@@ -741,7 +741,7 @@ export default {
                             border-radius: 40px
                             line-height: 76px
                             text-align: center
-                            margin-top: -8px
+                            transform: translateY(-50%)
                             @include wh(226px, 76px)
                             @include sc(28px, #fff)
                             em

@@ -15,7 +15,7 @@
                         <div class="text">
                             <p class="title">产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题</p>
                             <div class="detail clearfix">
-                                <div class="float price">￥<span>20.00</span></div>
+                                <div class="float price">￥<span>20</span>.00</div>
                                 <div class="right buy_num">35人付款</div>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="text">
                             <p class="title">产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题</p>
                             <div class="detail clearfix">
-                                <div class="float price">￥<span>20.00</span></div>
+                                <div class="float price">￥<span>20</span>.00</div>
                                 <div class="right buy_num">35人付款</div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                         <div class="text">
                             <p class="title">产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题</p>
                             <div class="detail clearfix">
-                                <div class="float price">￥<span>20.00</span></div>
+                                <div class="float price">￥<span>20</span>.00</div>
                                 <div class="right buy_num">35人付款</div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="text">
                             <p class="title">产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题</p>
                             <div class="detail clearfix">
-                                <div class="float price">￥<span>20.00</span></div>
+                                <div class="float price">￥<span>20</span>.00</div>
                                 <div class="right buy_num">35人付款</div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                         <div class="text">
                             <p class="title">产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题</p>
                             <div class="detail clearfix">
-                                <div class="float price">￥<span>20.00</span></div>
+                                <div class="float price">￥<span>20</span>.00</div>
                                 <div class="right buy_num">35人付款</div>
                             </div>
                         </div>
@@ -134,6 +134,7 @@ export default {
                                 float: right  
                             .price
                                 color: #f23030
+                                font-weight: 700
                                 span
                                     font-size: 32px
                             .buy_num

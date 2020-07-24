@@ -45,14 +45,14 @@ export default {
 };
 </script>
 <style lang="sass">
-
-.swiper-container
-  .swiper-pagination-bullet
-    width: 10px
-    height: 10px
-  .swiper-pagination-bullet-active
-    // width: 28px
-    background-color: $theam
+.homeSwiper
+  .swiper-container
+    .swiper-pagination-bullet
+      width: 10px
+      height: 10px
+    .swiper-pagination-bullet-active
+      // width: 28px
+      background-color: $theam
 </style>
 <style lang="sass" scoped>
 @import "../../../assets/css/plugins/swiper.min.css";
@@ -84,9 +84,11 @@ export default {
       .swiper-wrapper
         .swiper-slide
           .img
-            overflow: hidden
+            width: 100%
             height: 280px
+            overflow: hidden
             img
               width: 100%
               height: 100%
+              vertical-align: middle
 </style>
