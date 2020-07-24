@@ -737,11 +737,11 @@ export default {
                         .settlement
                             float: right
                             margin-left: 20px
+                            margin-top: -8px
                             background-color: #f2270c
                             border-radius: 40px
                             line-height: 76px
                             text-align: center
-                            transform: translateY(-50%)
                             @include wh(226px, 76px)
                             @include sc(28px, #fff)
                             em
