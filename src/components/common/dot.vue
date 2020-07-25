@@ -62,13 +62,6 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.click_bg
-    position: absolute
-    top: 0
-    right: 0
-    bottom: 0
-    left: 0
-    z-index: 998
 .container
     position: fixed
     top: 0
@@ -102,10 +95,10 @@ export default {
             position: absolute
             width: 250px
             right: 18px
-            top: $headerIndexTop+20px
+            top: $headerIndexTop + 20px
             background: rgba(0,0,0,.9)
             border-radius: 8px
-            z-index: 999
+            z-index: $higherPositionZIndex
             li
                 height: 80px
                 line-height: 80px

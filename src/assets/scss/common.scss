@@ -56,7 +56,7 @@ $arrowGrey: #8b8b8b;
 $headerBorderColor: #e5e5e5;
 // 城市选择页面距离顶部的距离
 
-$cityTop: 172px;
+$cityTop: 192px;
 // 头部标准高度
 $headerIndexTop: 88px;
 // 尾部标准高度
@@ -65,11 +65,25 @@ $footerIndexTop: 94px;
 $hftop: calc(100vh - 182px);
 // 购物车的中间区域的可视高+100px底部固定区域
 $hfcarttop: calc(100vh - 282px);
+// 产品中间区域的可视高-头部固定区域
+$hfprodtop: calc(100vh - 94px);
+$hpopuptop: calc(70vh - 394px);
 // 头部与尾部的z-index层级
 $fixedPositionZIndex: 99;
 // 头部左边箭头大小
 $borderArrowSize: 20px;
+$higherPositionZIndex: 999;
+$highestPositionZIndex: 1000;
 
+// 全局公用的点击背景墙
+.click_bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 998;
+}
 //定位全屏
 .allcover{
 	position:absolute;

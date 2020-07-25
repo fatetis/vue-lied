@@ -2,7 +2,7 @@
     <div class="product">
         <prod-header></prod-header>
         <div class="container">
-            <div class="wrapper">
+            <div class="wrapper" ref="prod_wrapper">
                 <div class="content">
                     <!-- 产品轮播图 -->
                      <prod-swiper></prod-swiper>
@@ -159,18 +159,31 @@
                 </div>
             </div>
         </div>
+        <prod-footer></prod-footer>
+        <prod-popup></prod-popup>
     </div>
 </template>
 <script>
-import prodHeader from '@views/product/components/prodHeader'
+import Bscroll from "better-scroll";
+import prodHeader from '@components/prodHeader'
 import prodSwiper from '@views/product/components/prodSwiper'
 import prodRecommand from '@views/product/components/prodRecommand'
+import prodFooter from '@components/prodFooter'
+import prodPopup from '@views/product/components/prodPopup'
+
 export default {
     name: 'product',
     components: {
         prodHeader,
         prodSwiper,
-        prodRecommand
+        prodRecommand,
+        prodFooter,
+        prodPopup
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.scroll = new Bscroll(this.$refs.prod_wrapper, {});
+        });
     }
 }
 </script>
@@ -189,6 +202,8 @@ export default {
     background-color: #f2f2f2
     .container
         .wrapper
+            height: $hfprodtop
+            overflow: hidden
             .content
                 .title_wrap
                     border-radius: 0 0 32px 32px
@@ -389,9 +404,5 @@ export default {
                     img
                         width: 100%
                         height: 100%
-                        vertical-align: middle
-
-                                        
-
-                                    
+                        vertical-align: middle                             
 </style>
