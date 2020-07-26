@@ -160,7 +160,7 @@
             </div>
         </div>
         <prod-footer></prod-footer>
-        <prod-popup></prod-popup>
+        <prod-popup v-show="false"></prod-popup>
     </div>
 </template>
 <script>
@@ -182,7 +182,9 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            this.scroll = new Bscroll(this.$refs.prod_wrapper, {});
+            this.scroll = new Bscroll(this.$refs.prod_wrapper, {
+                scrollbar: true
+            });
         });
     }
 }

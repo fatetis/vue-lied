@@ -31,7 +31,9 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            this.scroll = new Bscroll(this.$refs.list_wrapper, {});
+            this.scroll = new Bscroll(this.$refs.list_wrapper, {
+                scrollbar: true
+            });
         });
     },
     props: {
@@ -56,6 +58,7 @@ export default {
                             }
                         });
                     }
+                    
                     this.show = this.screenCities.length > 0 ? false : true
                     this.bigShow = true
                 }, 500)
@@ -64,7 +67,7 @@ export default {
                 this.show = true
                 this.bigShow =  false
             }
-
+            this.scroll.refresh()
         }
     }
 }

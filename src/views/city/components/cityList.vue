@@ -66,7 +66,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.scroll = new Bscroll(this.$refs.list, {});
+      this.scroll = new Bscroll(this.$refs.list, {
+        scrollbar: true
+      });
     });
   }
 };

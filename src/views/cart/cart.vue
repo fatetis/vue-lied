@@ -567,7 +567,9 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            this.scroll = new Bscroll(this.$refs.cart_container, {});
+            this.scroll = new Bscroll(this.$refs.cart_container, {
+                scrollbar: true
+            });
         });
     }
 }

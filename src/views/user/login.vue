@@ -145,11 +145,11 @@ export default {
                 .account_container
                     .eye_bg
                         padding-right: 230px
-                        @include bis('../../assets/images/icon/close.png')
+                        @include bis('../../assets/images/icon/eye_close.png')
                         background-size: 10%
                         background-position: 68% center
                     .eye_bg_hover
-                        @include bis('../../assets/images/icon/open.png')
+                        @include bis('../../assets/images/icon/eye_open.png')
                         background-size: 7%
                         background-position: 68% center
                     button

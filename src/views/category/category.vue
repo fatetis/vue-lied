@@ -3,7 +3,7 @@
         <header-search></header-search>
         <div class="container clearfix" >
             <div class="float left">
-                <div class="wrapper" ref="left_wrapper">
+                <div class="wrapper left_wrapper" ref="left_wrapper">
                     <div class="content">
                         <ul>
                             <li>热门推荐</li>
@@ -166,8 +166,12 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
-            this.scroll = new Bscroll(this.$refs.left_wrapper, {});
-            this.scroll = new Bscroll(this.$refs.right_wrapper, {});
+            this.scroll = new Bscroll(this.$refs.left_wrapper, {
+                scrollbar: true
+            });
+            this.scroll = new Bscroll(this.$refs.right_wrapper, {
+                scrollbar: true
+            });
         });
     }
 }
@@ -184,6 +188,8 @@ export default {
         height: $hftop
         min-width: 152px
         overflow: hidden
+        .left_wrapper
+            position: relative
         .wrapper
             height: $hftop
             .content

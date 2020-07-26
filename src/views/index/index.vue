@@ -41,7 +41,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.scroll = new Bscroll(this.$refs.index_wrapper, {});
+      this.scroll = new Bscroll(this.$refs.index_wrapper, {
+        scrollbar: true
+      });
     });
   }
 }

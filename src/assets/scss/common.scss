@@ -67,7 +67,7 @@ $hftop: calc(100vh - 182px);
 $hfcarttop: calc(100vh - 282px);
 // 产品中间区域的可视高-头部固定区域
 $hfprodtop: calc(100vh - 94px);
-$hpopuptop: calc(70vh - 394px);
+$hpopuptop: calc(60vh - 398px);
 // 头部与尾部的z-index层级
 $fixedPositionZIndex: 99;
 // 头部左边箭头大小
@@ -150,3 +150,17 @@ $highestPositionZIndex: 1000;
 .border_bottom::after {
     border: 1px solid #000;
 }
+
+.bscroll-vertical-scrollbar {
+    width: 6px !important;
+    right: 8px !important;
+    z-index: 98 !important;
+
+}
+.bscroll-vertical-scrollbar .bscroll-indicator {
+    
+    background: #BFBFBF !important;
+    border: 0 !important;
+}
+    
+        
