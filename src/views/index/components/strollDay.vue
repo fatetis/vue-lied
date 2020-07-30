@@ -175,5 +175,7 @@ export default {
                         @include wh(120px, 120px)
                         display: inline-block
                         img
-                            width: 100%
+                            transform: scale(0.9)
+                            @include wh(100%, 100%)
+
 </style>
