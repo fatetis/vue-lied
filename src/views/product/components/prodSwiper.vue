@@ -50,6 +50,9 @@ export default {
 <style lang="sass" scoped>
 @import "../../../assets/css/plugins/swiper.min.css";
 .prodSwiper
+    width: 100%
+    height: 0
+    padding-bottom: 750px
     .banner_item
         width: 100%
         img
