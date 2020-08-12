@@ -4,7 +4,8 @@
         <div class="container">
             <div  class="wrapper">
                 <div class="content">
-                    <div class="phone">
+                    <!-- 手机短信验证码登录 -->
+                    <div class="phone" v-show="isMobileLogin">
                         <div class="input-container">
                             <span>+86</span>
                             <div class="input_wrap">
@@ -20,25 +21,29 @@
                     </div>
                     
                     <!-- 账号密码登录 -->
-                    <!-- <div class="account">
+                    <div class="account" v-show="!isMobileLogin">
                         <div class="input-container">
                             <div class="input_wrap account_wrap">
                                 <input type="text" placeholder="用户名/手机号/密码">
                             </div>
                         </div>
                         <div class="input-container yzm_container account_container">
-                            <div class="input_wrap eye_bg">
-                                <input type="text" placeholder="请输入密码">
+                            <div class="input_wrap eye_bg" :class="isEyeClose ? '' : 'eye_bg_hover'">
+                                <input :type="isEyeClose ? 'password' : 'text'" placeholder="请输入密码">
                             </div>
-                            <button class="btn_yzm">忘记密码</button>
+                            <div class="bth_eye" @click="handleChangeEyeClose"></div>
+                            <button class="btn_yzm ">忘记密码</button>
                         </div>
-                    </div> -->
+                    </div>
 
                     <button class="btn_login">
                         登录
                     </button>
                     <div class="btn_quick clearfix">
-                        <p class="p1">账号密码登录</p>
+                        <div @click="handleChangeLoginType">
+                            <p class="p1"  v-show="isMobileLogin" >账号密码登录</p>
+                            <p class="p1"  v-show="!isMobileLogin">短信验证码登录</p>
+                        </div>
                         <p class="p2">手机快速注册</p>
                     </div>
                 </div>
@@ -52,8 +57,18 @@ export default {
     name: 'login',
     data () {
         return {
-            title: '登录注册'
+            title: '登录注册',
+            isMobileLogin: true,
+            isEyeClose: true
         }
+    },
+    methods: {
+        handleChangeLoginType () {
+            this.isMobileLogin = !this.isMobileLogin;
+        },
+        handleChangeEyeClose () {
+            this.isEyeClose = !this.isEyeClose;
+        },
     },
     components: {
         headerNotDot,
@@ -143,6 +158,7 @@ export default {
                         padding-right: 200px
                         input
                 .account_container
+                    position: relative
                     .eye_bg
                         padding-right: 230px
                         @include bis('../../assets/images/icon/eye_close.png')
@@ -152,6 +168,13 @@ export default {
                         @include bis('../../assets/images/icon/eye_open.png')
                         background-size: 7%
                         background-position: 68% center
+                    .bth_eye
+                        position: absolute
+                        z-index: 1
+                        width: 60px
+                        height: 60px
+                        left: 400px
+                        top: 18px
                     button
                         @include sc(28px, #333)
                 .btn_login
