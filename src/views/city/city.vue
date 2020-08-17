@@ -12,7 +12,7 @@ import headerNotDot from "@components/headerNotDot";
 import searchCities from "@views/city/components/searchCities";
 import cityList from "@views/city/components/cityList";
 import cityLetters from "@views/city/components/cityLetters";
-import { city } from "@/service/getData";
+// import { city } from "@/service/getData";
 export default {
   name: "city",
   data() {
@@ -35,10 +35,10 @@ export default {
     }
   },
   mounted() {
-    city().then(res => {
-      this.cities = res.cityList;
-      this.alphabet = res.alphabet;
-    });
+    // city().then(res => {
+    //   this.cities = res.cityList;
+    //   this.alphabet = res.alphabet;
+    // });
   }
 };
 </script>
