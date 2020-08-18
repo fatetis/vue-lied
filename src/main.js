@@ -5,13 +5,13 @@ import router from './router'
 import store from './store'
 import FastClick from 'fastclick'
 import 'lib-flexible'
+import './config/vant';
 
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function() {
       FastClick.attach(document.body);
   }, false);
 }
-
 
 Vue.config.productionTip = false
 

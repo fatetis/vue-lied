@@ -3,30 +3,22 @@
         <div class="container">
             <div class="wrapper">
                 <div class="content clearfix">
-                    <div class="item">
+
+                    <div class="item" v-for="(item, index) of specialBannerData" :key="index">
                         <div class="show_img">
-                            <img src="@assets/images/index/special_1.png" alt="">
+                            <img :src="item.link" alt="">
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="show_img">
-                            <img src="@assets/images/index/special_2.png" alt="">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="show_img">
-                            <img src="@assets/images/index/special_3.png" alt="">
-                        </div>
-                    </div>
+
                 </div>
-                
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'specialBanner'
+    name: 'specialBanner',
+    props: ['specialBannerData']
 }
 </script>
 <style lang="sass" scoped>

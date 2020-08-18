@@ -79,7 +79,7 @@ module.exports = {
     },
     css: {
         extract: IS_PROD,
-        requireModuleExtension: false,
+        requireModuleExtension: true,
         // 去掉文件名中的 .module
         loaderOptions: {
             css: {

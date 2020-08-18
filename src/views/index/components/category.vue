@@ -3,109 +3,20 @@
     <div class="content">
       <div class="box_item swiper-container1">
         <div class=" clearfix swiper-wrapper">
-          <div class="content swiper-slide">
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券1</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券2</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-            
+
+          <div class="content swiper-slide" v-for="(item, index) of categoryData" :key="index">
+            <div class="link"  v-for="(v, k) of item" :key="k">
+              <a :href="v.url" >
+                <img
+                  class="img_category"
+                  :src="v.link"
+                  alt
+                />
+                <span class="text">{{ v.name }}</span>
+              </a>
+            </div>
           </div>
 
-          
-          <div class="content swiper-slide">
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券3</span>
-            </router-link>
-            <router-link :to="{name: 'city'}" class="link">
-              <img
-                class="img_category"
-                src="https://m.360buyimg.com/mobilecms/s120x120_jfs/t1/113589/24/11332/4897/5efbf3feE705d87db/e5c12d5e943266b9.png.webp"
-                alt
-              />
-              <span class="text">领券4</span>
-            </router-link>
-          </div>
         </div>
         <div class="swiper-pagination"></div>
       </div>
@@ -115,18 +26,25 @@
 <script>
 export default {
   name: "category",
-    mounted() {
-        this.initSwiper();
-    },
-    methods: {
-        initSwiper() {
+  // data () {
+  //   return {
+  //     categoryData: {}
+  //   }
+  // },
+  props: ['categoryData'],
+  methods: {
+      initSwiper() {
         new Swiper(".swiper-container1", {
             pagination: '.swiper-pagination',
             paginationClickable :true,
-            loop: true
+            observer:true,//修改swiper自己或子元素时，自动初始化swiper
+            observeParents:true,//修改swiper的父元素时，自动初始化swiper
         });
-        }
-    }
+      }
+  },
+  mounted() {
+    this.initSwiper();
+  }
 };
 </script>
 
@@ -151,22 +69,27 @@ export default {
     touch-action: none
     overflow: hidden
     .box_item
-        width: 100%
-    .content
+      width: 100%
+      .content
         overflow: hidden
+        padding: 0 20px
+        box-sizing: border-box
         .link
-            width: 20%
+          width: 20%
+          text-align: center
+          display: block
+          float: left
+          overflow: hidden
+          .img_category
+            width: 80px
+            height: 80px
+            margin-top: 20px
             text-align: center
+            vertical-align: top
+            display: inline-block
+          .text
             display: block
-            float: left
-            .img_category
-                width: 80px
-                margin-top: 20px
-                text-align: center
-                vertical-align: top
-                display: inline-block
-            .text
-                display: block
-                margin-top: 12px
-                color: #666
+            margin-top: 12px
+            color: #666
+            @include overwrap()
 </style>

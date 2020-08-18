@@ -17,7 +17,7 @@ import {
 const tip = msg => {
 	Toast({
 		message: msg,
-		duration: 1000,
+		duration: 1500,
 		forbidClick: true
 	});
 }
@@ -128,7 +128,7 @@ export function get(url, params) {
 				resolve(res.data.data.body);
 			})
 			.catch(err => {
-				reject(err.data)
+				tip(err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']');
 			})
 	});
 }
@@ -145,7 +145,8 @@ export function post(url, params) {
 				resolve(res.data.data.body);
 			})
 			.catch(err => {
-				reject(err.data)
+				tip(err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']');
+				// reject(err.data)
 			})
 	});
 }

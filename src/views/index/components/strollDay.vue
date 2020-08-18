@@ -7,111 +7,25 @@
     </div>
     <div class="stroll_wrapper">
       <div class="content">
-        <div class="border">
+        <div class="border" v-for="(item, index) of strollDayData" :key="index">
           <div class="padding clearfix">
-            <div class="item">
-              <div class="text">
-                <p class="p1">免息星球</p>
-                <p class="p2">白条免息购</p>
-              </div>
-              <div class="img">
-                <img
-                  src="@assets/images/index/scroll_1.png"
-                  alt
-                />
-              </div>
-            </div>
-            <div class="item">
-              <div class="text">
-                <p class="p1">免息星球</p>
-                <p class="p2">白条免息购</p>
-              </div>
-              <div class="img">
-                <img
-                  src="@assets/images/index/scroll_1.png"
-                  alt
-                />
-              </div>
-            </div>
-            <div class="item">
-              <div class="text">
-                <p class="p1">免息星球</p>
-                <p class="p2">白条免息购</p>
-              </div>
-              <div class="img">
-                <img
-                  src="@assets/images/index/scroll_1.png"
-                  alt
-                />
-              </div>
-            </div>
-            <div class="item">
-              <div class="text">
-                <p class="p1">免息星球</p>
-                <p class="p2">白条免息购</p>
-              </div>
-              <div class="img">
-                <img
-                  src="@assets/images/index/scroll_1.png"
-                  alt
-                />
-              </div>
+            <div class="item" v-for="(v, k) of item" :key="k">
+              <a :href="v.url">
+                <div class="text">
+                  <p class="p1">{{ v.name }}</p>
+                  <p class="p2">{{ v.content }}</p>
+                </div>
+                <div class="img">
+                  <img
+                    :src="v.link"
+                    alt
+                  />
+                </div>
+              </a>
             </div>
           </div>
         </div>
 
-        <div class="border clearfix">
-          <div class="padding">
-            <div class="item">
-              <div class="text">
-                <p class="p1">免息星球</p>
-                <p class="p2">白条免息购</p>
-              </div>
-              <div class="img">
-                <img
-                  src="@assets/images/index/scroll_1.png"
-                  alt
-                />
-              </div>
-            </div>
-            <div class="item">
-              <div class="text">
-                <p class="p1">免息星球</p>
-                <p class="p2">白条免息购</p>
-              </div>
-              <div class="img">
-                <img
-                  src="@assets/images/index/scroll_1.png"
-                  alt
-                />
-              </div>
-            </div>
-            <div class="item">
-              <div class="text">
-                <p class="p1">免息星球</p>
-                <p class="p2">白条免息购</p>
-              </div>
-              <div class="img">
-                <img
-                  src="@assets/images/index/scroll_1.png"
-                  alt
-                />
-              </div>
-            </div>
-            <div class="item">
-              <div class="text">
-                <p class="p1">免息星球</p>
-                <p class="p2">白条免息购</p>
-              </div>
-              <div class="img">
-                <img
-                  src="@assets/images/index/scroll_1.png"
-                  alt
-                />
-              </div>
-            </div>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -119,7 +33,8 @@
 </template>
 <script>
 export default {
-  name: "strollDay"
+  name: "strollDay",
+  props: ['strollDayData']
 };
 </script>
 <style lang="sass" scoped>

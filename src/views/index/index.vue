@@ -4,11 +4,26 @@
         <div class="index_container">
             <div class="index_wrapper" ref="index_wrapper">
                 <div class="index_content">
-                    <home-swiper></home-swiper>
-                    <category></category>
-                    <special-banner></special-banner>
-                    <stroll-day></stroll-day>
+                    <!-- 轮播 -->
+                    <home-swiper :swiperBanner="swiperBanner"></home-swiper>
+                    <!-- 首页分类 -->
+                    <category 
+                    :categoryData="categoryData" 
+                    v-show="!(JSON.stringify(categoryData) == '{}')">
+                    </category>
+                    <!-- 广告插件 -->
+                    <special-banner 
+                    :specialBannerData="specialBannerData" 
+                    v-show="!(JSON.stringify(specialBannerData) == '{}')">
+                    </special-banner>
+                    <!-- 每日逛 -->
+                    <stroll-day 
+                    :strollDayData="strollDayData" 
+                    v-show="!(JSON.stringify(strollDayData) == '{}')">
+                    </stroll-day>
+                    <!-- 今日推荐 -->
                     <recommand></recommand>
+                    <!-- 版权 -->
                     <copy-right></copy-right>
                 </div>
             </div>
@@ -32,7 +47,10 @@ export default {
     name: "index",
     data() {
         return {
-            banner: [],
+            swiperBanner: {}, // 轮播数据
+            categoryData: {}, // 分页数据
+            specialBannerData: {}, // 广告插件
+            strollDayData: {}, // 每日逛
         }
     },
     components: {
@@ -45,6 +63,17 @@ export default {
         copyRight,
         footerIndex,
     },
+    methods: {
+        group(array, subGroupLength) {
+            let index = 0;
+            let newArray = [];
+            if(array == undefined) return {};
+            while(index < array.length) {
+                newArray.push(array.slice(index, index += subGroupLength));
+            }
+            return newArray;
+        }
+    },
     mounted() {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.index_wrapper, {
@@ -54,8 +83,10 @@ export default {
         indexAdv({
             city: 1
         }).then((res) => {
-            console.log(res);
-            this.banner = res;
+            this.swiperBanner = res.index;
+            this.categoryData = this.group(res.index_category, 8) || {};
+            this.specialBannerData = res.index_plug || {};
+            this.strollDayData = this.group(res.index_daily, 4) || {};
         });
     },
 };

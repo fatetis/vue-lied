@@ -4,19 +4,11 @@
     <div class="lunbo">
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
+          <div class="swiper-slide" v-for="(item, index) of swiperBanner" :key="index">
             <div class="img">
-              <img src="http://bkqwmall.oss-cn-shenzhen.aliyuncs.com/images/2020-07-03/6f1a4a3c9000272436ae97102457f74b.png?x-oss-process=image/format,jpg" alt="">
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="img">
-              <img src="http://bkqwmall.oss-cn-shenzhen.aliyuncs.com/images/2020-07-03/0282d89e961a4659f1d58f08f2245935.png?x-oss-process=image/format,jpg" alt="">
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="img">
-              <img src="@assets/images/index/index.jpg" alt="">
+              <a :href="item.url">
+                <img :src="item.link" alt="">
+              </a>
             </div>
           </div>
         </div>
@@ -30,6 +22,7 @@
 import "@assets/js/plugins/swiper.min.js";
 export default {
   name: "homeSwiper",
+  props: ['swiperBanner'],
   mounted() {
     this.initSwiper();
   },
@@ -38,7 +31,8 @@ export default {
       new Swiper(".swiper-container", {
         pagination: '.swiper-pagination',
         paginationClickable :true,
-        loop: true
+        observer:true,//修改swiper自己或子元素时，自动初始化swiper
+        observeParents:true,//修改swiper的父元素时，自动初始化swiper
       });
     }
   }
@@ -79,7 +73,7 @@ export default {
     margin: 0 auto
     overflow: hidden
     border-radius: 10px
-    background-color: #ccc
+    // background-color: #ccc
     .swiper-container
       .swiper-wrapper
         .swiper-slide
