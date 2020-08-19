@@ -35,6 +35,39 @@ const toLogin = () => {
 	});
 }
 
+const reqno = () => {
+	let date = new Date();
+	const year = date.getFullYear()
+	let month = date.getMonth() + 1
+	let strDate = date.getDate()
+	let hour = date.getHours()
+	let minutes = date.getMinutes()
+	let seconds = date.getSeconds()
+	
+	if (month >= 1 && month <= 9) {
+	  month = '0' + month
+	}
+	if (strDate >= 0 && strDate <= 9) {
+	  strDate = '0' + strDate
+	}
+	if (hour >= 0 && hour <= 9) {
+		hour = '0' + hour
+	}
+	if (minutes >= 0 && minutes <= 9) {
+		minutes = '0' + minutes
+	}
+	if (seconds >= 0 && seconds <= 9) {
+		seconds = '0' + seconds
+	}
+
+	let Num="";
+	for(var i=0;i<6;i++)
+	{
+		Num+=Math.floor(Math.random()*10);
+	}
+	return year + month + strDate + hour + minutes + date.getSeconds() + Num
+}
+
 /** 
  * 请求失败后的错误统一处理 
  * @param {Number} status 请求失败的状态码
@@ -120,6 +153,7 @@ instance.interceptors.response.use(
  */
 export function get(url, params) {
 	url = baseUrl + url;
+	params.reqno = reqno();
 	return new Promise((resolve, reject) => {
 		instance.get(url, {
 			params: params
@@ -139,6 +173,7 @@ export function get(url, params) {
  */
 export function post(url, params) {
 	url = baseUrl + url;
+	params.reqno = reqno();
 	return new Promise((resolve, reject) => {
 		instance.post(url, QS.stringify(params))
 			.then(res => {
