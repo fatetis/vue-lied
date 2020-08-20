@@ -2,27 +2,41 @@
  * 存储localStorage
  */
 export const setStore = (name, content) => {
-	if (!name) return;
-	if (typeof content !== 'string') {
-		content = JSON.stringify(content);
-	}
-	window.localStorage.setItem(name, content);
+    try {
+        if (!name) return;
+        if (typeof content !== 'string') {
+            content = JSON.stringify(content);
+        }
+        window.localStorage.setItem(name, content);
+    } catch(error) {
+        return false;
+    }
+	
 }
 
 /**
  * 获取localStorage
  */
 export const getStore = name => {
-	if (!name) return;
-	return window.localStorage.getItem(name);
+    try {
+        if (!name) return;
+	    return window.localStorage.getItem(name);
+    } catch(error) {
+        return false;
+    }
+	
 }
 
 /**
  * 删除localStorage
  */
 export const removeStore = name => {
-	if (!name) return;
-	window.localStorage.removeItem(name);
+    try{
+        if (!name) return;
+        window.localStorage.removeItem(name);
+    } catch(error) {
+        return false;
+    }
 }
 
 /**

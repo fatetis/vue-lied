@@ -5,8 +5,8 @@
 import axios from 'axios';
 import QS from 'qs';
 import router from '../router';
-import store from '../store/index';
 import { Toast } from 'vant';
+import { getStore } from '@/util/mUtils';
 import {
 	baseUrl
 } from './env'
@@ -20,6 +20,15 @@ const tip = msg => {
 		duration: 1500,
 		forbidClick: true
 	});
+}
+
+const load = () => {
+	return Toast.loading({
+		message: '加载中...',
+		forbidClick: true,
+		loadingType: 'spinner',
+		duration: 15000
+	  });
 }
 
 /** 
@@ -87,7 +96,7 @@ const errorHandle = (status, other) => {
 			store.commit('loginSuccess', null);
 			setTimeout(() => {
 				toLogin();
-			}, 1000);
+			}, 1500);
 			break;
 		// 404请求不存在
 		case 404:
@@ -152,16 +161,20 @@ instance.interceptors.response.use(
  * @param {Object} params [请求时携带的参数] 
  */
 export function get(url, params) {
+	const loading = load();
 	url = baseUrl + url;
+	params = params || {};
 	params.reqno = reqno();
 	return new Promise((resolve, reject) => {
 		instance.get(url, {
 			params: params
 		})
 			.then(res => {
+				loading.clear()
 				resolve(res.data.data.body);
 			})
 			.catch(err => {
+				loading.clear()
 				tip(err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']');
 			})
 	});
@@ -172,14 +185,18 @@ export function get(url, params) {
  * @param {Object} params [请求时携带的参数] 
  */
 export function post(url, params) {
+	const loading = load();
 	url = baseUrl + url;
+	params = params || {};
 	params.reqno = reqno();
 	return new Promise((resolve, reject) => {
 		instance.post(url, QS.stringify(params))
 			.then(res => {
+				loading.clear()
 				resolve(res.data.data.body);
 			})
 			.catch(err => {
+				loading.clear()
 				tip(err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']');
 				// reject(err.data)
 			})

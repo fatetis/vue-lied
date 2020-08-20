@@ -9,14 +9,16 @@
                         <div class="input-container">
                             <span>+86</span>
                             <div class="input_wrap">
-                                <input type="text" placeholder="请输入手机号">
+                                <input maxlength="11" v-model="mobile" type="text" placeholder="请输入手机号">
                             </div>
                         </div>
                         <div class="input-container yzm_container">
                             <div class="input_wrap yzm_wrap">
-                                <input type="text" placeholder="请输入收到的验证码">
+                                <input v-model="verifyCode" maxlength="6" type="text" placeholder="请输入收到的验证码">
                             </div>
-                            <button class="btn_yzm">获取验证码</button>
+                            <button class="btn_yzm" :class="(!verifyCodeStatus && valideteMobile) && 'btn_yzm_hover'" @click="handleGetVerifyCode">
+                                 {{ (verifyCodeStatus) ? '验证码('+verifyCodeTime+'秒)' : '获取验证码' }}
+                            </button>
                         </div>
                     </div>
                     
@@ -36,7 +38,9 @@
                         </div>
                     </div>
 
-                    <button class="btn_login">
+                    <button class="btn_login" 
+                    :class="(valideteVerifyCode && valideteMobile && isMobileLogin) && 'btn_login_hover'" 
+                    @click="handleLogin">
                         登录
                     </button>
                     <div class="btn_quick clearfix">
@@ -53,13 +57,47 @@
 </template>
 <script>
 import headerNotDot from '@components/headerNotDot'
+import { verifyCode, loginByMobile } from "@/service/getData";
+import { NO } from "@/config/globalStatusCode"
+import { validatorsTool } from '@/util/validatorsTool';
+import { SneakRules } from '@/validation/validateRule.ts';
+import { setStore } from '@/util/mUtils';
 export default {
     name: 'login',
     data () {
         return {
             title: '登录注册',
-            isMobileLogin: true,
-            isEyeClose: true
+            isMobileLogin: true, // 是否手机号登录
+            isEyeClose: true, // 密码是否可看
+            mobile: 1882509908, // 手机号
+            valideteMobile: false, // 手机号码校验状态
+            verifyCode: 12354,
+            valideteVerifyCode: false,
+            timer: null, // 节流控制
+            verifyCodeTime: 60, // 获取验证码倒计时
+            verifyCodeTimer: null, // 获取验证码倒计时计时器
+            verifyCodeStatus: false // 是否获取过验证码
+        }
+    },
+    components: {
+        headerNotDot,
+    },
+    watch: {
+        mobile() {
+            if(this.timer) clearTimeout(this.timer)
+            this.timer = setTimeout(() => {
+                // 手机号校验
+                let regxMobile = /^1[3456789][0-9]{9}$/
+                this.valideteMobile = regxMobile.test(this.mobile)
+            }, 500)
+        },
+        verifyCode() {
+            if(this.timer) clearTimeout(this.timer)
+            this.timer = setTimeout(() => {
+                // 验证码校验
+                let regxVerifyCode = /^\d{6}$/
+                this.valideteVerifyCode = regxVerifyCode.test(this.verifyCode)
+            }, 500)
         }
     },
     methods: {
@@ -69,10 +107,60 @@ export default {
         handleChangeEyeClose () {
             this.isEyeClose = !this.isEyeClose;
         },
+        async handleGetVerifyCode () {
+            if(this.verifyCodeStatus) return;
+            if(this.valideteMobile) {
+                // 同步获取验证码请求
+                await verifyCode({
+                    mobile: this.mobile,
+                    using_type: NO
+                }).then((res) => {
+                    this.verifyCodeStatus = true
+                    this.$toast.success('验证码发送成功,请注意查收')
+                })
+                if(this.verifyCodeStatus) {
+                    // 60s倒计时获取验证码控制
+                    this.verifyCodeTimer = setInterval(() => {
+                        this.verifyCodeTime--;
+                        if(this.verifyCodeTime <= 0) {
+                            clearTimeout(this.verifyCodeTimer)
+                            this.verifyCodeStatus = false
+                            this.verifyCodeTime = 60
+                        }
+                    }, 1000);
+                }
+                
+            } else {
+                this.$toast.fail('请输入正确的手机号')
+            }
+        },
+        handleLogin () {
+            this.isMobileLogin 
+            ? this.$options.methods.handleLoginByMobile.bind(this)() 
+            : this.$options.methods.handleLoginByUserName.bind(this)()
+        },
+        handleLoginByMobile () {
+            if(this.valideteVerifyCode && this.valideteMobile) {
+                loginByMobile({
+                    mobile: this.mobile,
+                    code: this.verifyCode
+                }).then((res) => {
+                    console.log(res)
+                })
+            } else {
+                this.$toast.fail('请正确填写手机号和验证码')
+            }
+        },
+        handleLoginByUserName () {
+
+        },
+        setToken (token) {
+            setStore('token', token)
+        }
+        
+        
     },
-    components: {
-        headerNotDot,
-    }
+    
 }
 </script>
 <style lang="sass">

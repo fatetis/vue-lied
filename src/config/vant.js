@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import 'vant/lib/index.css';
-import { Toast,Button } from 'vant';
+import { Toast } from 'vant';
 
 Vue.prototype.$toast = Toast;
-Vue.use(Button);
