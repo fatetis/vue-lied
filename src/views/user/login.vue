@@ -16,7 +16,9 @@
                             <div class="input_wrap yzm_wrap">
                                 <input v-model="verifyCode" maxlength="6" type="text" placeholder="请输入收到的验证码">
                             </div>
-                            <button class="btn_yzm" :class="(!verifyCodeStatus && valideteMobile) && 'btn_yzm_hover'" @click="handleGetVerifyCode">
+                            <button class="btn_yzm" 
+                            :class="(!verifyCodeStatus && valideteMobile) && 'btn_yzm_hover'" 
+                            @click="handleGetVerifyCode">
                                  {{ (verifyCodeStatus) ? '验证码('+verifyCodeTime+'秒)' : '获取验证码' }}
                             </button>
                         </div>
@@ -26,20 +28,22 @@
                     <div class="account" v-show="!isMobileLogin">
                         <div class="input-container">
                             <div class="input_wrap account_wrap">
-                                <input type="text" placeholder="用户名/手机号/密码">
+                                <input v-model="account" type="text" placeholder="用户名/手机号/邮箱">
                             </div>
                         </div>
                         <div class="input-container yzm_container account_container">
                             <div class="input_wrap eye_bg" :class="isEyeClose ? '' : 'eye_bg_hover'">
-                                <input :type="isEyeClose ? 'password' : 'text'" placeholder="请输入密码">
+                                <input maxlength="16" v-model="password" :type="isEyeClose ? 'password' : 'text'" placeholder="请输入密码">
                             </div>
                             <div class="bth_eye" @click="handleChangeEyeClose"></div>
-                            <button class="btn_yzm ">忘记密码</button>
+                            <button class="btn_yzm"  :class="(validateAccount) && 'btn_yzm_hover'">忘记密码</button>
                         </div>
                     </div>
-
                     <button class="btn_login" 
-                    :class="(valideteVerifyCode && valideteMobile && isMobileLogin) && 'btn_login_hover'" 
+                    :class="(
+                        (valideteVerifyCode && valideteMobile) 
+                        || (validateAccount && validatePassword)
+                        ) && 'btn_login_hover'" 
                     @click="handleLogin">
                         登录
                     </button>
@@ -57,11 +61,11 @@
 </template>
 <script>
 import headerNotDot from '@components/headerNotDot'
-import { verifyCode, loginByMobile } from "@/service/getData";
+import { verifyCode, loginByMobile, loginByAccount } from "@/service/getData";
 import { NO } from "@/config/globalStatusCode"
 import { validatorsTool } from '@/util/validatorsTool';
 import { SneakRules } from '@/validation/validateRule.ts';
-import { setStore } from '@/util/mUtils';
+import { setStore } from '@/util/mUtils'
 export default {
     name: 'login',
     data () {
@@ -69,14 +73,19 @@ export default {
             title: '登录注册',
             isMobileLogin: true, // 是否手机号登录
             isEyeClose: true, // 密码是否可看
-            mobile: 1882509908, // 手机号
+            mobile: '', // 手机号
             valideteMobile: false, // 手机号码校验状态
-            verifyCode: 12354,
+            verifyCode: '',
             valideteVerifyCode: false,
             timer: null, // 节流控制
             verifyCodeTime: 60, // 获取验证码倒计时
             verifyCodeTimer: null, // 获取验证码倒计时计时器
-            verifyCodeStatus: false // 是否获取过验证码
+            verifyCodeStatus: false, // 是否获取过验证码
+            accountType: 'mobile', // 默认登录类型
+            account: '', // 账户名
+            password: '', // 密码
+            validateAccount: false, // 账户名校验状态
+            validatePassword: false, // 密码校验状态
         }
     },
     components: {
@@ -89,7 +98,7 @@ export default {
                 // 手机号校验
                 let regxMobile = /^1[3456789][0-9]{9}$/
                 this.valideteMobile = regxMobile.test(this.mobile)
-            }, 500)
+            }, 100)
         },
         verifyCode() {
             if(this.timer) clearTimeout(this.timer)
@@ -97,7 +106,35 @@ export default {
                 // 验证码校验
                 let regxVerifyCode = /^\d{6}$/
                 this.valideteVerifyCode = regxVerifyCode.test(this.verifyCode)
-            }, 500)
+            }, 100)
+        },
+        account() {
+            if(this.timer) clearTimeout(this.timer)
+            this.timer = setTimeout(() => {
+                // 验证码校验
+                let regxMobile = /^1[3456789][0-9]{9}$/
+                let regxEmail = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+                let regxUsername = /^[A-Za-z0-9\u4e00-\u9fa5]{2,16}$/
+                this.validateAccount = regxMobile.test(this.account)
+                if(!this.validateAccount && regxEmail.test(this.account)) {
+                    this.accountType = 'email';
+                    this.validateAccount = true;
+                } else if(!this.validateAccount && regxUsername.test(this.account)) {
+                    this.accountType = 'username';
+                    this.validateAccount = true;
+                } else {
+                    this.accountType = 'mobile';
+                }
+            }, 100)
+        },
+        password() {
+            if(this.timer) clearTimeout(this.timer)
+            this.timer = setTimeout(() => {
+                // #todo 验证码校验
+                // let regxPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\s\S]{6,16}$/
+                // this.validatePassword = regxPassword.test(this.password)
+                this.validatePassword = true
+            }, 100)
         }
     },
     methods: {
@@ -107,6 +144,7 @@ export default {
         handleChangeEyeClose () {
             this.isEyeClose = !this.isEyeClose;
         },
+        // #todo 极验校验码 
         async handleGetVerifyCode () {
             if(this.verifyCodeStatus) return;
             if(this.valideteMobile) {
@@ -135,9 +173,17 @@ export default {
             }
         },
         handleLogin () {
-            this.isMobileLogin 
+            let result = this.isMobileLogin 
             ? this.$options.methods.handleLoginByMobile.bind(this)() 
             : this.$options.methods.handleLoginByUserName.bind(this)()
+            // 登录成功路由跳转
+            if(result) {
+                if(this.$route.query.redirect) {
+                    this.$router.push({ path: decodeURIComponent(this.$route.query.redirect) })
+                } else {
+                    this.$router.go(-1);
+                }
+            }
         },
         handleLoginByMobile () {
             if(this.valideteVerifyCode && this.valideteMobile) {
@@ -145,18 +191,31 @@ export default {
                     mobile: this.mobile,
                     code: this.verifyCode
                 }).then((res) => {
-                    console.log(res)
+                    this.$store.commit('setToken', res);
+                    this.$toast.success('登录成功');
                 })
-            } else {
-                this.$toast.fail('请正确填写手机号和验证码')
+                return true;
             }
+            this.$toast.fail('请正确填写手机号和验证码')
+            return false;
         },
         handleLoginByUserName () {
-
+            if(this.validateAccount && this.validatePassword) {
+                let accountType = this.accountType;
+                let data = {
+                    password: this.password
+                }
+                data[accountType] = this.account,
+                loginByAccount(data).then((res) => {
+                    this.$store.commit('setToken', res);
+                    this.$toast.success('登录成功');
+                })
+                return true;
+            }
+            this.$toast.fail('请输入正确的账户名与密码');
+            return false;         
         },
-        setToken (token) {
-            setStore('token', token)
-        }
+        handleForgetPassword
         
         
     },

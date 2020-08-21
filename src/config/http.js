@@ -7,6 +7,8 @@ import QS from 'qs';
 import router from '../router';
 import { Toast } from 'vant';
 import { getStore } from '@/util/mUtils';
+import store from '../store/index'
+
 import {
 	baseUrl
 } from './env'
@@ -93,7 +95,7 @@ const errorHandle = (status, other) => {
 		case 403:
 			tip('登录过期，请重新登录');
 			localStorage.removeItem('token');
-			store.commit('loginSuccess', null);
+			store.commit('setToken', null);
 			setTimeout(() => {
 				toLogin();
 			}, 1500);
@@ -111,7 +113,7 @@ const errorHandle = (status, other) => {
 var instance = axios.create({ timeout: 1000 * 12 });
 // 设置post请求头
 // instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-instance.defaults.headers.post['Accept'] = 'application/json';
+instance.defaults.headers.post['Content-Type'] = 'application/json';
 /** 
  * 请求拦截器 
  * 每次请求前，如果存在token则在请求头中携带token 
@@ -121,9 +123,9 @@ instance.interceptors.request.use(
 		// 登录流程控制中，根据本地是否存在token判断用户的登录情况        
 		// 但是即使token存在，也有可能token是过期的，所以在每次的请求头中携带token        
 		// 后台根据携带的token判断用户的登录情况，并返回给我们对应的状态码        
-		// 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。        
-		const token = store.state.token;
-		token && (config.headers.Authorization = token);
+		// 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。  
+		const token = store.getters.getToken;
+		token && (config.headers.Authorization = "Bearer " + token);
 		return config;
 	},
 	error => Promise.error(error)
@@ -190,12 +192,13 @@ export function post(url, params) {
 	params = params || {};
 	params.reqno = reqno();
 	return new Promise((resolve, reject) => {
-		instance.post(url, QS.stringify(params))
+		instance.post(url, params)
 			.then(res => {
 				loading.clear()
 				resolve(res.data.data.body);
 			})
 			.catch(err => {
+				console.log(err);
 				loading.clear()
 				tip(err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']');
 				// reject(err.data)

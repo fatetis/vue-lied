@@ -10,7 +10,16 @@
     </transition>
   </div>
 </template>
+<script>
+import initialization from './initialization'
 
+export default {
+  name: 'app',
+  mounted() {
+    initialization()
+  }
+}
+</script>
 <style lang="sass">
 .router-fade-enter-active, .router-fade-leave-active 
 	transition: opacity .3s
