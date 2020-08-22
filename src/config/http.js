@@ -176,8 +176,10 @@ export function get(url, params) {
 				resolve(res.data.data.body);
 			})
 			.catch(err => {
+				console.log(err);
 				loading.clear()
-				tip(err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']');
+				let msg = err.message || err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']'
+				tip(msg);
 			})
 	});
 }
@@ -200,7 +202,8 @@ export function post(url, params) {
 			.catch(err => {
 				console.log(err);
 				loading.clear()
-				tip(err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']');
+				let msg = err.message || err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']'
+				tip(msg);
 				// reject(err.data)
 			})
 	});

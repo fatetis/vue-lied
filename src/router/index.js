@@ -5,7 +5,7 @@ import city from '@views/city/city'
 import category from '@views/category/category'
 import cart from '@views/cart/cart'
 import login from '@views/user/login'
-import product from '@views/product/product'
+import productDetail from '@views/product/detail'
 
 Vue.use(VueRouter)
 
@@ -46,7 +46,7 @@ Vue.use(VueRouter)
   {
     path: '/product',
     name: 'product',
-    component: product
+    component: productDetail
   }
 
 ]

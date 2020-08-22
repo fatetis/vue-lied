@@ -170,9 +170,15 @@ import prodSwiper from '@views/product/components/prodSwiper'
 import prodRecommand from '@views/product/components/prodRecommand'
 import prodFooter from '@components/prodFooter'
 import prodPopup from '@views/product/components/prodPopup'
+import { productDetail } from '@/service/getData'
 
 export default {
-    name: 'product',
+    name: 'detail',
+    data () {
+        return {
+            data: {}
+        }
+    },
     components: {
         prodHeader,
         prodSwiper,
@@ -180,12 +186,22 @@ export default {
         prodFooter,
         prodPopup
     },
+    methods: {
+        getProductData () {
+            productDetail({
+                include: 'medias'
+            }, 'ND').then((res) => {
+                console.log(res)
+            })
+        }
+    },
     mounted() {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.prod_wrapper, {
                 scrollbar: true
             });
         });
+        this.getProductData()
     }
 }
 </script>

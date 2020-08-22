@@ -6,30 +6,8 @@
                 <div class="wrapper left_wrapper" ref="left_wrapper">
                     <div class="content">
                         <ul>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
-                            <li>热门推荐</li>
+                            <li @click="getProductData">热门推荐</li>
+                            <li v-for="(item, index) of categoryParentData" :key="index" :data-pid="item.id" @click="getProductData">{{ item.name }}</li>
                         </ul>
                     </div>
                 </div>
@@ -37,114 +15,16 @@
             <div class="float right">
                 <div class="wrapper" ref="right_wrapper">
                     <div class="content">
-                        <div class="title">热门推荐</div>
-                        <div class="list">
-                            <ul class="clearfix">
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                                <li>
-                                    <img src="@assets/images/category/conditioner.jpg" alt="">
-                                    <p>空调</p>
-                                </li>
-                            </ul>
+                        <div class="item" v-for="(item, index) of categoryChildData" :key="index">
+                            <div class="title">{{ item.name }}</div>
+                            <div class="list">
+                                <ul class="clearfix">
+                                    <li v-for="(v, k) of item.children" :key="k">
+                                        <img :src="(v.media && v.media.link) || ''" alt="">
+                                        <p>{{ v.name }}</p>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                         
                     </div>
@@ -158,11 +38,29 @@
 import Bscroll from "better-scroll";
 import headerSearch from '@components/headerSearch'
 import footerIndex from "@components/footerIndex";
+import { productCategory } from '@/service/getData'
 export default {
     name: 'category',
+    data () {
+        return {
+            categoryParentData: {},
+            categoryChildData: {},
+        }
+    },
     components: {
         headerSearch,
-        footerIndex
+        footerIndex,
+    },
+    methods: {
+        getProductData (e) {
+            let arr = e === undefined ? 0 : (e.target.dataset.pid || 0)
+            productCategory({
+                pid: arr
+            }).then((res) => {
+                arr === 0 && (this.categoryParentData = res.data)
+                this.categoryChildData  = arr === 0 ? res.rec : res.data
+            })
+        },
     },
     mounted() {
         this.$nextTick(() => {
@@ -173,6 +71,7 @@ export default {
                 scrollbar: true
             });
         });
+        this.getProductData()
     }
 }
 </script>
@@ -210,10 +109,10 @@ export default {
             .content
                 margin: 0 20px
                 .title
-                    height: 96px
-                    line-height: 96px
                     font-size: 28px
                     color: #333
+                    height: 96px
+                    line-height: 96px
                     font-weight: 700
                 .list
                     padding-bottom: 34px

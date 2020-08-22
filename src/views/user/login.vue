@@ -177,7 +177,7 @@ export default {
             ? this.$options.methods.handleLoginByMobile.bind(this)() 
             : this.$options.methods.handleLoginByUserName.bind(this)()
             // 登录成功路由跳转
-            if(result) {
+            if(result === true) {
                 if(this.$route.query.redirect) {
                     this.$router.push({ path: decodeURIComponent(this.$route.query.redirect) })
                 } else {
@@ -193,11 +193,10 @@ export default {
                 }).then((res) => {
                     this.$store.commit('setToken', res);
                     this.$toast.success('登录成功');
+                    return true;
                 })
-                return true;
             }
             this.$toast.fail('请正确填写手机号和验证码')
-            return false;
         },
         handleLoginByUserName () {
             if(this.validateAccount && this.validatePassword) {
@@ -209,13 +208,14 @@ export default {
                 loginByAccount(data).then((res) => {
                     this.$store.commit('setToken', res);
                     this.$toast.success('登录成功');
+                    return true;
                 })
-                return true;
             }
-            this.$toast.fail('请输入正确的账户名与密码');
-            return false;         
+            this.$toast.fail('请输入正确的账户名与密码');    
         },
-        handleForgetPassword
+        handleForgetPassword () {
+            // #todo 忘记密码跳转页面
+        }
         
         
     },
