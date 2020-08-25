@@ -2,15 +2,15 @@
     <div class="prodSwiper">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <div class="swiper-slide banner_item">
+                <div class="swiper-slide banner_item" v-for="(item, index) of bannerData" :key="index">
+                    <img :src="item.media.data.link" alt="">
+                </div>
+                <!-- <div class="swiper-slide banner_item">
                     <img src="@assets/images/prod/thumb.jpg" alt="">
                 </div>
                 <div class="swiper-slide banner_item">
                     <img src="@assets/images/prod/thumb.jpg" alt="">
-                </div>
-                <div class="swiper-slide banner_item">
-                    <img src="@assets/images/prod/thumb.jpg" alt="">
-                </div>
+                </div> -->
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -19,6 +19,9 @@
 <script>
 export default {
     name: 'prodSwiper',
+    props: {
+        bannerData: Array
+    },
     mounted() {
         this.initSwiper();
     },
@@ -28,7 +31,8 @@ export default {
                 pagination: '.swiper-pagination',
                 paginationType : 'fraction',
                 paginationClickable :true,
-                loop: true
+                observer:true,//修改swiper自己或子元素时，自动初始化swiper
+                observeParents:true,//修改swiper的父元素时，自动初始化swiper
             });
         }
     }

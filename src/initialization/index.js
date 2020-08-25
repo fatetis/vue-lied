@@ -13,7 +13,6 @@ export default () => {
                 refresh_token: tokenInfo.refresh_token
             }).then((res) => {
                 store.commit('setToken', res)
-                console.log(res)
             })
         } 
     }

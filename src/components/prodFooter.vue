@@ -22,7 +22,7 @@
                     <div class="text">
                         <p class="p1">加入购物车</p>
                     </div>
-                    <div class="text">
+                    <div class="text" @click="handleShowPopup">
                         <p class="p2">立即购买</p>
                     </div>
                 </div>
@@ -32,7 +32,15 @@
 </template>
 <script>
 export default {
-    name: 'prodFooter'
+    name: 'prodFooter',
+    props: {
+        showPopup: Boolean
+    },
+    methods: {
+        handleShowPopup() {
+            this.$emit('change', !this.showPopup)
+        }
+    }
 }
 </script>
 <style lang="sass" scoped>

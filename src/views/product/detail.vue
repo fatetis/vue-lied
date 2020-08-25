@@ -5,15 +5,15 @@
             <div class="wrapper" ref="prod_wrapper">
                 <div class="content">
                     <!-- 产品轮播图 -->
-                     <prod-swiper></prod-swiper>
+                     <prod-swiper :bannerData="bannerData"></prod-swiper>
                      <!-- 产品名称 -->
                      <div class="title_wrap padding_container">
                          <div class="content">
                             <div class="price clearfix">
                                 <p class="p1">
                                     ¥<span>
-                                        <em>12525</em>
-                                        .00
+                                        <em>{{ productData.price && productData.price.int}}</em>
+                                        .{{ productData.price && productData.price.point}}
                                         </span>
                                 </p>
                                 <p class="p2">
@@ -21,8 +21,8 @@
                                     收藏
                                 </p>
                             </div>
-                            <div class="title">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】</div>
-                            <div class="desc">简易家具，送全套安装配件！无理由退换货，“零”风险购物！部分偏远地区不发货更多优惠猛戳我! </div>
+                            <div class="title">{{ productData.name }}</div>
+                            <div class="desc">{{ productData.description }}</div>
                          </div>
                      </div>
                     <!-- 优惠信息 还有待完善 -->
@@ -113,10 +113,10 @@
                             <div class="item clearfix">
                                 <div class="seller clearfix">
                                     <div class="logo">
-                                        <img src="@assets/images/prod/logo.jpg" alt="">
+                                        <img :src="brandData.media && brandData.media.data.link" alt="">
                                     </div>
                                     <div class="name">
-                                        <p class="text">宝美宝美陶瓷宝美陶瓷宝美陶瓷宝美陶瓷宝美陶瓷宝美陶瓷宝美陶瓷宝美陶瓷陶瓷</p>
+                                        <p class="text">{{ brandData.name }}</p>
                                         <p class="star">
                                             <span>店铺星级</span>
                                             <i class="star_icon"></i>
@@ -153,14 +153,14 @@
                             <span class="line"></span>
                         </div>
                         <div class="show_img">
-                            <img src="@assets/images/prod/detail.jpg" alt="">
+                            <div v-html="productData.content"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <prod-footer></prod-footer>
-        <prod-popup v-show="false"></prod-popup>
+        <prod-footer :showPopup="showPopup" @change="handleShowPopup"></prod-footer>
+        <prod-popup  @change="handleShowPopup" v-show="showPopup" :showPopup="showPopup" :skuData="skuData" :attrData="attrData"></prod-popup>
     </div>
 </template>
 <script>
@@ -176,7 +176,12 @@ export default {
     name: 'detail',
     data () {
         return {
-            data: {}
+            showPopup: false,
+            bannerData: [],
+            productData: [],
+            brandData: [],
+            attrData: [],
+            skuData: [],
         }
     },
     components: {
@@ -189,10 +194,17 @@ export default {
     methods: {
         getProductData () {
             productDetail({
-                include: 'medias'
+                include: 'attrs,skus,medias,brand'
             }, 'ND').then((res) => {
-                console.log(res)
+                this.bannerData = res.data.medias.data
+                this.productData = res.data
+                this.brandData = res.data.brand.data
+                this.attrData = res.data.attrs.data
+                this.skuData = res.data.skus.data
             })
+        },
+        handleShowPopup (bool) {
+            this.showPopup = bool
         }
     },
     mounted() {

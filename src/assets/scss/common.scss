@@ -66,8 +66,11 @@ $hftop: calc(100vh - 182px);
 // 购物车的中间区域的可视高+100px底部固定区域
 $hfcarttop: calc(100vh - 282px);
 // 产品中间区域的可视高-头部固定区域
-$hfprodtop: calc(100vh - 94px);
-$hpopuptop: calc(60vh - 398px);
+$hfprodtop: calc(100vh - 94px); // 398
+$hpopuptop: calc(68vh - 398px);
+$hpopupmintop: calc(36vh - 304px);
+$hpopupContainerMaxtop: 68vh;
+$hpopupContainerMintop: calc(36vh + 94px);
 // 头部与尾部的z-index层级
 $fixedPositionZIndex: 99;
 // 头部左边箭头大小

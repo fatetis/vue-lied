@@ -44,7 +44,7 @@ export default {
             //this指向当前组件实例
             this.$emit('input', val);
             //定义自定义函数进行通信
-            this.$emit('on-change', val)
+            this.$emit('change', val)
         },
         //监听父组件value是否改变
         value: function(val) {
