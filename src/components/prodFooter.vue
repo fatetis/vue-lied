@@ -1,6 +1,6 @@
 <template>
     <div class="prodFooter">
-        <div class="wapper">
+        <div class="wapper" :class="!zindex && 'nozindex'">
             <div class="content clearfix">
                 <div class="float icon_container">
                     <div class="icon_wrap clearfix">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="float btn_click clearfix">
-                    <div class="text">
+                    <div class="text"  @click="handleShowPopup">
                         <p class="p1">加入购物车</p>
                     </div>
                     <div class="text" @click="handleShowPopup">
@@ -34,7 +34,8 @@
 export default {
     name: 'prodFooter',
     props: {
-        showPopup: Boolean
+        showPopup: Boolean,
+        zindex: Boolean
     },
     methods: {
         handleShowPopup() {
@@ -100,4 +101,6 @@ export default {
                         background-color: #f2270c
                     .p2
                         background-color: $theam
+    .nozindex
+        z-index: 0
 </style>

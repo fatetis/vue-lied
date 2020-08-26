@@ -15,6 +15,10 @@
                                     ¥<span>{{ this.skuDetailData.int }}</span>.{{ this.skuDetailData.point }}
                                 </p>
                                 <p class="detail">
+                                    <span class="fixed">库存 </span>
+                                     {{ this.skuDetailData.quantity }} 件
+                                </p>
+                                <p class="detail nomargin">
                                     <span class="fixed">已选 </span>
                                      {{ this.skuDetailData.desc }}
                                 </p>
@@ -81,15 +85,16 @@ export default {
                 2: 0,
                 3: 0,
                 4: 0,
-            },
+            }, // 属性高亮数据
             skuDetailData: {
-                src: '',
-                quantity: '',
-                int: '',
-                point: '',
-                desc: '',
-            },
-            num: 1,
+                src: '', // 图片链接
+                quantity: '', // 库存
+                int: '', // 价格整数
+                point: '', // 价格小数
+                desc: '', // 描述
+            }, // sku详情数据
+            num: 1, // 购买数量
+            skuId: '' // skuid用于产品下单的凭证
         }
     },
     props: {
@@ -101,7 +106,9 @@ export default {
         inputNum
     },
     methods: {
-        // 改变sku的价格
+        /**
+         * 改变sku的价格
+         */
         handleAttrSelectedShowSkuPrice() {
             let arrDataLength = this.attrData.length
             let arr = [];
@@ -121,6 +128,7 @@ export default {
                     this.skuDetailData.quantity = skuDataObj.stock.data.quantity;
                     this.skuDetailData.int = skuDataObj.price.int;
                     this.skuDetailData.point = skuDataObj.price.point;
+                    this.skuId = skuDataObj.id
                 }
             }
         },
@@ -153,10 +161,11 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+
 .float
     float: left
 .click_bg
-    background-color: #666
+    background-color: #333
     opacity: 0.6
 .prodPopup
     .container
@@ -207,6 +216,9 @@ export default {
                                 @include overwraps(2)
                                 span
                                     color: #8c8c8c
+                            .nomargin
+                                margin-top: 0
+                                
                     .attr_container
                         .attr_wrapper
                             position: relative
