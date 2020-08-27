@@ -61,7 +61,7 @@
                         <div class="sku_footer">
                             <div class="sku_contaier ">
                                 <p class="p1 margin">加入购物车</p>
-                                <p class="p2">立即购买</p>
+                                <p class="p2" @click="handleBuyValidate">立即购买</p>
                             </div>
                         </div>
 
@@ -74,6 +74,7 @@
 <script>
 import Bscroll from "better-scroll";
 import inputNum from "@views/cart/components/inputNum";
+import { productValidate } from '@/service/getData'
 export default {
     name: 'prodPopup',
     data () {
@@ -142,6 +143,20 @@ export default {
         handleChangeNum(num) {
             this.num = num
             this.handleAttrSelectedShowSkuPrice();
+        },
+        handleBuyValidate() {
+            productValidate({
+                sku_id: this.skuId,
+                num: this.num
+            }).then((res) => {
+                this.$router.push({
+                    name: 'order',
+                    query: {
+                        sku_id: this.skuId,
+                        num: this.num
+                    }
+                })
+            })
         }
     },
     watch: {

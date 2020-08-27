@@ -14,3 +14,5 @@ export const loginByAccount = (arr) => post('/v1/clients/api/mobile/login', arr)
 export const productCategory = (arr) => get('/v1/prod/category/pid', arr);
 // 产品详情
 export const productDetail = (arr, id) => get('/v1/prod/detail/' + id, arr);
+// 产品校验
+export const productValidate = (arr) => post('/v1/product/validate', arr);
