@@ -63,8 +63,6 @@
 import headerNotDot from '@components/headerNotDot'
 import { verifyCode, loginByMobile, loginByAccount } from "@/service/getData";
 import { NO } from "@/config/globalStatusCode"
-import { validatorsTool } from '@/util/validatorsTool';
-import { SneakRules } from '@/validation/validateRule.ts';
 import { setStore } from '@/util/mUtils'
 export default {
     name: 'login',

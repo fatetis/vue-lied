@@ -1,8 +1,8 @@
 <template>
   <div class="headerNotDot">
-      <div class="wrapper" :class="type == 1 ? 'wrapper_fff' : ''">
+      <div class="wrapper" :class="type == 1 ? 'wrapper_fff' : (type == 2 ? 'wrapper_fff border' : '')" >
         <span class="back" @click="back"></span>
-        <p class="arrow text" :class="type == 1 ? 'text_fff' : ''">{{ title }}</p>
+        <p class="arrow text" :class="(type == 1 || type == 2) ? 'text_fff' : ''">{{ title }}</p>
       </div>
   </div>
 </template>
@@ -10,8 +10,14 @@
 export default {
   name: 'headerNotDot',
   props: {
-    title: String,
+    title: {
+      type: String,
+      default: '八块钱网家装商城',
+    },
     type: {
+      default: ''
+    },
+    border: {
       default: ''
     }
   },
@@ -24,6 +30,8 @@ export default {
 </script>
 <style lang="sass" scoped>
 .headerNotDot
+  .border
+    border-bottom: 1px solid #e5e5e5
   .wrapper
     padding: 0 20px
     background: $theam
@@ -46,7 +54,7 @@ export default {
     .text::before
       content: ''
       position: absolute
-      left: 0
+      left: 10px
       top: 32px
       @include borderArrow(left, 20px, $fc)
 .headerNotDot
@@ -58,7 +66,7 @@ export default {
     .text_fff::before
       content: ''
       position: absolute
-      left: 0
+      left: 10px
       top: 32px
       @include borderArrow(left, 20px, $headerBlack)
 </style>

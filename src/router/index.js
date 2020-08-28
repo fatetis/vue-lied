@@ -6,6 +6,7 @@ import category from '@views/category/category'
 import cart from '@views/cart/cart'
 import login from '@views/user/login'
 import productDetail from '@views/product/detail'
+import orderIndex from '@views/order'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ Vue.use(VueRouter)
     path: '/product',
     name: 'product',
     component: productDetail
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: orderIndex
   }
 
 ]
