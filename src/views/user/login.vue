@@ -183,18 +183,25 @@ export default {
                 }
             }
         },
-        handleLoginByMobile () {
+        async handleLoginByMobile () {
             if(this.valideteVerifyCode && this.valideteMobile) {
-                loginByMobile({
+                await loginByMobile({
                     mobile: this.mobile,
                     code: this.verifyCode
                 }).then((res) => {
                     this.$store.commit('setToken', res);
                     this.$toast.success('登录成功');
+                    setTimeout(() => {
+                        this.$router.replace({
+                            path: this.$route.query.redirect,
+                        });
+                    }, 500)
                     return true;
                 })
+            }else{
+                this.$toast.fail('请正确填写手机号和验证码')
             }
-            this.$toast.fail('请正确填写手机号和验证码')
+            
         },
         handleLoginByUserName () {
             if(this.validateAccount && this.validatePassword) {

@@ -4,7 +4,6 @@
         <div class="container">
             <div class="wrapper">
                 <div class="content">
-
                     <div class="address">
                         <div class="address_content address_border">
                             <div class="address_detail">
@@ -19,7 +18,6 @@
                                 <p class="tel">138****800</p>
                             </div>
                         </div>
-                        
                     </div>
 
                     <div class="padding">
@@ -50,16 +48,7 @@
                                                         <div class="sku_line_style sku_line">
                                                             <div class="sku sku_style">
                                                                 <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                                <span class="sku_service sku_service_style">，选服务</span>
                                                             </div>
-                                                        </div>
-                                                        <div class="sku_line_style discount_line">
-                                                            <div class="discount sku_style">
-                                                                <div class="sku_attr_style discount_item">
-                                                                满2件9折
-                                                                </div>
-                                                            </div>
-                                                            
                                                         </div>
                                                         <div class="price_line clearfix">
                                                             <div class="price">
@@ -72,18 +61,100 @@
                                                                 <input-num :min="1"></input-num>
                                                             </div>
                                                         </div>
+                                                        <div class="order_detail_tip">
+                                                            <ul>
+                                                                <li>
+                                                                    <img src="" alt="">
+                                                                    支持15天无理由退货
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
                                     </div>
+                                    <div class="shipping">
+                                        <div class="shipping_content clearfix">
+                                            <div class="title">
+                                                <p class="p1">配送</p>
+                                                <p class="p2">中小件送货时间</p>
+                                            </div>
+                                            <div class="title content">
+                                                <p class="p1">快递运输</p>
+                                                <p class="p2">工作日、双休日与节假日均可送货</p>  
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="shipping">
+                                        <div class="shipping_content clearfix">
+                                            <div class="title">
+                                                <p class="p1">留言</p>
+                                            </div>
+                                            <input type="text" placeholder="选填，给商家留言" maxlength="45">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price_content">
+                                    <div class="price_item">
+                                        <div class="shipping">
+                                            <div class="shipping_content clearfix">
+                                                <div class="title">
+                                                    <p class="p1">商品总额</p>
+                                                </div>
+                                                <div class="title content">
+                                                    <p class="p1 small_size font_weight">￥36999</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="shipping">
+                                            <div class="shipping_content clearfix">
+                                                <div class="title">
+                                                    <p class="p1">运费</p>
+                                                </div>
+                                                <div class="title content">
+                                                    <p class="p1 small_size change_red_color">免运费</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="shipping shipping_padding_right">
+                                            <div class="shipping_content clearfix">
+                                                <div class="title">
+                                                    <p class="p1">优惠券</p>
+                                                </div>
+                                                <div class="title content">
+                                                    <p class="p1 small_size change_grey_color">无可用</p>
+                                                </div>
+                                                <div class="arrow arrow_grey"></div>
+                                            </div>
+                                        </div>
+                                        <div class="total_price">
+                                            总计：<span>￥55522.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price_content invoice_content">
+                                    <div class="price_item">
+                                        <div class="shipping shipping_padding_right">
+                                            <div class="shipping_content nomargin clearfix">
+                                                <div class="title">
+                                                    <p class="p1">发票</p>
+                                                </div>
+                                                <div class="title content">
+                                                    <p class="p1 small_size change_grey_color">不开发票</p>
+                                                </div>
+                                                <div class="arrow arrow_grey"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="submit_order">
+                                    提交订单
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -108,7 +179,65 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.shipping_padding_right
+    padding-right: 28px
+.shipping
+    width: 100%
+    position: relative
+    box-sizing: border-box
+    .shipping_content
+        margin-top: 20px
+        .title
+            position: relative
+            float: left
+            text-align: left
+            z-index: 2
+            line-height: 42px
+            .p1
+                
+                font-weight: 400
+                @include sc(28px, #333)
+            .p2
+                margin: 16px 0
+                @include sc(12px, #999)
+        .content 
+            float: right
+            text-align: right
+        input
+            position: absolute
+            right: 0
+            z-index: 1
+            float: right
+            text-align: right
+            display: block
+            width: 100%
+            box-sizing: border-box
+            padding-left: 120px
+            line-height: 42px
+        input::-webkit-input-placeholder 
+            // /* Chrome/Opera/Safari */
+            color: #999
+        input::-moz-placeholder 
+            // /* Firefox 19+ */
+            color: #999
+        input:-ms-input-placeholder
+            // /* IE 10+ */
+            color: #999
+
+        input:-moz-placeholder 
+            // /* Firefox 18- */
+            color: #999
+        .arrow
+            position: absolute
+            top: 50%
+            margin-top: -8px 
+            right: 0
+        .arrow_grey
+            @include borderArrow(right, 12px, #999)
+
 .order
+    height: 100vh
+    background-color: #f7f7f7
     .container
         .wrapper
             .content
@@ -146,21 +275,21 @@ export default {
                             .name
                                 margin-right: 12px
                 .padding
+                    margin-top: 20px
                     .order_container
                         .order_wapper
                             .order_content
+                                background-color: #fff
+                                padding: 20px 20px
+                                box-sizing: border-box
+                                border-radius: 20px
+                                overflow: hidden
                                 .item
-                                    background-color: #fff
-                                    padding: 20px
-                                    margin-bottom: 40px
-                                    border-radius: 20px
-                                    overflow: hidden
-                                    box-shadow: 0 0.08rem 0.32rem rgba(0,0,0,0.08)
+                                    margin-bottom: 10px
                                     .seller
                                         .checkbox_seller
                                         .text
                                             float: left
-                                            margin-left: 20px
                                             padding-top: 2px
                                             .icon_shop
                                                 display: inline-block
@@ -181,9 +310,8 @@ export default {
                                             margin-top: 20px
                                             .text 
                                                 float: left
-                                                width: calc( 100% - 36px )
                                                 box-sizing: border-box
-                                                padding-left: 20px
+                                                
                                                 .img_wrap
                                                     overflow: hidden
                                                     border-radius: 10px 
@@ -200,36 +328,24 @@ export default {
                                                     .name
                                                         color: #262626
                                                         margin-bottom: 12px
+                                                        font-size: 28px
                                                         @include overwraps(2)
                                                         
                                                     .sku_line_style
                                                         width: 100%
-                                                        .sku_style:after
-                                                            content: ''
-                                                            @include borderArrow('bottom', 6px, #262626)
-                                                            position: absolute
-                                                            right: 12px
-                                                            top: 50%
-                                                            margin-top: -3px
                                                         .sku_style
                                                             display: inline-block
-                                                            color: #262626
-                                                            background-color: #f2f2f2
                                                             position: relative
                                                             border-radius: 16px
-                                                            padding-right: 28px
                                                             padding-left: 12px
                                                             box-sizing: border-box
                                                             max-width: 100%
                                                             line-height: 32px
-                                                            margin-bottom: 8px
+                                                            margin-bottom: 16px
+                                                            @include sc(12px, #999)
                                                             .sku_attr_style
                                                                 display: inline-block
-                                                                @include overwrap()
-                                                                max-width: calc( 100% - 96px )
-                                                                vertical-align: top
-                                                            .sku_service_style
-                                                                display: inline-block
+                                                                max-width: 100%
                                                                 vertical-align: top
                                                     .discount_line
                                                         .discount
@@ -248,8 +364,86 @@ export default {
                                                         .num_wrap
                                                             float: right
                                                             display: inline-block
+                                                    .order_detail_tip
+                                                        margin: 14px 0
+                                                        li
+                                                            color: #999
+                                                            img
+                                                                display: inline-block
+                                                                @include wh(30px, 30px)
+                                                                @include bis('../../assets/images/order/fiveteen.png')
+                                                                vertical-align: bottom
+                            .price_content
+                                margin-top: 20px
+                                background-color: #fff
+                                padding: 20px 20px
+                                box-sizing: border-box
+                                border-radius: 20px
+                                overflow: hidden
+                                .price_item
+                                    .shipping
+                                        .font_weight
+                                            font-weight: 700
+                                        .small_size
+                                            font-size: 12px
+                                        .change_red_color
+                                            color: #f2270c
+                                        .change_grey_color
+                                            color: #999
+                                    .total_price:before
+                                        content: ''
+                                        height: 1px
+                                        background: #e5e5e5
+                                        position: absolute
+                                        width: 100%
+                                        top: 0
+                                        left: 0
+                                    .total_price
+                                        margin-top: 40px
+                                        position: relative
+                                        padding: 40px 0 20px 0
+                                        font-size: 28px
+                                        text-align: right
+                                        span
+                                            font-weight: 600
+                                            color: #f2270c
+                            .invoice_content
+                                .nomargin
+                                    margin: 0
+                            .submit_order
+                                margin: 60px 20px
+                                padding: 28px 20px
+                                box-sizing: border-box
+                                background: #f2270c
+                                @include sc(36px, #fff)
+                                text-align: center
+                                border-radius: 100px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         
+
+
+
+
 
 
 </style>
