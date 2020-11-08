@@ -16,3 +16,5 @@ export const productCategory = (arr) => get('/v1/prod/category/pid', arr);
 export const productDetail = (arr, id) => get('/v1/prod/detail/' + id, arr);
 // 产品校验
 export const productValidate = (arr) => post('/v1/product/validate', arr);
+// 产品列表
+export const productList = (arr) => post('/v1/product/list', arr);

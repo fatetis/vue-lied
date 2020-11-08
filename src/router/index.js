@@ -7,6 +7,8 @@ import cart from '@views/cart/cart'
 import login from '@views/user/login'
 import productDetail from '@views/product/detail'
 import orderIndex from '@views/order'
+import addressEdit from '@views/user/addressEdit'
+import addressList from '@views/user/addressList'
 
 Vue.use(VueRouter)
 
@@ -45,7 +47,7 @@ Vue.use(VueRouter)
     component: login
   },
   {
-    path: '/product',
+    path: '/product/:id',
     name: 'product',
     component: productDetail
   },
@@ -53,6 +55,16 @@ Vue.use(VueRouter)
     path: '/order',
     name: 'order',
     component: orderIndex
+  },
+  {
+    path: '/address/edit',
+    name: 'addressEdit',
+    component: addressEdit
+  },
+  {
+    path: '/address/list',
+    name: 'addressList',
+    component: addressList
   }
 
 ]

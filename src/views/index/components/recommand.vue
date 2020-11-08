@@ -8,7 +8,21 @@
         <div class="container">
             <div class="wrapper">
                 <div class="content clearfix">
-                    <div class="item">
+                    <div class="item" v-for="(item, index) of productData" :key="index">
+                        <router-link :to="{name: 'product', params: {id: item.id}}">
+                        <div class="show_img">
+                            <img :src="item.medias.data[0].media.data.link" alt="">
+                        </div>
+                        <div class="text">
+                            <p class="title">{{item.name}}</p>
+                            <div class="detail clearfix">
+                                <div class="float price">￥<span>{{item.price.int}}</span>.{{item.price.point}}</div>
+                                <div class="right buy_num">35人付款</div>
+                            </div>
+                        </div>
+                        </router-link>
+                    </div>
+                    <!-- <div class="item">
                         <div class="show_img">
                             <img src="@assets/images/index/product_1.jpg" alt="">
                         </div>
@@ -22,18 +36,6 @@
                     </div>
                     <div class="item">
                         <div class="show_img">
-                            <img src="@assets/images/index/product_1.jpg" alt="">
-                        </div>
-                        <div class="text">
-                            <p class="title">产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题</p>
-                            <div class="detail clearfix">
-                                <div class="float price">￥<span>20</span>.00</div>
-                                <div class="right buy_num">35人付款</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="show_img">
                             <img src="@assets/images/index/product_2.jpg" alt="">
                         </div>
                         <div class="text">
@@ -67,7 +69,7 @@
                                 <div class="right buy_num">35人付款</div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -75,7 +77,8 @@
 </template>
 <script>
 export default {
-    name: 'recommand'
+    name: 'recommand',
+    props: ['productData'],
 }
 </script>
 <style lang="sass" scoped>

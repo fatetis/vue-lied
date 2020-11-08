@@ -6,6 +6,7 @@
                 <div class="content">
                     <div class="address">
                         <div class="address_content address_border">
+                            <router-link :to="{name: 'addressList'}">
                             <div class="address_detail">
                                 <div class="detail_content">
                                     <p class="p1">广东省东莞市莞城区</p>
@@ -17,6 +18,7 @@
                                 <p class="name">哈哈</p>
                                 <p class="tel">138****800</p>
                             </div>
+                            </router-link>
                         </div>
                     </div>
 
@@ -163,7 +165,6 @@
 <script>
 import headerNotDot from "@components/headerNotDot";
 import inputNum from "@views/cart/components/inputNum";
-// import { validator } from "@/util/validator.min"
 export default {
     name: 'order',
     data() {

@@ -198,7 +198,7 @@ export default {
         getProductData () {
             productDetail({
                 include: 'attrs,skus,medias,brand'
-            }, 'ND').then((res) => {
+            }, this.$route.params.id).then((res) => {
                 this.bannerData = res.data.medias.data
                 this.productData = res.data
                 this.brandData = res.data.brand.data

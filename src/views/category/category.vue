@@ -6,8 +6,8 @@
                 <div class="wrapper left_wrapper" ref="left_wrapper">
                     <div class="content">
                         <ul>
-                            <li @click="getProductData">热门推荐</li>
-                            <li v-for="(item, index) of categoryParentData" :key="index" :data-pid="item.id" @click="getProductData">{{ item.name }}</li>
+                            <li @click="getProductData" :class="hover == 0 ? 'hover' : ''">热门推荐</li>
+                            <li :class="hover == item.id ? 'hover' : ''" v-for="(item, index) of categoryParentData" :key="index" :data-pid="item.id" @click="getProductData">{{ item.name }}</li>
                         </ul>
                     </div>
                 </div>
@@ -45,6 +45,7 @@ export default {
         return {
             categoryParentData: {},
             categoryChildData: {},
+            hover: 0,
         }
     },
     components: {
@@ -54,6 +55,7 @@ export default {
     methods: {
         getProductData (e) {
             let arr = e === undefined ? 0 : (e.target.dataset.pid || 0)
+            this.hover = arr
             productCategory({
                 pid: arr
             }).then((res) => {
@@ -98,6 +100,8 @@ export default {
                     text-align: center
                     height: 92px
                     line-height: 92px
+                .hover
+                    color: #e93b3d
     .right
         width: calc( 100% - 172px )
         overflow: hidden
