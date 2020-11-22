@@ -176,7 +176,15 @@ export default {
         headerNotDot,
         inputNum
     },
-    
+    methods: {
+        init() {
+            // 订单参数值
+            let fullPath = eval("("+this.$store.getters.getOrderQuery+")");
+        },
+    },
+    mounted() {
+        this.init()
+    }
 }
 </script>
 <style lang="sass" scoped>

@@ -15,35 +15,26 @@
 </template>
 <script>
 import headerNotDot from "@components/headerNotDot";
+import { getAddress } from '@/service/getData';
+import { setStore } from '@/util/mUtils'
+
 export default {
     name: 'addressList',
     data() {
         return {
             title: '我的收货地址',
             chosenAddressId: '1',
-            list: [
-                {
-                id: '1',
-                name: '张三',
-                tel: '13000000000',
-                address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-                isDefault: true,
-                },
-                {
-                id: '2',
-                name: '李四',
-                tel: '1310000000',
-                address: '浙江省杭州市拱墅区莫干山路 50 号',
-                },
-            ],
+            list: [],
             disabledList: [
-                {
-                id: '3',
-                name: '王五',
-                tel: '1320000000',
-                address: '浙江省杭州市滨江区江南大道 15 号',
-                },
+                // {
+                // id: '3',
+                // name: '王五',
+                // tel: '1320000000',
+                // address: '浙江省杭州市滨江区江南大道 15 号',
+                // },
             ],
+            fullPath: {}
+            
         };
     },
     components: {
@@ -51,20 +42,33 @@ export default {
     },
     methods: {
         onAdd() {
-            this.$router.push({
+            this.$router.replace({
                 name: 'addressEdit',
                 params: {id: 0}
             })
         },
         onEdit(item, index) {
-            this.$router.push({
+            this.$router.replace({
                 name: 'addressEdit',
                 params: {id: item.id}
             })
         },
         onSelect(item, index) {
-            console.log('选中我了！！！');
+            let orderQuery = eval("("+this.$store.getters.getOrderQuery+")");
+            orderQuery.address_id = item.id
+            this.$store.commit('setOrderQuery', orderQuery);
+            this.$router.go(-1);
+        },
+        getAddressData() {
+            getAddress({
+
+            }).then((res) => {
+                this.list = res.data
+            })
         }
     },
+    mounted(){
+        this.getAddressData();
+    }
 };
 </script>

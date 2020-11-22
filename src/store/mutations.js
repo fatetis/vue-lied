@@ -10,5 +10,9 @@ export default {
         state.token = access_token
         setStore('tokenInfo', JSON.stringify(res))
         setStore('token', access_token) //同步存储token至localStorage
+    },
+    setOrderQuery(state, res) {
+        setStore('orderQuery', res)
+        state.orderQuery = JSON.stringify(res)
     }
 }

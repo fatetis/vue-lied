@@ -18,3 +18,13 @@ export const productDetail = (arr, id) => get('/v1/prod/detail/' + id, arr);
 export const productValidate = (arr) => post('/v1/product/validate', arr);
 // 产品列表
 export const productList = (arr) => post('/v1/product/list', arr);
+// 区域列表
+export const regionPca = (arr) => get('/v1/region/pca/get', arr);
+// 我的收货地址
+export const getAddress = (arr) => get('/v1/address/get', arr);
+// 获取一条收货地址
+export const findAddress = (arr) => get('/v1/address/find', arr);
+// 创建或者更新收货地址
+export const updateOrCreateAddress = (arr) => post('/v1/address/modify', arr);
+// 删除收货地址
+export const deleteAddress = (arr) => post('/v1/address/delete', arr);

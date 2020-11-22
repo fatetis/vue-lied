@@ -149,13 +149,11 @@ export default {
                 sku_id: this.skuId,
                 num: this.num
             }).then((res) => {
-                this.$router.push({
-                    name: 'order',
-                    query: {
-                        sku_id: this.skuId,
-                        num: this.num
-                    }
-                })
+                this.$store.commit('setOrderQuery', {
+                    sku_id: this.skuId,
+                    num: this.num
+                });
+                this.$router.push({name: 'order'})
             })
         }
     },

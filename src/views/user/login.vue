@@ -63,7 +63,6 @@
 import headerNotDot from '@components/headerNotDot'
 import { verifyCode, loginByMobile, loginByAccount } from "@/service/getData";
 import { NO } from "@/config/globalStatusCode"
-import { setStore } from '@/util/mUtils'
 export default {
     name: 'login',
     data () {

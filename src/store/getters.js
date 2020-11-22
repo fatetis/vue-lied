@@ -6,5 +6,11 @@ export default {
             state.token = getStore('token')
         }
         return state.token
+    },
+    getOrderQuery(state) {
+        if (!state.orderQuery) {
+            state.orderQuery = getStore('orderQuery')
+        }
+        return state.orderQuery
     }
 }

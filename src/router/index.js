@@ -54,10 +54,10 @@ Vue.use(VueRouter)
   {
     path: '/order',
     name: 'order',
-    component: orderIndex
+    component: orderIndex,
   },
   {
-    path: '/address/edit',
+    path: '/address/edit/:id',
     name: 'addressEdit',
     component: addressEdit
   },
