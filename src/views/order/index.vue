@@ -9,14 +9,14 @@
                             <router-link :to="{name: 'addressList'}">
                             <div class="address_detail">
                                 <div class="detail_content">
-                                    <p class="p1">广东省东莞市莞城区</p>
-                                    <p class="p2">愉景大厦3楼八块钱网愉景大厦3楼八块钱网愉景大厦3楼八块钱网</p>
+                                    <p class="p1">{{ addressData.pca }}</p>
+                                    <p class="p2">{{ addressData.addressDetail }}</p>
                                 </div>
                                 <div class="address_arrow"></div>
                             </div>
                             <div class="address_user">
-                                <p class="name">哈哈</p>
-                                <p class="tel">138****800</p>
+                                <p class="name">{{ addressData.name }}</p>
+                                <p class="tel">{{ addressData.tel }}</p>
                             </div>
                             </router-link>
                         </div>
@@ -42,10 +42,10 @@
                                                 
                                                 <div class="text clearfix">
                                                     <div class="img_wrap">
-                                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
+                                                        <img class="prod_thumb" :src="productData.picture" alt="图片加载失败">
                                                     </div>
                                                     <div class="right">
-                                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
+                                                        <div class="name">{{ productData.productName }}
                                                         </div>
                                                         <div class="sku_line_style sku_line">
                                                             <div class="sku sku_style">
@@ -55,12 +55,12 @@
                                                         <div class="price_line clearfix">
                                                             <div class="price">
                                                                 ¥<span>
-                                                                    <em>1355300</em>
-                                                                    .00
+                                                                    <em>{{ productData.productPrice.int }}</em>
+                                                                    .{{ productData.productPrice.point }}
                                                                     </span>
                                                             </div>
                                                             <div class="num_wrap">
-                                                                <input-num :min="1"></input-num>
+                                                                <input-num :value="num" :min="1" @change="handleChangeNum"></input-num>
                                                             </div>
                                                         </div>
                                                         <div class="order_detail_tip">
@@ -106,7 +106,7 @@
                                                     <p class="p1">商品总额</p>
                                                 </div>
                                                 <div class="title content">
-                                                    <p class="p1 small_size font_weight">￥36999</p>
+                                                    <p class="p1 small_size font_weight">￥{{ totalProductPrice }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -165,11 +165,27 @@
 <script>
 import headerNotDot from "@components/headerNotDot";
 import inputNum from "@views/cart/components/inputNum";
+import { productSkuDetail, findAddress } from '@/service/getData'
+
 export default {
     name: 'order',
     data() {
         return {
             title: '确认订单',
+            routeParam: {},
+            productData: {
+                picture: '',
+                productName: '',
+                productPrice: '',
+            },
+            addressData: {
+                name: '',
+                tel: '',
+                pca: '',
+                addressDetail: '',
+            },
+            totalProductPrice: '',
+            num: 1
         }
     },
     components: {
@@ -177,13 +193,50 @@ export default {
         inputNum
     },
     methods: {
+        getProductSkuDetail() {
+            productSkuDetail({
+                include: 'product'
+            }, this.routeParam.sku_id).then((res) => {
+                let data = res.data
+                this.productData.picture = data.media.data.link
+                this.productData.productName = data.product.data.name
+                this.productData.productPrice = data.product.data.price
+                this.calculatePrice()
+            })
+        },
+        findUserAddress() {
+            let address_id = this.routeParam.address_id
+            let condition = this.routeParam.address_id === undefined ? {is_default: 1} : {id : address_id}
+            findAddress(condition).then((res) => {
+                let data = res.data;
+                this.addressData.name = data.name
+                this.addressData.tel = data.tel
+                this.addressData.pca = data.province+'省' + data.city + data.county
+                this.addressData.addressDetail = data.addressDetail
+            })
+        },
+        handleChangeNum(num) {
+            this.num = num
+        },
+        calculatePrice() {
+            this.totalProductPrice = this.productData.productPrice.price*this.num
+            console.log(this.totalProductPrice)
+        },
         init() {
             // 订单参数值
-            let fullPath = eval("("+this.$store.getters.getOrderQuery+")");
+            this.routeParam = eval("("+this.$store.getters.getOrderQuery+")")
+            this.num = this.routeParam.num
         },
+    },
+    watch: {
+        num(){
+            this.calculatePrice();
+        }
     },
     mounted() {
         this.init()
+        this.getProductSkuDetail()
+        this.findUserAddress()
     }
 }
 </script>
@@ -320,7 +373,7 @@ export default {
                                             .text 
                                                 float: left
                                                 box-sizing: border-box
-                                                
+                                                width: 100%
                                                 .img_wrap
                                                     overflow: hidden
                                                     border-radius: 10px 

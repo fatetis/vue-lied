@@ -28,3 +28,5 @@ export const findAddress = (arr) => get('/v1/address/find', arr);
 export const updateOrCreateAddress = (arr) => post('/v1/address/modify', arr);
 // 删除收货地址
 export const deleteAddress = (arr) => post('/v1/address/delete', arr);
+// 获取产品sku的详情数据
+export const productSkuDetail = (arr, id) => get('/v1/prod/sku/' + id, arr);

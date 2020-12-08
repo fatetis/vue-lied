@@ -65,7 +65,9 @@ Vue.use(VueRouter)
     path: '/address/list',
     name: 'addressList',
     component: addressList
-  }
+  },
+
+
 
 ]
 
