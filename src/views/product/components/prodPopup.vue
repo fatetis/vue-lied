@@ -150,7 +150,7 @@ export default {
                 num: this.num
             }).then((res) => {
                 this.$store.commit('setOrderQuery', {
-                    sku_id: this.skuId,
+                    skuId: this.skuId,
                     num: this.num
                 });
                 this.$router.push({name: 'order'})

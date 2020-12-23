@@ -288,3 +288,63 @@ export const animate = (element, target, duration = 400, mode = 'ease-out', call
         })
     }, 20);
 }
+
+/**
+ * 保留两位小数点并向上取整
+ * @param num 原数字
+ * @param fix 保留的小数位数
+ * @param type type为1：向上 type为2：向下
+ * @returns {string}
+ */
+export const upFixed = (num, fix = 2, type = 1) =>  {
+    // num为原数字，fix是保留的小数位数
+    let result = '0'
+    if (Number(num) && fix > 0) { // 简单的做个判断
+        fix = +fix || 2
+        num = num + ''
+        if (/e/.test(num)) { // 如果是包含e字符的数字直接返回
+            result = num
+        } else if (!/\./.test(num)) { // 如果没有小数点
+            result = num + `.${Array(fix + 1).join('0')}`
+        } else { // 如果有小数点
+            num = num + `${Array(fix + 1).join('0')}`
+            let reg = new RegExp(`-?\\d*\\.\\d{0,${fix}}`)
+            let floorStr = reg.exec(num)[0]
+            if(type === 1) {
+                if (+floorStr >= +num) {
+                    result = floorStr
+                } else {
+                    let floorNumber = +floorStr + +`0.${Array(fix).join('0')}1`
+                    let point = /\./.test(floorNumber + '') ? '' : '.'
+                    let floorStr2 = floorNumber + point + `${Array(fix + 1).join('0')}`
+                    result = reg.exec(floorStr2)[0]
+                }
+            }else if(type === 2){
+                result = floorStr
+            }
+
+        }
+    }
+    return result
+}
+
+/**
+ * 检测图片是否存在
+ * @param url
+ */
+export const imageIsExist = function(url) {
+    return new Promise((resolve) => {
+        var img = new Image();
+        img.onload = function () {
+            if (this.complete == true){
+                resolve(true);
+                img = null;
+            }
+        }
+        img.onerror = function () {
+            resolve(false);
+            img = null;
+        }
+        img.src = url;
+    })
+}

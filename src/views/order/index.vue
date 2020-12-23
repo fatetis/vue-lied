@@ -32,7 +32,7 @@
                                             <div class="text clearfix">
                                                 <i class="icon_shop"></i>
                                                 <div class="name">
-                                                    篮网家居专营店
+                                                    {{ productData.brandName }}
                                                     <i class="icon_arrow_right"></i>
                                                 </div>
                                             </div>
@@ -49,7 +49,7 @@
                                                         </div>
                                                         <div class="sku_line_style sku_line">
                                                             <div class="sku sku_style">
-                                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
+                                                                <span class="sku_attr sku_attr_style">{{ productData.skuName }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="price_line clearfix">
@@ -132,7 +132,7 @@
                                             </div>
                                         </div>
                                         <div class="total_price">
-                                            总计：<span>￥55522.00</span>
+                                            总计：<span>￥{{ totalPrice }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -165,27 +165,40 @@
 <script>
 import headerNotDot from "@components/headerNotDot";
 import inputNum from "@views/cart/components/inputNum";
-import { productSkuDetail, findAddress } from '@/service/getData'
+import { upFixed } from "@/util/mUtils";
+import { productSkuDetail, findAddress, order } from '@/service/getData'
 
 export default {
     name: 'order',
     data() {
         return {
             title: '确认订单',
+            // 路由参数信息
             routeParam: {},
+            // 产品数据
             productData: {
                 picture: '',
                 productName: '',
                 productPrice: '',
+                brandName: '',
+                skuName: '',
             },
+            // 地址数据
             addressData: {
+                id: '',
                 name: '',
                 tel: '',
                 pca: '',
                 addressDetail: '',
             },
+            // 商品总价格
             totalProductPrice: '',
-            num: 1
+            // 订单总价格
+            totalPrice: '',
+            // 产品数量
+            num: 1,
+            // 产品skuid
+            skuId: '',
         }
     },
     components: {
@@ -193,40 +206,71 @@ export default {
         inputNum
     },
     methods: {
+        // 获取订单产品信息
         getProductSkuDetail() {
             productSkuDetail({
-                include: 'product'
-            }, this.routeParam.sku_id).then((res) => {
+                include: 'product,product.attrs,product.brand'
+            }, this.skuId).then((res) => {
                 let data = res.data
                 this.productData.picture = data.media.data.link
                 this.productData.productName = data.product.data.name
                 this.productData.productPrice = data.product.data.price
+                this.productData.brandName = data.product.data.brand.data.name
+                // 遍历查找sku名称
+                let attrData = data.product.data.attrs.data
+                let attrKey = data.attr_key
+                for(let i = 0; i < attrData.length; i++) {
+                    this.productData.skuName += '，' + attrData[i].attr.data.name + '：'
+                    for(let j = 0; j < attrData[i].values.data.length; j++) {
+                        let values_data = attrData[i].values.data[j];
+                        let keyIndex = attrKey.indexOf(values_data.product_attr_value_id)
+                        if(keyIndex !== -1) {
+                            this.productData.skuName += values_data.value.data.name
+                        }
+                    }
+                }
+                this.productData.skuName = this.productData.skuName.substr(1)
                 this.calculatePrice()
             })
         },
+        // 获取默认收货地址
         findUserAddress() {
-            let address_id = this.routeParam.address_id
-            let condition = this.routeParam.address_id === undefined ? {is_default: 1} : {id : address_id}
+            let condition = this.addressData.id === undefined ? {is_default: 1} : {id : this.addressData.id}
             findAddress(condition).then((res) => {
                 let data = res.data;
+                this.addressData.id = data.id
                 this.addressData.name = data.name
                 this.addressData.tel = data.tel
                 this.addressData.pca = data.province+'省' + data.city + data.county
                 this.addressData.addressDetail = data.addressDetail
             })
         },
+        // 修改产品数量
         handleChangeNum(num) {
             this.num = num
         },
+        // 计算价格
         calculatePrice() {
-            this.totalProductPrice = this.productData.productPrice.price*this.num
-            console.log(this.totalProductPrice)
+            this.totalProductPrice = upFixed(this.productData.productPrice.price*this.num)
+            this.totalPrice = this.totalProductPrice;
         },
+        // 初始化
         init() {
             // 订单参数值
             this.routeParam = eval("("+this.$store.getters.getOrderQuery+")")
             this.num = this.routeParam.num
+            this.skuId = this.routeParam.skuId
+            this.addressData.id = this.routeParam.addressId
         },
+        order() {
+            order({
+                sku_id: this.skuId,
+                num: this.num,
+                address_id: this.addressData.id,
+            }).then((res) => {
+                console.log(res)
+            })
+        }
     },
     watch: {
         num(){

@@ -4,122 +4,20 @@
         <div class="container" ref="cart_container">
             <div class="wrapper">
                 <div class="content">
+                    <div class="item" v-for="(item, index) of cartData" :key="index">
 
-                    <div class="item">
                         <div class="seller clearfix">
                             <i class="checkbox checkbox_seller"></i>
                             <div class="text clearfix">
                                 <i class="icon_shop"></i>
                                 <div class="name">
-                                    篮网家居专营店
+                                    {{ item.brandName }}
                                     <i class="icon_arrow_right"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="item">
-                        <div class="seller clearfix">
-                            <i class="checkbox checkbox_seller"></i>
-                            <div class="text clearfix">
-                                <i class="icon_shop"></i>
-                                <div class="name">
-                                    篮网家居专营店
-                                    <i class="icon_arrow_right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_product">
+                        <div class="item_product" v-for="(i, k) of item.product" :key="k">
                             <div class="product clearfix">
                                 <div class="checkbox_wrap">
                                     <input class="checkbox checkbox_product" type="text">
@@ -127,14 +25,14 @@
                                 
                                 <div class="text clearfix">
                                     <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
+                                        <img class="prod_thumb" :src="i.media" alt="图片加载失败">
                                     </div>
                                     <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
+                                        <div class="name">{{ i.name }}
                                         </div>
                                         <div class="sku_line_style sku_line">
                                             <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
+                                                <span class="sku_attr sku_attr_style">{{ i.skuName }}</span>
                                                 <span class="sku_service sku_service_style">，选服务</span>
                                             </div>
                                         </div>
@@ -149,12 +47,12 @@
                                         <div class="price_line clearfix">
                                             <div class="price">
                                                 ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
+                                                    <em>{{ i.price.int }}</em>
+                                                    .{{ i.price.point }}
                                                     </span>
                                             </div>
                                             <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
+                                                <input-num :min="1" :value="i.num"></input-num>
                                             </div>
                                         </div>
                                         <div class="action clearfix">
@@ -164,362 +62,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="item">
-                        <div class="seller clearfix">
-                            <i class="checkbox checkbox_seller"></i>
-                            <div class="text clearfix">
-                                <i class="icon_shop"></i>
-                                <div class="name">
-                                    篮网家居专营店
-                                    <i class="icon_arrow_right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-
-                    <div class="item">
-                        <div class="seller clearfix">
-                            <i class="checkbox checkbox_seller"></i>
-                            <div class="text clearfix">
-                                <i class="icon_shop"></i>
-                                <div class="name">
-                                    篮网家居专营店
-                                    <i class="icon_arrow_right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="seller clearfix">
-                            <i class="checkbox checkbox_seller"></i>
-                            <div class="text clearfix">
-                                <i class="icon_shop"></i>
-                                <div class="name">
-                                    篮网家居专营店
-                                    <i class="icon_arrow_right"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item_product">
-                            <div class="product clearfix">
-                                <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
-                                </div>
-                                
-                                <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" src="@assets/images/cart/thumb.jpg" alt="">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">鞋架家用入户进门口玄关超薄简约多功能收纳组合六层楠竹北欧鞋柜 7层-102cm【深蓝防尘帘】【2.0升级】
-                                        </div>
-                                        <div class="sku_line_style sku_line">
-                                            <div class="sku sku_style">
-                                                <span class="sku_attr sku_attr_style">7层-102cm【深蓝防尘帘】【2.0升级】</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
-                                            </div>
-                                        </div>
-                                        <div class="sku_line_style discount_line">
-                                            <div class="discount sku_style">
-                                                <div class="sku_attr_style discount_item">
-                                                满2件9折
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="price_line clearfix">
-                                            <div class="price">
-                                                ¥<span>
-                                                    <em>1355300</em>
-                                                    .00
-                                                    </span>
-                                            </div>
-                                            <div class="num_wrap">
-                                                <input-num :min="1"></input-num>
-                                            </div>
-                                        </div>
-                                        <div class="action clearfix">
-                                            <span class="item_action">删除</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -553,11 +97,14 @@ import Bscroll from "better-scroll";
 import headerDot from "@components/headerDot";
 import footerIndex from "@components/footerIndex";
 import inputNum from "@views/cart/components/inputNum";
+import { getCart } from '@/service/getData'
+
 export default {
     name: 'cart',
     data () {
         return {
-            title: '购物车'
+            title: '购物车',
+            cartData: {},
         }
     },
     components: {
@@ -565,12 +112,59 @@ export default {
         footerIndex,
         inputNum
     },
+    methods: {
+        getCart() {
+            var _this = this;
+            getCart({
+                include: 'sku,product,product.attrs,brand',
+            }).then((res) => {
+                let data = res.data
+                let result = {};
+                data.forEach(item => {
+                    let brandData = item.brand.data;
+                    let productData = item.product.data;
+                    let skuData = item.sku.data;
+                    result[brandData.id] = result[brandData.id] === undefined ? {} : result[brandData.id] 
+                    result[brandData.id]['brandId'] = brandData.id
+                    result[brandData.id]['brandName'] = brandData.name
+                    result[brandData.id]['product'] = result[brandData.id]['product'] === undefined 
+                    ? {} 
+                    : result[brandData.id]['product'] 
+                    result[brandData.id]['product'][skuData.id] = result[brandData.id]['product'][skuData.id] === undefined 
+                    ? {} 
+                    : result[brandData.id]['product'][skuData.id]
+                    result[brandData.id]['product'][skuData.id]['id'] = productData.id
+                    result[brandData.id]['product'][skuData.id]['skuId'] = skuData.id
+                    result[brandData.id]['product'][skuData.id]['name'] = productData.name
+                    result[brandData.id]['product'][skuData.id]['num'] = item.number
+                    result[brandData.id]['product'][skuData.id]['price'] = skuData.price
+                    result[brandData.id]['product'][skuData.id]['media'] = skuData.media.data.link
+                    result[brandData.id]['product'][skuData.id]['skuName'] = ''
+                    let attrData = productData.attrs.data
+                    let attrKey = skuData.attr_key
+                    for(let i = 0; i < attrData.length; i++) {
+                        result[brandData.id]['product'][skuData.id]['skuName'] += '，' + attrData[i].attr.data.name + '：'
+                        for(let j = 0; j < attrData[i].values.data.length; j++) {
+                            let values_data = attrData[i].values.data[j];
+                            let keyIndex = attrKey.indexOf(values_data.product_attr_value_id)
+                            if(keyIndex !== -1) {
+                                result[brandData.id]['product'][skuData.id]['skuName'] += values_data.value.data.name
+                            }
+                        }
+                    }
+                    result[brandData.id]['product'][skuData.id]['skuName'] = result[brandData.id]['product'][skuData.id]['skuName'].substr(1)
+                });
+                _this.cartData = result;
+            })
+        }
+    },
     mounted() {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.cart_container, {
                 scrollbar: true
             });
         });
+        this.getCart();
     }
 }
 </script>
