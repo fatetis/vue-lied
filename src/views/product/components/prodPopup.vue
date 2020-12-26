@@ -34,7 +34,7 @@
                                                 <span 
                                                 v-for="(v, k) of item.values.data" 
                                                 :key="k" 
-                                                :class="k === AttrHover[index] && 'hover'"
+                                                :class="k === attrHover[index] && 'hover'"
                                                 @click="handleAttrSelect(index,k)"
                                                 >
                                                 {{ v.value.data.name }}
@@ -60,7 +60,7 @@
                         
                         <div class="sku_footer">
                             <div class="sku_contaier ">
-                                <p class="p1 margin">加入购物车</p>
+                                <p class="p1 margin" @click="handleJoinCart">加入购物车</p>
                                 <p class="p2" @click="handleBuyValidate">立即购买</p>
                             </div>
                         </div>
@@ -74,19 +74,12 @@
 <script>
 import Bscroll from "better-scroll";
 import inputNum from "@views/cart/components/inputNum";
-import { productValidate } from '@/service/getData'
+import { productValidate, modifyCart } from '@/service/getData'
 export default {
     name: 'prodPopup',
     data () {
         return {
             skuSelected: '',
-            AttrHover: {
-                0: 0,
-                1: 0,
-                2: 0,
-                3: 0,
-                4: 0,
-            }, // 属性高亮数据
             skuDetailData: {
                 src: '', // 图片链接
                 quantity: '', // 库存
@@ -94,14 +87,18 @@ export default {
                 point: '', // 价格小数
                 desc: '', // 描述
             }, // sku详情数据
-            num: 1, // 购买数量
+            // num: 1, // 购买数量
             skuId: '' // skuid用于产品下单的凭证
         }
     },
     props: {
         skuData: Array,
         attrData: Array,
-        showPopup: Boolean
+        showPopup: Boolean,
+        // 属性高亮数据
+        attrHover: Object,
+        // 购买数量
+        num: Number 
     },
     components: {
         inputNum
@@ -116,11 +113,12 @@ export default {
             let implodeArr = '';
             let desc = '';
             for(let i = 0; i<arrDataLength; i++) {
-                arr.push(this.attrData[i].values.data[this.AttrHover[i]].product_attr_value_id)
-                desc += '"' + this.attrData[i].values.data[this.AttrHover[i]].value.data.name + '" ';
+                arr.push(this.attrData[i].values.data[this.attrHover[i]].product_attr_value_id)
+                desc += "，" + this.attrData[i].values.data[this.attrHover[i]].value.data.name;
             }
             arr.sort()
             implodeArr = arr.join('-')
+            desc = desc.substr(1)
             this.skuDetailData.desc = desc + '，' + this.num + '个';
             for(let i = 0; i < this.skuData.length; i++) {
                 let skuDataObj = this.skuData[i];
@@ -133,15 +131,15 @@ export default {
                 }
             }
         },
-        handleAttrSelect(index, key) {
-            this.AttrHover[index] = key;
+        async handleAttrSelect(index, key) {
+            await this.$emit('handleAttrSelect', index, key)
             this.handleAttrSelectedShowSkuPrice();
         },
         handleShowPopup() {
             this.$emit('change', !this.showPopup)
         },
-        handleChangeNum(num) {
-            this.num = num
+        async handleChangeNum(num) {
+            await this.$emit('handleChangeNum', num)
             this.handleAttrSelectedShowSkuPrice();
         },
         handleBuyValidate() {
@@ -149,13 +147,30 @@ export default {
                 sku_id: this.skuId,
                 num: this.num
             }).then((res) => {
+                let data = {};
+                data[this.skuId] = this.num
                 this.$store.commit('setOrderQuery', {
-                    skuId: this.skuId,
-                    num: this.num
+                    skuIds: data
                 });
                 this.$router.push({name: 'order'})
             })
-        }
+        },
+        async handleJoinCart() {
+            // var formData = new FormData();
+            // formData.append("type", "create");
+            // formData.append("sku_id["+this.skuId+"]", 123);
+            // formData.append("sku_id[10]", 10);
+            // await modifyCart(formData)
+            // console.log(12, this.skuId);return false;
+            await modifyCart({
+                type: 'create',
+                sku_id: this.skuId,
+                num: this.num,
+                is_selected: 1
+            })
+            this.handleShowPopup()
+            this.$toast.success('加入购物车成功')
+        },
     },
     watch: {
         showPopup() {

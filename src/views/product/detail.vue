@@ -48,14 +48,14 @@
                     <!-- sku描述 -->
                      <div class="bg_wrap border_wrap">
                          <div class="content padding_container">
-                            <div class="item clearfix">
+                            <div class="item clearfix" @click="handleShowPopup(!showPopup)">
                                 <div class="float st">
                                     <p>已选</p>
                                 </div>
                                 <div class="float mt">
                                     <div class="text">
-                                        <p class="p1">7层-102cm【深蓝防尘帘】【2.0升级】，1个</p>
-                                        <p class="p2">本商品支持保障服务，点击可选服务</p>
+                                        <p class="p1">{{ this.skuName }}</p>
+                                        <!-- <p class="p2">本商品支持保障服务，点击可选服务</p> -->
                                     </div>
                                 </div>
                                 <div class="float lt">
@@ -161,7 +161,7 @@
         </div>
         <prod-footer :showPopup="showPopup" @change="handleShowPopup" :zindex="zindex"></prod-footer>
         <transition name="fade">
-            <prod-popup  @change="handleShowPopup" v-show="showPopup" :showPopup="showPopup" :skuData="skuData" :attrData="attrData"></prod-popup>
+            <prod-popup  @change="handleShowPopup" @handleChangeNum="handleChangeNum" @handleAttrSelect="handleAttrSelect" v-show="showPopup" :showPopup="showPopup" :skuData="skuData" :attrData="attrData" :attrHover="attrHover" :num="num"></prod-popup>
         </transition>
     </div>
 </template>
@@ -185,6 +185,9 @@ export default {
             brandData: [],
             attrData: [],
             skuData: [],
+            attrHover: {},
+            skuName: '',
+            num: 1,
         }
     },
     components: {
@@ -195,16 +198,19 @@ export default {
         prodPopup
     },
     methods: {
-        getProductData () {
-            productDetail({
+        async getProductData () {
+            let res = await productDetail({
                 include: 'attrs,skus,medias,brand'
-            }, this.$route.params.id).then((res) => {
-                this.bannerData = res.data.medias.data
-                this.productData = res.data
-                this.brandData = res.data.brand.data
-                this.attrData = res.data.attrs.data
-                this.skuData = res.data.skus.data
-            })
+            }, this.$route.params.id)
+            this.bannerData = res.data.medias.data
+            this.productData = res.data
+            this.brandData = res.data.brand.data
+            this.attrData = res.data.attrs.data
+            this.skuData = res.data.skus.data
+            for (let key in this.attrData) {
+                this.attrHover[key] = 0;
+            }
+            this.skuNameChange()
         },
         handleShowPopup (bool) {
             this.showPopup = bool
@@ -215,7 +221,23 @@ export default {
             }else{
                 this.zindex = !bool
             }
-            
+        },
+        handleChangeNum (num) {
+            this.num = Number(num)
+            this.skuNameChange()
+        },
+        handleAttrSelect(index, key) {
+            this.attrHover[index] = key;
+            this.skuNameChange()
+        },
+        skuNameChange() {
+            let desc = '';
+            let arrDataLength = this.attrData.length
+            for(let i = 0; i<arrDataLength; i++) {
+                desc += "，" + this.attrData[i].values.data[this.attrHover[i]].value.data.name;
+            }
+            desc = desc.substr(1)
+            this.skuName = desc + '，' + this.num + '个';
         }
     },
     mounted() {

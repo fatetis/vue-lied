@@ -26,41 +26,40 @@
                         <div class="order_container">
                             <div class="order_wapper">
                                 <div class="order_content">
-                                    <div class="item">
+                                    <div class="item" v-for="(item, index) of productData" :key="index">
                                         <div class="seller clearfix">
                                             <i class="checkbox checkbox_seller"></i>
                                             <div class="text clearfix">
                                                 <i class="icon_shop"></i>
-                                                <div class="name">
-                                                    {{ productData.brandName }}
+                                                <div class="name">{{ item.brandName }}
                                                     <i class="icon_arrow_right"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="item_product">
+
+                                        <div class="item_product" v-for="(i, k) of item.product" :key="k">
                                             <div class="product clearfix">
-                                                
                                                 <div class="text clearfix">
                                                     <div class="img_wrap">
-                                                        <img class="prod_thumb" :src="productData.picture" alt="图片加载失败">
+                                                        <img class="prod_thumb" :src="i.picture" alt="图片加载失败">
                                                     </div>
                                                     <div class="right">
-                                                        <div class="name">{{ productData.productName }}
+                                                        <div class="name">{{ i.productName }}
                                                         </div>
                                                         <div class="sku_line_style sku_line">
                                                             <div class="sku sku_style">
-                                                                <span class="sku_attr sku_attr_style">{{ productData.skuName }}</span>
+                                                                <span class="sku_attr sku_attr_style">{{ i.skuName }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="price_line clearfix">
                                                             <div class="price">
                                                                 ¥<span>
-                                                                    <em>{{ productData.productPrice.int }}</em>
-                                                                    .{{ productData.productPrice.point }}
+                                                                    <em>{{ i.productPrice.int }}</em>
+                                                                    .{{ i.productPrice.point }}
                                                                     </span>
                                                             </div>
                                                             <div class="num_wrap">
-                                                                <input-num :value="num" :min="1" @change="handleChangeNum"></input-num>
+                                                                <input-num :value="skuIds[k]" :min="1" @change="handleChangeNum" :unique="k"></input-num>
                                                             </div>
                                                         </div>
                                                         <div class="order_detail_tip">
@@ -76,7 +75,9 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
+                                    
                                     <div class="shipping">
                                         <div class="shipping_content clearfix">
                                             <div class="title">
@@ -106,7 +107,7 @@
                                                     <p class="p1">商品总额</p>
                                                 </div>
                                                 <div class="title content">
-                                                    <p class="p1 small_size font_weight">￥{{ totalProductPrice }}</p>
+                                                    <p class="p1 small_size font_weight">￥{{ totalData.totalProductPrice }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +133,7 @@
                                             </div>
                                         </div>
                                         <div class="total_price">
-                                            总计：<span>￥{{ totalPrice }}</span>
+                                            总计：<span>￥{{ totalData.totalPrice }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -165,8 +166,8 @@
 <script>
 import headerNotDot from "@components/headerNotDot";
 import inputNum from "@views/cart/components/inputNum";
-import { upFixed } from "@/util/mUtils";
-import { productSkuDetail, findAddress, order } from '@/service/getData'
+import { upFixed, isValueNumber } from "@/util/mUtils";
+import { getProductSkuDetail, findAddress, order } from '@/service/getData'
 
 export default {
     name: 'order',
@@ -177,11 +178,11 @@ export default {
             routeParam: {},
             // 产品数据
             productData: {
-                picture: '',
-                productName: '',
-                productPrice: '',
-                brandName: '',
-                skuName: '',
+                // picture: '',
+                // productName: '',
+                // productPrice: '',
+                // brandName: '',
+                // skuName: '',
             },
             // 地址数据
             addressData: {
@@ -195,10 +196,7 @@ export default {
             totalProductPrice: '',
             // 订单总价格
             totalPrice: '',
-            // 产品数量
-            num: 1,
-            // 产品skuid
-            skuId: '',
+            skuIds: {},
         }
     },
     components: {
@@ -208,30 +206,44 @@ export default {
     methods: {
         // 获取订单产品信息
         getProductSkuDetail() {
-            productSkuDetail({
-                include: 'product,product.attrs,product.brand'
-            }, this.skuId).then((res) => {
+            let _this = this
+            let ids_arr = Object.keys(_this.skuIds);
+            let formData = {}
+            ids_arr.forEach((item,keys) => {
+                formData['ids[' + keys + ']'] = item
+            })
+            formData['include'] = 'product,product.attrs,product.brand'
+            getProductSkuDetail(formData).then(function(res) {
                 let data = res.data
-                this.productData.picture = data.media.data.link
-                this.productData.productName = data.product.data.name
-                this.productData.productPrice = data.product.data.price
-                this.productData.brandName = data.product.data.brand.data.name
-                // 遍历查找sku名称
-                let attrData = data.product.data.attrs.data
-                let attrKey = data.attr_key
-                for(let i = 0; i < attrData.length; i++) {
-                    this.productData.skuName += '，' + attrData[i].attr.data.name + '：'
-                    for(let j = 0; j < attrData[i].values.data.length; j++) {
-                        let values_data = attrData[i].values.data[j];
-                        let keyIndex = attrKey.indexOf(values_data.product_attr_value_id)
-                        if(keyIndex !== -1) {
-                            this.productData.skuName += values_data.value.data.name
+                let result = {}
+                data.forEach((item,index) => {
+                    let brandId = item.product.data.brand.data.id
+                    result[brandId] = result[brandId] === undefined ? {} : result[brandId]
+                    result[brandId]['brandName'] = item.product.data.brand.data.name
+                    result[brandId]['product'] = result[brandId]['product'] === undefined ? {} : result[brandId]['product']
+                    result[brandId]['product'][item.id] = result[brandId]['product'][item.id] === undefined ? {} : result[brandId]['product'][item.id]
+                    result[brandId]['product'][item.id]['picture'] = item.media.data.link
+                    result[brandId]['product'][item.id]['productName'] = item.product.data.name
+                    result[brandId]['product'][item.id]['productPrice'] = item.product.data.price
+                    result[brandId]['product'][item.id]['brandName'] = item.product.data.brand.data.name
+                    // 遍历查找sku名称
+                    let attrData = item.product.data.attrs.data
+                    let attrKey = item.attr_key.split('-')
+                    result[brandId]['product'][item.id]['skuName'] = '';
+                    for(let i = 0; i < attrData.length; i++) {
+                        for(let j = 0; j < attrData[i].values.data.length; j++) {
+                            let values_data = attrData[i].values.data[j];
+                            let keyIndex = String(values_data.product_attr_value_id)
+                            if(attrKey.includes(keyIndex)) {
+                                result[brandId]['product'][item.id]['skuName'] += '，' + values_data.value.data.name
+                            }
                         }
                     }
-                }
-                this.productData.skuName = this.productData.skuName.substr(1)
-                this.calculatePrice()
-            })
+                    result[brandId]['product'][item.id]['skuName'] = result[brandId]['product'][item.id]['skuName'].substr(1)
+                })
+                _this.productData = result
+            });
+            
         },
         // 获取默认收货地址
         findUserAddress() {
@@ -246,8 +258,8 @@ export default {
             })
         },
         // 修改产品数量
-        handleChangeNum(num) {
-            this.num = num
+        handleChangeNum(num, unique) {
+            this.skuIds[unique] = num
         },
         // 计算价格
         calculatePrice() {
@@ -258,9 +270,10 @@ export default {
         init() {
             // 订单参数值
             this.routeParam = eval("("+this.$store.getters.getOrderQuery+")")
-            this.num = this.routeParam.num
-            this.skuId = this.routeParam.skuId
+            this.skuIds = this.routeParam.skuIds
             this.addressData.id = this.routeParam.addressId
+            this.getProductSkuDetail()
+            this.findUserAddress()
         },
         order() {
             order({
@@ -272,15 +285,26 @@ export default {
             })
         }
     },
-    watch: {
-        num(){
-            this.calculatePrice();
+    computed: {
+        totalData() {
+            let totalPrice = 0;
+            let totalProductPrice = 0;
+            for(let key in this.skuIds) {
+                for(let k in this.productData) {
+                    if(this.productData[k].product[key] !== undefined) {
+                        totalProductPrice += Number(this.productData[k].product[key].productPrice.price)
+                    }
+                }
+            }
+            return {
+                totalProductPrice: upFixed(totalProductPrice),
+                totalPrice: upFixed(totalProductPrice)
+            };
+            
         }
     },
     mounted() {
-        this.init()
-        this.getProductSkuDetail()
-        this.findUserAddress()
+        this.init()     
     }
 }
 </script>

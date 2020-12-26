@@ -30,7 +30,13 @@ export const updateOrCreateAddress = (arr) => post('/v1/address/modify', arr);
 export const deleteAddress = (arr) => post('/v1/address/delete', arr);
 // 获取产品sku的详情数据
 export const productSkuDetail = (arr, id) => get('/v1/prod/sku/' + id, arr);
+// 获取多条产品sku的详情数据
+export const getProductSkuDetail = (arr) => get('/v1/prod/sku/get', arr);
 // 购买产品下单
 export const order = (arr) => post('/v1/order', arr);
 // 获取我的购物车数据
 export const getCart = (arr) => get('/v1/cart/get', arr);
+// 创建或者更新我的购物车数据
+export const modifyCart = (arr) => post('/v1/cart/modify', arr);
+// 删除我的购物车数据
+export const deleteCart = (arr) => post('/v1/cart/delete', arr);

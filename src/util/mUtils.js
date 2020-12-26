@@ -348,3 +348,10 @@ export const imageIsExist = function(url) {
         img.src = url;
     })
 }
+
+export const isValueNumber = (val) => {
+    var numReg = /^[0-9]*$/
+    var numRe = new RegExp(numReg)
+    if(numRe.test(val)) return true
+    return false
+} 

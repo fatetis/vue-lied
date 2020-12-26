@@ -25,8 +25,10 @@
                         <span class="text">分类搜索</span>
                     </li>
                     <li>
-                        <span class="show_img not_icon3"></span>
-                        <span class="text">购物车</span>
+                        <router-link :to="{name: 'cart'}">
+                            <span class="show_img not_icon3"></span>
+                            <span class="text">购物车</span>
+                        </router-link>
                     </li>
                     <li>
                         <span class="show_img not_icon4"></span>

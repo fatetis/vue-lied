@@ -13,8 +13,10 @@
                             店铺
                         </div>
                         <div class="icon">
-                            <p class="cart"></p>
-                            购物车
+                            <router-link :to="{name: 'cart'}">
+                                <p class="cart"></p>
+                                购物车
+                            </router-link>
                         </div>
                     </div>
                 </div>

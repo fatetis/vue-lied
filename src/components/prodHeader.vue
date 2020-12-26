@@ -47,6 +47,6 @@ export default {
                 line-height: 60px
                 text-align: center
                 span
-                    margin-left: 15px
+                    margin-left: 10px
                     @include borderArrow(left, 20px, $fc)
 </style>

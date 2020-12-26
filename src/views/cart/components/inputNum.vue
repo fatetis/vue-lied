@@ -6,6 +6,7 @@
     </div>
 </template>
 <script>
+import { isValueNumber } from "@/util/mUtils";
 export default {
     name: 'inputNum',
     props: {
@@ -26,6 +27,8 @@ export default {
         step: {
             type: Number,
             default: 1
+        },
+        unique: {
         }
     },
     //data是本组件的数据，作用域是组件本身
@@ -44,7 +47,8 @@ export default {
             //this指向当前组件实例
             this.$emit('input', val);
             //定义自定义函数进行通信
-            this.$emit('change', val)
+            this.unique === undefined ? this.$emit('change', val) : this.$emit('change', val, this.unique)
+            
         },
         //监听父组件value是否改变
         value: function(val) {
@@ -92,6 +96,7 @@ export default {
                 event.target.value = this.currentValue;
             }
         },
+        
     },
     //初始化
     mounted: function() {

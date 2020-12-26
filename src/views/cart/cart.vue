@@ -7,7 +7,7 @@
                     <div class="item" v-for="(item, index) of cartData" :key="index">
 
                         <div class="seller clearfix">
-                            <i class="checkbox checkbox_seller"></i>
+                            <i class="checkbox checkbox_seller" :class="{checkbox_selected: selectedBrandShow[index]}" @click="handleBrandSelected(item.brandId)" :data-brandid="item.brandId"></i>
                             <div class="text clearfix">
                                 <i class="icon_shop"></i>
                                 <div class="name">
@@ -20,7 +20,7 @@
                         <div class="item_product" v-for="(i, k) of item.product" :key="k">
                             <div class="product clearfix">
                                 <div class="checkbox_wrap">
-                                    <input class="checkbox checkbox_product" type="text">
+                                    <input readonly type="text"  class="checkbox checkbox_product" :class="{checkbox_selected: selectedRange.includes(i.skuId)}" @click="handleSelected(item.brandId, i.skuId)" :data-price="i.price.int" :data-num="i.num">
                                 </div>
                                 
                                 <div class="text clearfix">
@@ -33,7 +33,7 @@
                                         <div class="sku_line_style sku_line">
                                             <div class="sku sku_style">
                                                 <span class="sku_attr sku_attr_style">{{ i.skuName }}</span>
-                                                <span class="sku_service sku_service_style">，选服务</span>
+                                                <!-- <span class="sku_service sku_service_style">，选服务</span> -->
                                             </div>
                                         </div>
                                         <div class="sku_line_style discount_line">
@@ -52,11 +52,11 @@
                                                     </span>
                                             </div>
                                             <div class="num_wrap">
-                                                <input-num :min="1" :value="i.num"></input-num>
+                                                <input-num :min="1" :value="i.num" @change="handleChangeNum" :unique='i.skuId'></input-num>
                                             </div>
                                         </div>
                                         <div class="action clearfix">
-                                            <span class="item_action">删除</span>
+                                            <span class="item_action" @click="handleDeleteCart" :data-cartid="i.id" :data-skuid="i.skuId" :data-brandid="item.brandId">删除</span>
                                         </div>
                                     </div>
                                 </div>
@@ -72,18 +72,18 @@
                 <div class="wrapper">
                     <div class="content clearfix">
                         <div class="total_checkbox">
-                            <i class="checkbox checkbox_total"></i>
+                            <i class="checkbox checkbox_total" :class="{checkbox_selected: selectedTotalShow}" @click="handleTotalSelected"></i>
                             全选
                         </div>
                         <div class="text clearfix">
                             <div class="price clearfix">
                                 <p class="p1">
                                     总计:
-                                    <span>¥12525.00</span>
+                                    <span>¥{{ totalData.totalPrice }}</span>
                                 </p>
                                 <p class="p2">已优惠¥1232.00</p>
                             </div>
-                            <button class="settlement">已结算(<em>2</em>件)</button>
+                            <button class="settlement">去结算(<em>{{ totalData.totalNum }}</em>件)</button>
                         </div>
                     </div>
                 </div>
@@ -97,14 +97,19 @@ import Bscroll from "better-scroll";
 import headerDot from "@components/headerDot";
 import footerIndex from "@components/footerIndex";
 import inputNum from "@views/cart/components/inputNum";
-import { getCart } from '@/service/getData'
-
+import { getCart, modifyCart, deleteCart } from '@/service/getData'
+import { upFixed } from "@/util/mUtils";
 export default {
     name: 'cart',
     data () {
         return {
             title: '购物车',
             cartData: {},
+            selectedRange: [],
+            selectedBrandlength: {},
+            selectedBrandShow: {},
+            selectedTotalShow: false,
+            formdata: {}
         }
     },
     components: {
@@ -113,49 +118,149 @@ export default {
         inputNum
     },
     methods: {
-        getCart() {
-            var _this = this;
-            getCart({
+        async getCart() {
+            let res = await getCart({
                 include: 'sku,product,product.attrs,brand',
-            }).then((res) => {
-                let data = res.data
-                let result = {};
-                data.forEach(item => {
-                    let brandData = item.brand.data;
-                    let productData = item.product.data;
-                    let skuData = item.sku.data;
-                    result[brandData.id] = result[brandData.id] === undefined ? {} : result[brandData.id] 
-                    result[brandData.id]['brandId'] = brandData.id
-                    result[brandData.id]['brandName'] = brandData.name
-                    result[brandData.id]['product'] = result[brandData.id]['product'] === undefined 
-                    ? {} 
-                    : result[brandData.id]['product'] 
-                    result[brandData.id]['product'][skuData.id] = result[brandData.id]['product'][skuData.id] === undefined 
-                    ? {} 
-                    : result[brandData.id]['product'][skuData.id]
-                    result[brandData.id]['product'][skuData.id]['id'] = productData.id
-                    result[brandData.id]['product'][skuData.id]['skuId'] = skuData.id
-                    result[brandData.id]['product'][skuData.id]['name'] = productData.name
-                    result[brandData.id]['product'][skuData.id]['num'] = item.number
-                    result[brandData.id]['product'][skuData.id]['price'] = skuData.price
-                    result[brandData.id]['product'][skuData.id]['media'] = skuData.media.data.link
-                    result[brandData.id]['product'][skuData.id]['skuName'] = ''
-                    let attrData = productData.attrs.data
-                    let attrKey = skuData.attr_key
-                    for(let i = 0; i < attrData.length; i++) {
-                        result[brandData.id]['product'][skuData.id]['skuName'] += '，' + attrData[i].attr.data.name + '：'
-                        for(let j = 0; j < attrData[i].values.data.length; j++) {
-                            let values_data = attrData[i].values.data[j];
-                            let keyIndex = attrKey.indexOf(values_data.product_attr_value_id)
-                            if(keyIndex !== -1) {
-                                result[brandData.id]['product'][skuData.id]['skuName'] += values_data.value.data.name
-                            }
+            });
+            let data = res.data
+            let result = {};
+            data.forEach(item => {
+                let brandData = item.brand.data;
+                let productData = item.product.data;
+                let skuData = item.sku.data;
+                result[brandData.id] = result[brandData.id] === undefined ? {} : result[brandData.id] 
+                result[brandData.id]['brandId'] = brandData.id
+                result[brandData.id]['brandName'] = brandData.name
+                result[brandData.id]['product'] = result[brandData.id]['product'] === undefined 
+                ? {} 
+                : result[brandData.id]['product'] 
+                result[brandData.id]['product'][skuData.id] = result[brandData.id]['product'][skuData.id] === undefined 
+                ? {} 
+                : result[brandData.id]['product'][skuData.id]
+                result[brandData.id]['product'][skuData.id]['id'] = item.id
+                result[brandData.id]['product'][skuData.id]['productId'] = productData.id
+                result[brandData.id]['product'][skuData.id]['skuId'] = skuData.id
+                result[brandData.id]['product'][skuData.id]['name'] = productData.name
+                result[brandData.id]['product'][skuData.id]['num'] = item.number
+                result[brandData.id]['product'][skuData.id]['price'] = skuData.price
+                result[brandData.id]['product'][skuData.id]['media'] = skuData.media.data.link
+                result[brandData.id]['product'][skuData.id]['is_selected'] = item.is_selected
+                result[brandData.id]['product'][skuData.id]['skuName'] = ''
+                let attrData = productData.attrs.data
+                let attrKey = skuData.attr_key
+                for(let i = 0; i < attrData.length; i++) {
+                    for(let j = 0; j < attrData[i].values.data.length; j++) {
+                        let values_data = attrData[i].values.data[j];
+                        let keyIndex = attrKey.indexOf(values_data.product_attr_value_id)
+                        if(keyIndex !== -1) {
+                            result[brandData.id]['product'][skuData.id]['skuName'] += '，' + values_data.value.data.name
                         }
                     }
-                    result[brandData.id]['product'][skuData.id]['skuName'] = result[brandData.id]['product'][skuData.id]['skuName'].substr(1)
-                });
-                _this.cartData = result;
+                }
+                result[brandData.id]['product'][skuData.id]['skuName'] = result[brandData.id]['product'][skuData.id]['skuName'].substr(1)
+            });
+            this.cartData = result;
+        },
+        // 购物车删除
+        async handleDeleteCart(e) {
+            let cartid = e.currentTarget.dataset.cartid
+            let skuid = e.currentTarget.dataset.skuid
+            let brandid = e.currentTarget.dataset.brandid
+            let _this = this
+            let res = await deleteCart({
+                id: cartid
             })
+            // 删除对象里购物车的属性
+            _this.$delete(_this.cartData[brandid].product, skuid)
+            // 删除选中的对象
+            _this.handleSelected(brandid, Number(skuid), true, false)
+            // 一个商家里若无其他商品则将商家信息一并清除了
+            if(Object.keys(_this.cartData[brandid].product).length <= 0) {
+                _this.$delete(_this.cartData, brandid)
+            }
+        },
+        async handleChangeNum(num, skuId) {
+            // 改变购物车数据的num值
+            for(let key in this.cartData) {
+                if(this.cartData[key].product[skuId] !== undefined) 
+                this.cartData[key].product[skuId].num = num
+            }
+            await modifyCart({
+                sku_id: skuId,
+                num : num
+            })
+        },
+        /**
+         * 产品input框
+         * splice 控制是否全选和反选的问题
+         * sendAxios 控制是否发axios请求
+         */
+        async handleSelected(brandid, skuid, splice = true, sendAxios = true) {
+            let checkSelectIndex = this.selectedRange.indexOf(skuid)
+            let is_selected = 0
+            // 控制当前框是否被选中
+            if(checkSelectIndex < 0){
+                this.selectedRange.push(skuid)
+                this.selectedBrandlength[brandid] = this.selectedBrandlength[brandid] === undefined 
+                    ? 0 
+                    : this.selectedBrandlength[brandid]
+                this.selectedBrandlength[brandid]++
+                is_selected = 1
+            } else if(splice) {
+                this.selectedRange.splice(checkSelectIndex, 1)
+                this.selectedBrandlength[brandid]--
+            }
+            // 获取一个商家下所有的产品数量
+            let sellerCheckBoxLength = Object.keys(this.cartData[brandid].product).length
+            // 获取所有的产品数量
+            let totalCheckBoxLength = 0;
+            for(let key in this.cartData) {
+                totalCheckBoxLength += Object.keys(this.cartData[key].product).length
+            }
+            // 获取产品选中的数量
+            let selectedCheckBoxLength = this.selectedRange.length;
+            // 获取一个商家下产品选中的数量
+            let selectedSellerCheckBoxLength = this.selectedBrandlength[brandid]
+            // 控制该商家input框是否被选中
+            this.selectedBrandShow[brandid] = selectedSellerCheckBoxLength === 0 
+            ? false 
+            : (sellerCheckBoxLength === selectedSellerCheckBoxLength ? true : false )
+            // 控制全选框是否被选中
+            this.selectedTotalShow = selectedCheckBoxLength === 0 
+            ? false 
+            : (selectedCheckBoxLength === totalCheckBoxLength ? true : false)
+            if(sendAxios === true) 
+            await modifyCart({
+                sku_id: skuid,
+                is_selected: splice === false ? 1 : is_selected
+            })
+        },
+        // 商家input框
+        handleBrandSelected(brandid) {
+            let skuids = Object.keys(this.cartData[brandid].product)
+            let show = this.selectedBrandShow[brandid] === undefined ? false : this.selectedBrandShow[brandid]
+            skuids.forEach(item => {
+                this.handleSelected(brandid, Number(item), show)
+            })
+        },
+        // 全选框
+        handleTotalSelected() {
+            let show = this.selectedTotalShow
+            for(let key in this.cartData) {
+                for (let k in this.cartData[key].product) {
+                    this.handleSelected(key, Number(k), show)
+                }
+            }
+        },
+        async init() {
+            await this.getCart();
+            for(let key in this.cartData) {
+                for (let k in this.cartData[key].product) {
+                    if(this.cartData[key].product[k].is_selected == 1) {
+                        this.handleSelected(key, Number(k), true, false)
+                    }
+                }
+            }
         }
     },
     mounted() {
@@ -163,8 +268,24 @@ export default {
             this.scroll = new Bscroll(this.$refs.cart_container, {
                 scrollbar: true
             });
+            this.init()
         });
-        this.getCart();
+    },
+    computed: {
+        totalData: function() {
+            let total = 0;
+            let num = 0;
+            this.selectedRange.forEach(item => {
+                for(let key in this.cartData) {
+                    if(this.cartData[key].product[item] !== undefined) {
+                        total += this.cartData[key].product[item].price.price * this.cartData[key].product[item].num
+                        num += this.cartData[key].product[item].num
+                    }
+                }
+            })
+            if(total === 0) return {totalPrice: '0.00', totalNum: num}
+            return {totalPrice: total, totalNum: num}
+        }
     }
 }
 </script>
@@ -175,6 +296,12 @@ export default {
     width: 36px
     height: 36px
     @include bis('../../assets/images/icon/cart_checkbox.png') 
+.checkbox_selected
+    float: left
+    display: inline-block
+    width: 36px
+    height: 36px
+    @include bis('../../assets/images/icon/cart_checkbox_selected_red.png') 
 .cart
     background-color: #f2f2f2
     .container
@@ -269,7 +396,8 @@ export default {
                                             .sku_attr_style
                                                 display: inline-block
                                                 @include overwrap()
-                                                max-width: calc( 100% - 96px )
+                                                // max-width: calc( 100% - 96px )
+                                                max-width: calc( 100% - 0px )
                                                 vertical-align: top
                                             .sku_service_style
                                                 display: inline-block
