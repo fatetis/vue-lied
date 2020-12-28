@@ -5,7 +5,7 @@
             <div class="wrapper">
                 <div class="content">
                     <div class="item" v-for="(item, index) of cartData" :key="index">
-
+                        <!-- 商家模块 -->
                         <div class="seller clearfix">
                             <i class="checkbox checkbox_seller" :class="{checkbox_selected: selectedBrandShow[index]}" @click="handleBrandSelected(item.brandId)" :data-brandid="item.brandId"></i>
                             <div class="text clearfix">
@@ -83,7 +83,7 @@
                                 </p>
                                 <p class="p2">已优惠¥1232.00</p>
                             </div>
-                            <button class="settlement">去结算(<em>{{ totalData.totalNum }}</em>件)</button>
+                            <button class="settlement" @click="handleBuyValidate">去结算(<em>{{ totalData.totalNum }}</em>件)</button>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ import Bscroll from "better-scroll";
 import headerDot from "@components/headerDot";
 import footerIndex from "@components/footerIndex";
 import inputNum from "@views/cart/components/inputNum";
-import { getCart, modifyCart, deleteCart } from '@/service/getData'
+import { getCart, modifyCart, deleteCart, productValidate } from '@/service/getData'
 import { upFixed } from "@/util/mUtils";
 export default {
     name: 'cart',
@@ -109,7 +109,8 @@ export default {
             selectedBrandlength: {},
             selectedBrandShow: {},
             selectedTotalShow: false,
-            formdata: {}
+            skuIds: {},
+            cartIds: [],
         }
     },
     components: {
@@ -252,6 +253,20 @@ export default {
                 }
             }
         },
+        // 下单操作
+        handleBuyValidate() {
+            let param = new FormData();
+            for(let key in this.skuIds){
+                param.append('sku_id[' + key + ']', this.skuIds[key])
+            }
+            productValidate(param).then((res) => {
+                this.$store.commit('setOrderQuery', {
+                    skuIds: this.skuIds,
+                    cartIds: this.cartIds,
+                });
+                this.$router.push({name: 'order'})
+            })
+        },
         async init() {
             await this.getCart();
             for(let key in this.cartData) {
@@ -268,8 +283,8 @@ export default {
             this.scroll = new Bscroll(this.$refs.cart_container, {
                 scrollbar: true
             });
-            this.init()
         });
+        this.init()
     },
     computed: {
         totalData: function() {
@@ -280,6 +295,8 @@ export default {
                     if(this.cartData[key].product[item] !== undefined) {
                         total += this.cartData[key].product[item].price.price * this.cartData[key].product[item].num
                         num += this.cartData[key].product[item].num
+                        this.skuIds[item] = this.cartData[key].product[item].num
+                        this.cartIds.push(this.cartData[key].product[item].id)
                     }
                 }
             })

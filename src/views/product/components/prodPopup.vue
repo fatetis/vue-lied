@@ -156,12 +156,6 @@ export default {
             })
         },
         async handleJoinCart() {
-            // var formData = new FormData();
-            // formData.append("type", "create");
-            // formData.append("sku_id["+this.skuId+"]", 123);
-            // formData.append("sku_id[10]", 10);
-            // await modifyCart(formData)
-            // console.log(12, this.skuId);return false;
             await modifyCart({
                 type: 'create',
                 sku_id: this.skuId,

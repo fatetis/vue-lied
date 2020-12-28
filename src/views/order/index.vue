@@ -4,6 +4,7 @@
         <div class="container">
             <div class="wrapper">
                 <div class="content">
+                    <!-- 地址模块 -->
                     <div class="address">
                         <div class="address_content address_border">
                             <router-link :to="{name: 'addressList'}">
@@ -22,11 +23,12 @@
                         </div>
                     </div>
 
-                    <div class="padding">
+                    <div class="padding" ref="order_wrapper">
                         <div class="order_container">
                             <div class="order_wapper">
                                 <div class="order_content">
                                     <div class="item" v-for="(item, index) of productData" :key="index">
+                                        <!-- 商家模块 -->
                                         <div class="seller clearfix">
                                             <i class="checkbox checkbox_seller"></i>
                                             <div class="text clearfix">
@@ -36,7 +38,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <!-- 产品模块 -->
                                         <div class="item_product" v-for="(i, k) of item.product" :key="k">
                                             <div class="product clearfix">
                                                 <div class="text clearfix">
@@ -75,9 +77,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    
+                                    <!-- 配送模块 -->
                                     <div class="shipping">
                                         <div class="shipping_content clearfix">
                                             <div class="title">
@@ -90,15 +91,17 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- 留言模块 -->
                                     <div class="shipping">
                                         <div class="shipping_content clearfix">
                                             <div class="title">
                                                 <p class="p1">留言</p>
                                             </div>
-                                            <input type="text" placeholder="选填，给商家留言" maxlength="45">
+                                            <input type="text" placeholder="选填，给商家留言" maxlength="45" v-model="msg">
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 价格模块 -->
                                 <div class="price_content">
                                     <div class="price_item">
                                         <div class="shipping">
@@ -137,6 +140,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 发票模块 -->
                                 <div class="price_content invoice_content">
                                     <div class="price_item">
                                         <div class="shipping shipping_padding_right">
@@ -152,7 +156,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="submit_order">
+                                <div class="submit_order" @click="order">
                                     提交订单
                                 </div>
                             </div>
@@ -164,6 +168,7 @@
     </div>
 </template>
 <script>
+import Bscroll from "better-scroll";
 import headerNotDot from "@components/headerNotDot";
 import inputNum from "@views/cart/components/inputNum";
 import { upFixed, isValueNumber } from "@/util/mUtils";
@@ -174,16 +179,8 @@ export default {
     data() {
         return {
             title: '确认订单',
-            // 路由参数信息
-            routeParam: {},
             // 产品数据
-            productData: {
-                // picture: '',
-                // productName: '',
-                // productPrice: '',
-                // brandName: '',
-                // skuName: '',
-            },
+            productData: {},
             // 地址数据
             addressData: {
                 id: '',
@@ -192,11 +189,12 @@ export default {
                 pca: '',
                 addressDetail: '',
             },
-            // 商品总价格
-            totalProductPrice: '',
-            // 订单总价格
-            totalPrice: '',
+            // 路由skuid
             skuIds: {},
+            // 留言
+            msg: '',
+            // 购物车数据
+            cartIds: [],
         }
     },
     components: {
@@ -224,7 +222,7 @@ export default {
                     result[brandId]['product'][item.id] = result[brandId]['product'][item.id] === undefined ? {} : result[brandId]['product'][item.id]
                     result[brandId]['product'][item.id]['picture'] = item.media.data.link
                     result[brandId]['product'][item.id]['productName'] = item.product.data.name
-                    result[brandId]['product'][item.id]['productPrice'] = item.product.data.price
+                    result[brandId]['product'][item.id]['productPrice'] = item.price
                     result[brandId]['product'][item.id]['brandName'] = item.product.data.brand.data.name
                     // 遍历查找sku名称
                     let attrData = item.product.data.attrs.data
@@ -253,13 +251,16 @@ export default {
                 this.addressData.id = data.id
                 this.addressData.name = data.name
                 this.addressData.tel = data.tel
-                this.addressData.pca = data.province+'省' + data.city + data.county
+                this.addressData.pca = data.province + ' ' + data.city + ' ' + data.county
                 this.addressData.addressDetail = data.addressDetail
             })
         },
         // 修改产品数量
         handleChangeNum(num, unique) {
             this.skuIds[unique] = num
+            this.$store.commit('setOrderQuery', {
+                skuIds: this.skuIds
+            });
         },
         // 计算价格
         calculatePrice() {
@@ -269,30 +270,38 @@ export default {
         // 初始化
         init() {
             // 订单参数值
-            this.routeParam = eval("("+this.$store.getters.getOrderQuery+")")
-            this.skuIds = this.routeParam.skuIds
-            this.addressData.id = this.routeParam.addressId
+            let params = eval("("+this.$store.getters.getOrderQuery+")")
+            this.skuIds = params.skuIds
+            this.cartIds = params.cartIds !== undefined ? params.cartIds : this.cartIds;
+            this.addressData.id = params.addressId
             this.getProductSkuDetail()
             this.findUserAddress()
         },
-        order() {
-            order({
-                sku_id: this.skuId,
-                num: this.num,
-                address_id: this.addressData.id,
-            }).then((res) => {
-                console.log(res)
+        // 下单操作
+        async order() {
+            let param = new FormData();
+            for(let key in this.skuIds){
+                param.append('sku_id[' + key + ']', this.skuIds[key])
+            }
+            param.append('address_id', this.addressData.id)
+            param.append('msg', this.msg)
+            this.cartIds.forEach(item => {
+                param.append('cart_ids[]', item)
+            })
+            await order(param).then((res) => {
+                // this.$store
             })
         }
     },
     computed: {
+        // 总价、产品总价计算
         totalData() {
             let totalPrice = 0;
             let totalProductPrice = 0;
             for(let key in this.skuIds) {
                 for(let k in this.productData) {
                     if(this.productData[k].product[key] !== undefined) {
-                        totalProductPrice += Number(this.productData[k].product[key].productPrice.price)
+                        totalProductPrice += (this.productData[k].product[key].productPrice.price * this.skuIds[key])
                     }
                 }
             }
@@ -303,8 +312,13 @@ export default {
             
         }
     },
-    mounted() {
-        this.init()     
+    mounted() {  
+        this.$nextTick(() => {
+            this.scroll = new Bscroll(this.$refs.order_wrapper, {
+                // scrollbar: true
+            });
+        });
+        this.init()  
     }
 }
 </script>
@@ -406,6 +420,8 @@ export default {
                                 margin-right: 12px
                 .padding
                     margin-top: 20px
+                    height: $hfordertop
+                    overflow: hidden
                     .order_container
                         .order_wapper
                             .order_content

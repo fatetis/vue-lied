@@ -9,6 +9,7 @@ import productDetail from '@views/product/detail'
 import orderIndex from '@views/order'
 import addressEdit from '@views/user/addressEdit'
 import addressList from '@views/user/addressList'
+import payIndex from '@views/pay/pay'
 
 Vue.use(VueRouter)
 
@@ -65,6 +66,11 @@ Vue.use(VueRouter)
     path: '/address/list',
     name: 'addressList',
     component: addressList
+  },
+  {
+    path: '/pay/:orderId',
+    name: 'payIndex',
+    component: payIndex
   },
 
 
