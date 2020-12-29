@@ -6,131 +6,115 @@
                 <div class="content">
                     <div class="price_content">
                         ¥<span>
-                        <em>6000</em>
-                        .12
+                        <em>{{ this.price.int }}</em>
+                        .{{ this.price.point }}
                         </span>
                     </div>
-
                     <div class="type_container">
                         <div class="type_wrapper"  ref="pay_wrapper">
                             <div class="type_content">
                                 <div class="margin">
-                                    <div class="item">
+                                    <div class="item" @click="handleSelected('alipay')">
                                         <div class="pay_logo">
                                             <img src="@assets/images/icon/alipay.png" alt="">
                                         </div>
                                         <div class="text">
                                             <p class="p1">支付宝</p>
-                                            <i class="checkbox"></i>
+                                            <i class="checkbox" :class="this.payType === 'alipay' ? 'checkbox_selected' : '' "></i>
                                         </div>
                                     </div>
-                                    <div class="item">
+                                    <div class="item" @click="handleSelected('wechat')">
                                         <div class="pay_logo">
                                             <img src="@assets/images/icon/wechat_pay.png" alt="">
                                         </div>
                                         <div class="text">
                                             <p class="p1">微信支付</p>
-                                            <i class="checkbox checkbox_selected"></i>
+                                            <i class="checkbox" :class="this.payType === 'wechat' ? 'checkbox_selected' : '' "></i>
                                         </div>
                                     </div>
-                                    <div class="item">
+                                    <div class="item" @click="handleSelected('balance')">
                                         <div class="pay_logo">
-                                            <img src="@assets/images/icon/alipay.png" alt="">
+                                            <img src="@assets/images/icon/balance.png" alt="">
                                         </div>
                                         <div class="text">
-                                            <p class="p1">支付宝</p>
-                                            <i class="checkbox"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pay_logo">
-                                            <img src="@assets/images/icon/wechat_pay.png" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <p class="p1">微信支付</p>
-                                            <i class="checkbox checkbox_selected"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pay_logo">
-                                            <img src="@assets/images/icon/alipay.png" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <p class="p1">支付宝</p>
-                                            <i class="checkbox"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pay_logo">
-                                            <img src="@assets/images/icon/wechat_pay.png" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <p class="p1">微信支付</p>
-                                            <i class="checkbox checkbox_selected"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pay_logo">
-                                            <img src="@assets/images/icon/alipay.png" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <p class="p1">支付宝</p>
-                                            <i class="checkbox"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pay_logo">
-                                            <img src="@assets/images/icon/wechat_pay.png" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <p class="p1">微信支付</p>
-                                            <i class="checkbox checkbox_selected"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pay_logo">
-                                            <img src="@assets/images/icon/alipay.png" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <p class="p1">支付宝</p>
-                                            <i class="checkbox"></i>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="pay_logo">
-                                            <img src="@assets/images/icon/wechat_pay.png" alt="">
-                                        </div>
-                                        <div class="text">
-                                            <p class="p1">微信支付</p>
-                                            <i class="checkbox checkbox_selected"></i>
+                                            <p class="p1">余额支付</p>
+                                            <i class="checkbox" :class="this.payType === 'balance' ? 'checkbox_selected' : '' "></i>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="margin_height"></div>
                             </div>
                         </div>
                     </div>
-
-                    
                 </div>
             </div>
         </div>
-        <div class="submit_pay">
-            <p>立即支付(¥2000.00)</p> 
+        <div class="submit_pay" @click="pay">
+            <p>立即支付(¥ {{ this.price.price }})</p> 
         </div>
     </div>
 </template>
 <script>
 import Bscroll from "better-scroll";
 import headerNotDot from "@components/headerNotDot";
+import { findOrder, balancePay } from '@/service/getData'
 export default {
     name: 'payIndex',
     data() {
         return {
-            title: '订单支付'
+            title: '订单支付',
+            orderno: '',
+            price: {},
+            payType: ''
         }
     },
     components: {
         headerNotDot
+    },
+    methods: {
+        findOrder() {
+            findOrder({
+            }, this.orderno).then(res => {
+                let data = res.data
+                if(data.order_status !== 0) {
+                    this.$toast.fail('该笔订单已支付');
+                    // todo 这里需要跳转页面 跳到订单详情页面
+                    return false;
+                }
+                this.price = res.data.price
+            })
+        },
+        init() {
+            this.orderno = this.$route.params.id
+            this.findOrder()
+        },
+        handleSelected(type) {
+            this.payType = type
+        },
+        pay() {
+            if(this.payType === '') {
+                this.$toast.fail('请选择支付方式');
+                return false;
+            }
+            if(this.payType != 'balance') {
+                 this.$toast.fail('暂不支持该支付方式');
+                 return false;
+            }
+            if(this.price.price === undefined) {
+                this.$toast.fail('无支付金额，请退出此页面');
+                return false;
+            }
+            balancePay({
+                orderno: this.orderno,
+                price: this.price.price,
+                type: this.payType
+            }).then(res => {
+                this.$router.replace({
+                    name: 'payResult',
+                    params: {result: res}
+                })
+            })
+        }
     },
     mounted() {  
         this.$nextTick(() => {
@@ -138,13 +122,14 @@ export default {
                 // scrollbar: true
             });
         });
+        this.init()
     }
 }
 </script>
 <style lang="sass" scoped>
 .payIndex
     height: 100vh
-    background-color: #f5f5f5
+    background-color: $bc1
     .container
         .wrapper
             .content
@@ -163,6 +148,9 @@ export default {
                         overflow: hidden
                         padding: 0 20px
                         .type_content
+                            .margin_height
+                                height: 20px
+                                background-color: $bc1
                             .margin
                                 border-radius: 20px
                                 padding: 30px 20px

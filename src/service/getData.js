@@ -40,3 +40,7 @@ export const getCart = (arr) => get('/v1/cart/get', arr);
 export const modifyCart = (arr) => post('/v1/cart/modify', arr);
 // 删除我的购物车数据
 export const deleteCart = (arr) => post('/v1/cart/delete', arr);
+// 获取一条订单信息
+export const findOrder = (arr, id) => get('/v1/order/' + id, arr);
+// 余额支付
+export const balancePay = (arr) => post('/v1/balance/pay', arr);

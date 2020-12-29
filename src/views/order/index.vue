@@ -289,7 +289,10 @@ export default {
                 param.append('cart_ids[]', item)
             })
             await order(param).then((res) => {
-                // this.$store
+                this.$router.replace({
+                    name: 'payIndex',
+                    params: {id: res.data.orderno}
+                })
             })
         }
     },
