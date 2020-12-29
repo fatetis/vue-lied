@@ -30,9 +30,17 @@
                             <span class="text">购物车</span>
                         </router-link>
                     </li>
-                    <li>
-                        <span class="show_img not_icon4"></span>
-                        <span class="text">个人中心</span>
+                    <li v-if="this.$store.getters.getLoginStatus === 1">
+                        <router-link :to="{name: 'userCenter'}">
+                            <span class="show_img not_icon4"></span>
+                            <span class="text">个人中心</span>
+                        </router-link>
+                    </li>
+                    <li v-else>
+                        <router-link :to="{name: 'login'}">
+                            <span class="show_img not_icon4"></span>
+                            <span class="text">未登录</span>
+                        </router-link>
                     </li>
                     <li>
                         <span class="show_img not_icon5"></span>

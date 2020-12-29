@@ -17,7 +17,12 @@
         </div>
       </div>
       <div class="register">
-        <span>登录</span>
+        <router-link v-if="this.$store.getters.getLoginStatus === 1" :to="{name: 'userCenter'}">
+          <img src="@assets/images/icon/user_center_index.png" alt="">
+        </router-link>
+        <router-link v-else :to="{name: 'login'}">
+          <span>登录</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -130,6 +135,9 @@ export default {
       span
         margin: 14px 0
         @include sc(28px, #fff)
+      img
+        margin: 24px 14px
+        @include wh(38px, 38px)
           
 
             

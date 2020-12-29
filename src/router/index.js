@@ -11,6 +11,7 @@ import addressEdit from '@views/user/addressEdit'
 import addressList from '@views/user/addressList'
 import payIndex from '@views/pay/pay'
 import payResult from '@views/pay/payResult'
+import userCenter from '@views/user/userCenter'
 
 Vue.use(VueRouter)
 
@@ -78,9 +79,11 @@ Vue.use(VueRouter)
     name: 'payIndex',
     component: payIndex
   },
-
-
-
+  {
+    path: '/user/center',
+    name: 'userCenter',
+    component: userCenter
+  },
 
 ]
 

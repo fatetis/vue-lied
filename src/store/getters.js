@@ -7,6 +7,12 @@ export default {
         }
         return state.token
     },
+    getLoginStatus(state) {
+        if (!state.loginStatus) {
+            state.loginStatus = Number(getStore('loginStatus'))
+        }
+        return state.loginStatus
+    },
     getOrderQuery(state) {
         if (!state.orderQuery) {
             state.orderQuery = getStore('orderQuery')

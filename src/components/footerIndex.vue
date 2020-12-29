@@ -45,12 +45,12 @@
                     </div>
                     
                     <div class="item">
-                        <router-link :to="{name: 'login'}">
+                        <router-link :to="{name: this.$store.getters.getLoginStatus === 1 ? 'userCenter' : 'login'}">
                             <div class="show_icon">
                                 <img :src="this.$route.name === 'user_center' ? img.selected[4] : img.select[4]" alt="">
                             </div>
                             <div :class="this.$route.name === 'user_center' ? 'text_hover' : 'text'">
-                                <p>未登录</p>
+                                <p>{{ this.$store.getters.getLoginStatus === 1 ? '我的' : '未登录' }}</p>
                             </div>
                         </router-link>
                     </div>
@@ -60,6 +60,7 @@
     </div>
 </template>
 <script>
+
 export default {
     name: 'footerIndex',
     data () {

@@ -68,7 +68,7 @@ export default {
     data () {
         return {
             title: '登录注册',
-            isMobileLogin: true, // 是否手机号登录
+            isMobileLogin: false, // 是否手机号登录
             isEyeClose: true, // 密码是否可看
             mobile: '', // 手机号
             valideteMobile: false, // 手机号码校验状态
@@ -78,11 +78,15 @@ export default {
             verifyCodeTime: 60, // 获取验证码倒计时
             verifyCodeTimer: null, // 获取验证码倒计时计时器
             verifyCodeStatus: false, // 是否获取过验证码
-            accountType: 'mobile', // 默认登录类型
-            account: '', // 账户名
-            password: '', // 密码
+            // accountType: 'mobile', // 默认登录类型
+            // account: '', // 账户名
+            // password: '', // 密码
+            accountType: 'username', // 默认登录类型
+            account: 'admin', // 账户名
+            password: 'admin', // 密码
             validateAccount: false, // 账户名校验状态
             validatePassword: false, // 密码校验状态
+            tokenInfo: {}
         }
     },
     components: {
@@ -173,49 +177,56 @@ export default {
             let result = this.isMobileLogin 
             ? this.$options.methods.handleLoginByMobile.bind(this)() 
             : this.$options.methods.handleLoginByUserName.bind(this)()
-            // 登录成功路由跳转
-            if(result === true) {
-                if(this.$route.query.redirect) {
-                    this.$router.push({ path: decodeURIComponent(this.$route.query.redirect) })
-                } else {
-                    this.$router.go(-1);
+            result.then(res => {
+                // 登录成功路由跳转
+                if(res === true) {
+                    this.$store.commit('setToken', this.tokenInfo);
+                    this.$toast.success('登录成功');
+                    if(this.$route.query.redirect) {
+                        setTimeout(() => {
+                            this.$router.replace({
+                                path: this.$route.query.redirect,
+                            });
+                        }, 500)
+                    } else {
+                        this.$router.replace({
+                            name: 'index'
+                        });
+                    }
                 }
-            }
+            })
+            
         },
         async handleLoginByMobile () {
             if(this.valideteVerifyCode && this.valideteMobile) {
-                await loginByMobile({
+                let res = await loginByMobile({
                     mobile: this.mobile,
                     code: this.verifyCode
-                }).then((res) => {
-                    this.$store.commit('setToken', res);
-                    this.$toast.success('登录成功');
-                    setTimeout(() => {
-                        this.$router.replace({
-                            path: this.$route.query.redirect,
-                        });
-                    }, 500)
-                    return true;
                 })
+                if(res.access_token) {
+                    this.tokenInfo = res
+                    return true;
+                }
             }else{
                 this.$toast.fail('请正确填写手机号和验证码')
             }
             
         },
-        handleLoginByUserName () {
+        async handleLoginByUserName () {
             if(this.validateAccount && this.validatePassword) {
                 let accountType = this.accountType;
                 let data = {
                     password: this.password
                 }
-                data[accountType] = this.account,
-                loginByAccount(data).then((res) => {
-                    this.$store.commit('setToken', res);
-                    this.$toast.success('登录成功');
+                data[accountType] = this.account
+                let res = await loginByAccount(data)
+                if(res.access_token) {
+                    this.tokenInfo = res
                     return true;
-                })
+                }
+            }else{
+                this.$toast.fail('请输入正确的账户名与密码');
             }
-            this.$toast.fail('请输入正确的账户名与密码');    
         },
         handleForgetPassword () {
             // #todo 忘记密码跳转页面

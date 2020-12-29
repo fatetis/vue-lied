@@ -94,7 +94,6 @@ const errorHandle = (status, other) => {
 		// 清除token并跳转登录页
 		case 403:
 			tip('登录过期，请重新登录');
-			localStorage.removeItem('token');
 			store.commit('setToken', null);
 			setTimeout(() => {
 				toLogin();
@@ -105,7 +104,8 @@ const errorHandle = (status, other) => {
 			tip('请求的资源不存在');
 			break;
 		default:
-			console.log(other);
+			console.log(other)
+			break;
 	}
 }
 
@@ -177,9 +177,8 @@ export function get(url, params) {
 				resolve(res.data.data.body);
 			})
 			.catch(err => {
-				console.log(err);
 				loading.clear()
-				let msg = err.message || err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']'
+				let msg = err.message || err.data.message || err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']'
 				tip(msg);
 			})
 	});
@@ -201,9 +200,8 @@ export function post(url, params) {
 				resolve(res.data.data.body);
 			})
 			.catch(err => {
-				console.log(err);
 				loading.clear()
-				let msg = err.message || err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']'
+				let msg = err.message || err.data.message || err.data.data.header.result_msg + '[' + err.data.data.header.result_code + ']'
 				tip(msg);
 				// reject(err.data)
 			})
