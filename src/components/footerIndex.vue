@@ -47,9 +47,9 @@
                     <div class="item">
                         <router-link :to="{name: this.$store.getters.getLoginStatus === 1 ? 'userCenter' : 'login'}">
                             <div class="show_icon">
-                                <img :src="this.$route.name === 'user_center' ? img.selected[4] : img.select[4]" alt="">
+                                <img :src="this.$route.name === 'userCenter' ? img.selected[4] : img.select[4]" alt="">
                             </div>
-                            <div :class="this.$route.name === 'user_center' ? 'text_hover' : 'text'">
+                            <div :class="this.$route.name === 'userCenter' ? 'text_hover' : 'text'">
                                 <p>{{ this.$store.getters.getLoginStatus === 1 ? '我的' : '未登录' }}</p>
                             </div>
                         </router-link>
