@@ -47,7 +47,7 @@ input {
 $blue: #3190e8;  
 $bc: #e4e4e4;
 $bc1: #f5f5f5;
-$fc:#fff;
+$fc:#ffffff;
 // 头部主题色
 $theam: #ff8620;
 // 头部的标准灰色
@@ -167,5 +167,11 @@ $highestPositionZIndex: 1000;
 .bscroll-vertical-scrollbar .bscroll-indicator {
     background: #BFBFBF !important;
     border: 0 !important;
+}
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
 }
         
