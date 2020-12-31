@@ -11,13 +11,10 @@
   </div>
 </template>
 <script>
-import initialization from './initialization'
+// import initialization from './initialization'
 
 export default {
-  name: 'app',
-  mounted() {
-    initialization()
-  }
+  name: 'app'
 }
 </script>
 <style lang="sass">

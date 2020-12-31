@@ -22,9 +22,6 @@ export default {
     props: {
         bannerData: Array
     },
-    mounted() {
-        this.initSwiper();
-    },
     methods: {
         initSwiper() {
             new Swiper(".swiper-container", {
@@ -35,7 +32,11 @@ export default {
                 observeParents:true,//修改swiper的父元素时，自动初始化swiper
             });
         }
-    }
+    },
+    mounted() {
+        this.initSwiper();
+    },
+
 }
 </script>
 <style lang="sass">

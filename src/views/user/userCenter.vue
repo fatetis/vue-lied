@@ -43,15 +43,7 @@
                     </div>
 
                     <!-- 广告模块 -->
-                    <div class="advertise">
-                        <div class="advertise_img">
-                            <van-swipe>
-                                <van-swipe-item v-for="(image, index) in images" :key="index">
-                                    <img v-lazy="image" />
-                                </van-swipe-item>
-                            </van-swipe>
-                        </div>
-                    </div>
+                    <user-center-swiper :bannerData="images"></user-center-swiper>
 
                     <!-- 订单模块 -->
                     <div class="order_item">
@@ -60,31 +52,47 @@
                             <p class="p2 float-right">查看全部订单<span></span></p>
                         </div>
                         <div class="bottom">
-                            <div class="item">
-                                <img src="@assets/images/icon/wait_pay.png" alt="">
-                                <p class="text">待付款</p>
-                            </div>
-                            <div class="item">
-                                <img src="@assets/images/icon/wait_delivery.png" alt="">
-                                <p class="text">待发货</p>
-                            </div>
-                            <div class="item">
-                                <img src="@assets/images/icon/wait_receive.png" alt="">
-                                <p class="text">待收货</p>
-                            </div>
-                            <div class="item">
-                                <img src="@assets/images/icon/wait_comment.png" alt="">
-                                <p class="text">评价</p>
-                            </div>
-                            <div class="item">
-                                <img src="@assets/images/icon/wait_refund.png" alt="">
-                                <p class="text">退款/售后</p>
-                            </div>
+                                <div class="item">
+                                    <van-badge :content="2" max="99">
+                                        <img src="@assets/images/icon/wait_pay.png" alt="">
+                                    </van-badge>
+                                    <p class="text">待付款</p>
+                                </div>
+                                <div class="item">
+                                    <van-badge :content="20" max="99">
+                                        <img src="@assets/images/icon/wait_delivery.png" alt="">
+                                    </van-badge>
+                                    <p class="text">待发货</p>
+                                </div>
+                                <div class="item">
+                                    <van-badge :content="20" max="99">
+                                        <img src="@assets/images/icon/wait_receive.png" alt="">
+                                    </van-badge>
+                                    <p class="text">待收货</p>
+                                </div>
+                                <div class="item">
+                                    <van-badge :content="20" max="99">
+                                        <img src="@assets/images/icon/wait_comment.png" alt="">
+                                    </van-badge>
+                                    <p class="text">评价</p>
+                                </div>
+                                <div class="item">
+                                    <van-badge :content="20" max="99">
+                                        <img src="@assets/images/icon/wait_refund.png" alt="">
+                                    </van-badge>
+                                    <p class="text">退款/售后</p>
+                                </div>
                         </div>
                     </div>
 
-                    <div class="coupon_item">
-
+                    <div class="order_item coupon_container">
+                        <div class="top clearfix">
+                            <p class="p1 float-left">我的优惠券</p>
+                            <p class="p2 float-right">更多<span></span></p>
+                        </div>
+                        <div class="coupon_content">
+                            <coupon-swiper></coupon-swiper>
+                        </div>
                     </div>
 
                 </div>
@@ -96,6 +104,8 @@
 </template>
 <script>
 import footerIndex from "@components/footerIndex";
+import userCenterSwiper from "@views/user/components/userCenterSwiper";
+import couponSwiper from "@views/user/components/couponSwiper";
 export default {
     name: 'userCenter',
     data() {
@@ -109,11 +119,18 @@ export default {
     },
     components: {
         footerIndex,
+        userCenterSwiper,
+        couponSwiper
     },
     
 }
 </script>
 <style lang="sass" scoped>
+.userCenter
+    .use-color
+        @include sc(12px, #f2270c)
+    .receive-color
+        @include sc(12px, $theam)
 .userCenter
     width: 100vw
     height: 100vh
@@ -172,22 +189,9 @@ export default {
                             @include sc(36px, $fc)
                         .text
                             @include sc(24px, $fc)
-                .advertise
-                    padding: 0 20px
-                    @include wh(100%, 180px)
-                    box-sizing: border-box
-                    position: absolute
-                    top: 258px
-                    .advertise_img
-                        @include wh(100%, 180px)
-                        overflow: hidden
-                        border-radius: 20px
-                        img 
-                            width: 100%
                 .order_item
                     background-color: $fc
-                    margin-top: 100px
-                    margin: 100px 20px 20px 20px
+                    margin: 98px 20px 20px 20px
                     border-radius: 20px
                     .top
                         padding: 20px
@@ -211,8 +215,9 @@ export default {
                             .text
                                 margin-top: 10px
                                 @include sc(26px, #333333)
-                        
-
-                    
+                .coupon_container
+                    margin-top: 20px
+                    .coupon_content
+                        padding: 20px
 
 </style>
