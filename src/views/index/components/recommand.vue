@@ -1,17 +1,12 @@
 <template>
     <div class="recommand">
-        <div class="recommand_bg">
-            <div class="content">
-                <img src="@assets/images/index/recommand.png" alt />
-            </div>
-        </div>
         <div class="container">
             <div class="wrapper">
                 <div class="content clearfix">
                     <div class="item" v-for="(item, index) of productData" :key="index">
                         <router-link :to="{name: 'product', params: {id: item.id}}">
                         <div class="show_img">
-                            <img :src="item.medias.data[0].media.data.link" alt="">
+                            <img :src="item.medias.data[0].media.data.link" alt="图片加载失败">
                         </div>
                         <div class="text">
                             <p class="title">{{item.name}}</p>
@@ -83,22 +78,6 @@ export default {
 </script>
 <style lang="sass" scoped>
 .recommand
-    background: #f0f2f5
-    padding-top: 20px
-    margin-top: 20px
-    .recommand_bg
-        margin: 0 20px
-        .content
-            width: 100%
-            height: 70px
-            text-align: center
-            background: #fff
-            img
-                width: calc( 100% - 40px)
-                vertical-align: bottom
-                @include minHeight(1px)
-                max-height: 100%
-                height: 100%
     .container
         margin: 0 20px
         box-sizing: border-box
@@ -107,14 +86,16 @@ export default {
             width: 100%
             .content
                 .item
-                    width: 50%
+                    width: 49%
                     box-sizing: border-box
-                    padding-bottom: 8px
-                    padding-right: 4px
+                    margin-bottom: 8px
+                    margin-right: 1%
                     float: left
+                    border-radius: 20px
                     overflow: hidden
                     .show_img
                         width: 100%
+                        height: 49%
                         img
                             width: 100%
                             vertical-align: bottom

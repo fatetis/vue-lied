@@ -3,15 +3,15 @@
         <div class="container">
             <div class="wrapper">
                 <div class="content clearfix">
-                    <div class="item left" @click="back">
+                    <div class="item left">
                         <span class="arrow"></span>
+                        <span class="back" @click="back"></span>
                     </div>
                     <div class="item search">
                       <div class="input">
                         <input type="text" placeholder="请输入分类名称">
                       </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -57,13 +57,21 @@ export default {
           width: 66px
           box-sizing: border-box
           height: $headerIndexTop
+          .back
+            width: 66px
+            height: $headerIndexTop
+            position: absolute
+            left: 0px
+            top: 0px
+            cursor: pointer 
+            z-index: 1
           .arrow
             display: inline-block
             position: relative
           .arrow:before
             content: ''
             position: absolute
-            top: 5px
+            top: 8px
             left: 5px
             @include borderArrow(left, 20px, $arrowGrey)
         .search

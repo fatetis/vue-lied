@@ -44,3 +44,5 @@ export const deleteCart = (arr) => post('/v1/cart/delete', arr);
 export const findOrder = (arr, id) => get('/v1/order/' + id, arr);
 // 余额支付
 export const balancePay = (arr) => post('/v1/balance/pay', arr);
+// 个人中心
+export const userCenter = (arr) => get('/v1/user/center', arr);

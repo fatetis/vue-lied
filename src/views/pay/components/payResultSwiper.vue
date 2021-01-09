@@ -1,12 +1,14 @@
 <template>
-    <div class="userCenterSwiper">
+    <div class="payResultSwiper">
         <div class="content">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide banner_item" v-for="(item, index) of bannerData" :key="index">
-                        <a :href="item.url">
-                            <img :src="item.media.data.link" alt="图片加载失败">
-                        </a>
+                    <!-- <div class="swiper-slide banner_item" v-for="(item, index) of bannerData" :key="index"> -->
+                    <div class="swiper-slide banner_item">
+                        <!-- <a :href="item.url"> -->
+                            <!-- <img :src="item.media.data.link" alt="图片加载失败"> -->
+                            <img src="@/assets/images/index/index.jpg" alt="图片加载失败">
+                        <!-- </a> -->
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -17,8 +19,8 @@
 </template>
 <script>
 export default {
-    name: 'userCenterSwiper',
-    props: ['bannerData'],
+    name: 'payResultSwiper',
+    // props: ['bannerData'],
     methods: {
         initSwiper() {
             new Swiper(".swiper-container", {
@@ -37,7 +39,7 @@ export default {
 }
 </script>
 <style lang="sass">
-.userCenterSwiper
+.payResultSwiper
     .swiper-container
         overflow: hidden
         .swiper-pagination
@@ -57,13 +59,10 @@ export default {
 </style>
 <style lang="sass" scoped>
 @import "../../../assets/css/plugins/swiper.min.css";
-.userCenterSwiper
+.payResultSwiper
     box-sizing: border-box
     width: 100%
-    position: absolute
-    top: 258px
     padding: 0 20px
-    padding-bottom: 180px
     .content
         @include wh(100%, 180px)
         border-radius: 20px

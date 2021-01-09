@@ -13,10 +13,10 @@
                     <div class="user_content ">
                         <div class="clearfix">
                             <div class="float-left user_img">
-                                <img src="@assets/images/userCenter/fatetis.jpg" alt="">
+                                <img :src="userImg" alt="">
                             </div>
                             <div class="float-left user">
-                                <p class="p1">不对劲的上班</p>
+                                <p class="p1">{{ userName }}</p>
                             </div>
                             <div class="float-right setting">
                                 <span class="setting_icon"></span>
@@ -43,7 +43,7 @@
                     </div>
 
                     <!-- 广告模块 -->
-                    <user-center-swiper :bannerData="images"></user-center-swiper>
+                    <user-center-swiper :bannerData="adv"></user-center-swiper>
 
                     <!-- 订单模块 -->
                     <div class="order_item">
@@ -53,31 +53,31 @@
                         </div>
                         <div class="bottom">
                                 <div class="item">
-                                    <van-badge :content="2" max="99">
+                                    <van-badge :content="orderData.wait_pay" max="99">
                                         <img src="@assets/images/icon/wait_pay.png" alt="">
                                     </van-badge>
                                     <p class="text">待付款</p>
                                 </div>
                                 <div class="item">
-                                    <van-badge :content="20" max="99">
+                                    <van-badge :content="orderData.wait_delivery" max="99">
                                         <img src="@assets/images/icon/wait_delivery.png" alt="">
                                     </van-badge>
                                     <p class="text">待发货</p>
                                 </div>
                                 <div class="item">
-                                    <van-badge :content="20" max="99">
+                                    <van-badge :content="orderData.wait_take" max="99">
                                         <img src="@assets/images/icon/wait_receive.png" alt="">
                                     </van-badge>
                                     <p class="text">待收货</p>
                                 </div>
                                 <div class="item">
-                                    <van-badge :content="20" max="99">
+                                    <van-badge :content="orderData.wait_appraise" max="99">
                                         <img src="@assets/images/icon/wait_comment.png" alt="">
                                     </van-badge>
                                     <p class="text">评价</p>
                                 </div>
                                 <div class="item">
-                                    <van-badge :content="20" max="99">
+                                    <van-badge :content="orderData.wait_refund" max="99">
                                         <img src="@assets/images/icon/wait_refund.png" alt="">
                                     </van-badge>
                                     <p class="text">退款/售后</p>
@@ -106,6 +106,7 @@
 import footerIndex from "@components/footerIndex";
 import userCenterSwiper from "@views/user/components/userCenterSwiper";
 import couponSwiper from "@views/user/components/couponSwiper";
+import { userCenter } from "@/service/getData"
 export default {
     name: 'userCenter',
     data() {
@@ -115,6 +116,10 @@ export default {
                 'https://img.yzcdn.cn/vant/apple-1.jpg',
                 'https://img.yzcdn.cn/vant/apple-2.jpg',
             ],
+            orderData: {},
+            userName: '',
+            userImg: '',
+            adv: {},
         }
     },
     components: {
@@ -122,6 +127,19 @@ export default {
         userCenterSwiper,
         couponSwiper
     },
+    methods: {
+        async userCenter() {
+            let that = this
+            let res = await userCenter({})
+            that.orderData = res.order
+            that.userImg = res.user_info.data.media.data.link
+            that.userName = res.user_info.data.name
+            that.adv = res.adv.data
+        }
+    },
+    mounted() {
+        this.userCenter()
+    }
     
 }
 </script>

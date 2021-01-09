@@ -68,7 +68,7 @@ export default {
     data () {
         return {
             title: '登录注册',
-            isMobileLogin: false, // 是否手机号登录
+            isMobileLogin: true, // 是否手机号登录
             isEyeClose: true, // 密码是否可看
             mobile: '', // 手机号
             valideteMobile: false, // 手机号码校验状态
@@ -78,12 +78,12 @@ export default {
             verifyCodeTime: 60, // 获取验证码倒计时
             verifyCodeTimer: null, // 获取验证码倒计时计时器
             verifyCodeStatus: false, // 是否获取过验证码
-            // accountType: 'mobile', // 默认登录类型
-            // account: '', // 账户名
-            // password: '', // 密码
-            accountType: 'username', // 默认登录类型
-            account: 'admin', // 账户名
-            password: 'admin', // 密码
+            accountType: 'mobile', // 默认登录类型
+            account: '', // 账户名
+            password: '', // 密码
+            // accountType: 'username', // 默认登录类型
+            // account: 'admin', // 账户名
+            // password: 'admin', // 密码
             validateAccount: false, // 账户名校验状态
             validatePassword: false, // 密码校验状态
             tokenInfo: {}
@@ -182,7 +182,9 @@ export default {
                 if(res === true) {
                     this.$store.commit('setToken', this.tokenInfo);
                     this.$toast.success('登录成功');
-                    if(this.$route.query.redirect) {
+                    // 验证是否是登录页面路由
+                    let regxRedirect = /^(\/login).*?$/
+                    if(this.$route.query.redirect && !regxRedirect.test(this.$route.query.redirect)) {
                         setTimeout(() => {
                             this.$router.replace({
                                 path: this.$route.query.redirect,
@@ -233,7 +235,7 @@ export default {
         }
         
         
-    },
+    }
     
 }
 </script>

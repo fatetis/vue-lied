@@ -12,6 +12,7 @@ import addressList from '@views/user/addressList'
 import payIndex from '@views/pay/pay'
 import payResult from '@views/pay/payResult'
 import userCenter from '@views/user/userCenter'
+import orderList from '@views/user/orderList'
 
 Vue.use(VueRouter)
 
@@ -83,6 +84,11 @@ Vue.use(VueRouter)
     path: '/user/center',
     name: 'userCenter',
     component: userCenter
+  },
+  {
+    path: '/order/list',
+    name: 'orderList',
+    component: orderList
   },
 
 ]

@@ -92,6 +92,8 @@ export default {
             this.payType = type
         },
         pay() {
+            let price = this.price.price
+            let orderno = this.orderno
             if(this.payType === '') {
                 this.$toast.fail('请选择支付方式');
                 return false;
@@ -100,18 +102,22 @@ export default {
                  this.$toast.fail('暂不支持该支付方式');
                  return false;
             }
-            if(this.price.price === undefined) {
+            if(price === undefined) {
                 this.$toast.fail('无支付金额，请退出此页面');
                 return false;
             }
             balancePay({
-                orderno: this.orderno,
-                price: this.price.price,
+                orderno: orderno,
+                price: price,
                 type: this.payType
             }).then(res => {
                 this.$router.replace({
                     name: 'payResult',
-                    params: {result: res}
+                    params: {
+                        result: res, 
+                        payPrice: price, 
+                        orderno: orderno
+                    }
                 })
             })
         }

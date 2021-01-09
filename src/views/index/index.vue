@@ -22,9 +22,15 @@
                     v-show="!(JSON.stringify(strollDayData) == '{}')">
                     </stroll-day>
                     <!-- 今日推荐 -->
-                    <recommand 
-                    :productData="productData"
-                    v-show="!(JSON.stringify(productData) == '[]')"></recommand>
+                    <div class="recommand_index" v-show="!(JSON.stringify(productData) == '[]')">   
+                        <div class="recommand_bg">
+                            <div class="content">
+                                <img src="@assets/images/index/recommand.png" alt />
+                            </div>
+                        </div>
+                        <recommand :productData="productData"></recommand>
+                    </div>
+                    
                     <!-- 版权 -->
                     <copy-right v-show="footShow"></copy-right>
                 </div>
@@ -163,6 +169,23 @@ export default {
     .index_wrapper
         height: $hftop
         overflow: hidden
+        .recommand_index
+            background: #f0f2f5
+            padding-top: 20px
+            margin-top: 20px
+            .recommand_bg
+                margin: 0 20px
+                .content
+                    width: 100%
+                    height: 70px
+                    text-align: center
+                    background: #fff
+                    img
+                        width: calc( 100% - 40px)
+                        vertical-align: bottom
+                        @include minHeight(1px)
+                        max-height: 100%
+                        height: 100%
 
         
 </style>
