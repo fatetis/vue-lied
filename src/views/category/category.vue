@@ -20,7 +20,7 @@
                             <div class="list">
                                 <ul class="clearfix">
                                     <li v-for="(v, k) of item.children" :key="k">
-                                        <img :src="(v.media && v.media.link) || ''" alt="">
+                                        <img :src="(v.media && v.media.link) || ''" alt="图片加载失败">
                                         <p>{{ v.name }}</p>
                                     </li>
                                 </ul>
@@ -127,6 +127,7 @@ export default {
                             box-sizing: border-box
                             text-align: center
                             img
+                                display: inline-block
                                 width: 140px
                                 height: 140px
                             p

@@ -13,6 +13,7 @@ import payIndex from '@views/pay/pay'
 import payResult from '@views/pay/payResult'
 import userCenter from '@views/user/userCenter'
 import orderList from '@views/user/orderList'
+import setting from '@views/user/setting'
 
 Vue.use(VueRouter)
 
@@ -90,7 +91,11 @@ Vue.use(VueRouter)
     name: 'orderList',
     component: orderList
   },
-
+  {
+    path: '/user/setting',
+    name: 'setting',
+    component: setting
+  },
 ]
 
 const router = new VueRouter({

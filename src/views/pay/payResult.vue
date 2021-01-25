@@ -17,7 +17,7 @@
                         <pay-result-swiper></pay-result-swiper>
                     </div>
                     <!-- 今日推荐 -->
-                    <div class="recommand_pay">
+                    <!-- <div class="recommand_pay">
                         <div class="recommand_bg">
                             <div class="title clearfix">
                                 <p class="left">
@@ -37,7 +37,8 @@
                         <recommand 
                         :productData="productData"
                         v-show="!(JSON.stringify(productData) == '[]')"></recommand>
-                    </div>
+                    </div> -->
+                    <pay-recommand :productData="productData" ></pay-recommand>
 
                 </div>
             </div>
@@ -49,6 +50,7 @@
 import Bscroll from "better-scroll";
 import headerOnlyReturn from "@components/headerOnlyReturn";
 import payResultSwiper from "@views/pay/components/payResultSwiper";
+import payRecommand from "@views/pay/components/payRecommand";
 import recommand from "@views/index/components/recommand";
 import { productList } from "@/service/getData";
 export default {
@@ -60,12 +62,14 @@ export default {
             payPrice: this.$route.params.payPrice,
             orderno: this.$route.params.orderno,
             productData: [], // 产品列表
+            page: 0
         }
     },
     components: {
         headerOnlyReturn,
         payResultSwiper,
         recommand,
+        payRecommand
     },
     methods: {
         getProductListData(){
@@ -130,54 +134,6 @@ export default {
                         border-radius: 12px
                         @include sc(26px, #646464)
             .height
-                height: 180px
-            .recommand_pay
-                .recommand_bg
-                    margin-top: 36px
-                    margin-bottom: 20px
-                    .title
-                        text-align: center
-                        font-weight: bold
-                        @include sc(32px, #866023)
-                        display: flex
-                        justify-content: center
-                        line-height: 1
-                        .big
-                            display: inline-block
-                            @include wh(10px, 10px)
-                            border-radius: 50%
-                            background-image: linear-gradient(90deg, #ffb97e, #ff8620 50%)
-                            margin-right: 32px
-                            vertical-align: middle
-                        .middle
-                            display: inline-block
-                            @include wh(6px, 6px)
-                            border-radius: 50%
-                            background-image: linear-gradient(90deg, #ffb97e, #ff8620 50%)
-                            margin-right: 20px
-                            vertical-align: middle
-                        .small
-                            display: inline-block
-                            @include wh(3px, 3px)
-                            border-radius: 50%
-                            background-image: linear-gradient(90deg, #ffb97e, #ff8620 50%)
-                            margin-right: 20px
-                            vertical-align: middle
-                        .right
-                            .big
-                                background-image: linear-gradient(-90deg, #ffb97e, #ff8620 50%)
-                                margin-left: 32px
-                                margin-right: 0
-                            .middle
-                                background-image: linear-gradient(-90deg, #ffb97e, #ff8620 50%)
-                                margin-left: 20px
-                                margin-right: 0
-                            .small
-                                background-image: linear-gradient(-90deg, #ffb97e, #ff8620 50%)
-                                margin-left: 20px
-                                margin-right: 0
-                            
-                                
-                            
+                height: 180px    
                         
 </style>

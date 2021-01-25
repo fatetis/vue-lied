@@ -33,7 +33,11 @@ module.exports = {
             return args;
         });
         config.resolve.alias // 添加别名
-            .set('@', resolve('src')).set('@assets', resolve('src/assets')).set('@components', resolve('src/components')).set('@views', resolve('src/views')).set('@store', resolve('src/store'));
+            .set('@', resolve('src'))
+            .set('@assets', resolve('src/assets'))
+            .set('@components', resolve('src/components'))
+            .set('@views', resolve('src/views'))
+            .set('@store', resolve('src/store'));
         // 压缩图片
         // 需要 npm i -D image-webpack-loader
         // config.module.rule("images").use("image-webpack-loader").loader("image-webpack-loader").options({

@@ -95,9 +95,14 @@ export default {
                     overflow: hidden
                     .show_img
                         width: 100%
-                        height: 49%
+                        padding-top: 100% 
+                        position: relative
                         img
+                            position: absolute
+                            top: 0
+                            lef: 0
                             width: 100%
+                            height: 100%
                             vertical-align: bottom
                     .text
                         padding: 18px

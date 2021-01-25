@@ -40,6 +40,7 @@ export default {
 </script>
 <style lang="sass" scoped>
 .orderListHeader
+    height: $headerIndexTop
 .container
     position: fixed
     width: 100%
