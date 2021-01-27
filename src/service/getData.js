@@ -46,3 +46,5 @@ export const findOrder = (arr, id) => get('/v1/order/' + id, arr);
 export const balancePay = (arr) => post('/v1/balance/pay', arr);
 // 个人中心
 export const userCenter = (arr) => get('/v1/user/center', arr);
+// 订单列表
+export const orderList = (arr) => get('/v1/orders/list', arr);

@@ -51,6 +51,7 @@ import recommand from "@views/index/components/recommand";
 import copyRight from "@views/index/components/copyRight";
 import footerIndex from "@components/footerIndex";
 import { indexAdv, productList } from "@/service/getData";
+import { group } from '@/util/mUtils'
 export default {
     name: "index",
     data() {
@@ -76,20 +77,6 @@ export default {
         footerIndex,
     },
     methods: {
-        group(array, subGroupLength) {
-            let index = 0;
-            let newArray = [];
-            if(array == undefined) return {};
-            // 对象转数组
-            let arr = [];
-            for (var i in array) {
-                arr.push(array[i]); //属性
-            }
-            while(index < arr.length) {
-                newArray.push(arr.slice(index, index += subGroupLength));
-            }
-            return newArray;
-        },
         getProductListData(){
             this.page++;
             productList({
@@ -113,15 +100,15 @@ export default {
                 // 上拉加载
                 pullUpLoad: {
                     // 当上拉距离超过30px时触发 pullingUp 事件
-                    threshold: -8
+                    threshold: -30
                 },
                 // 下拉刷新
-                pullDownRefresh: {
-                    // 下拉距离超过30px触发pullingDown事件
-                    threshold: 8,
-                    // 回弹停留在距离顶部20px的位置
-                    stop: 0
-                }
+                // pullDownRefresh: {
+                //     // 下拉距离超过30px触发pullingDown事件
+                //     threshold: 8,
+                //     // 回弹停留在距离顶部20px的位置
+                //     stop: 0
+                // }
             });
             this.scroll.on('pullingUp', () => {
                 // 判断请求页数与总页数来显示底部区域
@@ -147,9 +134,9 @@ export default {
             city: 1
         }).then((res) => {
             this.swiperBanner = res.index;
-            this.categoryData = this.group(res.index_category, 10) || {};
+            this.categoryData = group(res.index_category, 10) || {};
             this.specialBannerData = res.index_plug || {};
-            this.strollDayData = this.group(res.index_daily, 4) || {};
+            this.strollDayData = group(res.index_daily, 4) || {};
         });
         this.getProductListData();
 

@@ -349,6 +349,10 @@ export const imageIsExist = function(url) {
     })
 }
 
+/**
+ * 判断是否是数字
+ * @param {*} val 
+ */
 export const isValueNumber = (val) => {
     var numReg = /^[0-9]*$/
     var numRe = new RegExp(numReg)
@@ -356,6 +360,11 @@ export const isValueNumber = (val) => {
     return false
 } 
 
+/**
+ * 保存accessToken方法
+ * @param {*} state 
+ * @param {*} res 
+ */
 export const saveAccessToken = (state, res) => {
     let loginStatus
     if(res === null) {
@@ -378,3 +387,41 @@ export const saveAccessToken = (state, res) => {
     state.loginStatus = loginStatus
     setStore('loginStatus', loginStatus) //同步存储loginStatus至localStorage
 } 
+
+
+/**
+ * 两个json对象合并
+ * @param {JSON} jsonbject1 
+ * @param {JSON} jsonbject2 
+ */
+export const mergeJson = (jsonbject1, jsonbject2) => {
+    var resultJsonObject = {};
+    for (var attr in jsonbject1) {
+        resultJsonObject[attr] = jsonbject1[attr];
+    }
+    for (var attr in jsonbject2) {
+        resultJsonObject[attr] = jsonbject2[attr];
+    }
+    return resultJsonObject;
+}
+
+/**
+ * 将对象以一定数量分割转为数组
+ * @param {*} array 
+ * @param {*} subGroupLength 
+ */
+export const group = (array, subGroupLength) => {
+    let index = 0;
+    let newArray = [];
+    if(array == undefined) return {};
+    // 对象转数组
+    let arr = [];
+    for (var i in array) {
+        arr.push(array[i]); //属性
+    }
+    while(index < arr.length) {
+        newArray.push(arr.slice(index, index += subGroupLength));
+    }
+    return newArray;
+}
+

@@ -19,7 +19,9 @@
                                 <p class="p1">{{ userName }}</p>
                             </div>
                             <div class="float-right setting">
+                                <router-link :to="{name: 'setting'}">
                                 <span class="setting_icon"></span>
+                                </router-link>
                             </div>
                         </div>
                         <div class="my_cell">
@@ -53,28 +55,36 @@
                         </div>
                         <div class="bottom">
                                 <div class="item">
+                                    <router-link :to="{name: 'orderList', query: {status: 0}}">
                                     <van-badge :content="orderData.wait_pay" max="99">
                                         <img src="@assets/images/icon/wait_pay.png" alt="">
                                     </van-badge>
                                     <p class="text">待付款</p>
+                                    </router-link>
                                 </div>
                                 <div class="item">
+                                    <router-link :to="{name: 'orderList', query: {status: 1}}">
                                     <van-badge :content="orderData.wait_delivery" max="99">
                                         <img src="@assets/images/icon/wait_delivery.png" alt="">
                                     </van-badge>
                                     <p class="text">待发货</p>
+                                    </router-link>
                                 </div>
                                 <div class="item">
+                                    <router-link :to="{name: 'orderList', query: {status: 3}}">
                                     <van-badge :content="orderData.wait_take" max="99">
                                         <img src="@assets/images/icon/wait_receive.png" alt="">
                                     </van-badge>
                                     <p class="text">待收货</p>
+                                    </router-link>
                                 </div>
                                 <div class="item">
+                                    <router-link :to="{name: 'orderList', query: {status: 4}}">
                                     <van-badge :content="orderData.wait_appraise" max="99">
                                         <img src="@assets/images/icon/wait_comment.png" alt="">
                                     </van-badge>
                                     <p class="text">评价</p>
+                                    </router-link>
                                 </div>
                                 <div class="item">
                                     <van-badge :content="orderData.wait_refund" max="99">
