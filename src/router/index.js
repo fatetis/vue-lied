@@ -12,7 +12,7 @@ import addressList from '@views/user/addressList'
 import payIndex from '@views/pay/pay'
 import payResult from '@views/pay/payResult'
 import userCenter from '@views/user/userCenter'
-import orderList from '@views/user/orderList'
+import orderList from '@views/order/orderList'
 import setting from '@views/user/setting'
 
 Vue.use(VueRouter)
