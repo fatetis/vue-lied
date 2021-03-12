@@ -1,6 +1,6 @@
 <template>
     <div class="product">
-        <prod-header></prod-header>
+        <prod-header :headerOpNum="headerOpNum" :headerArrowShow="headerArrowShow"></prod-header>
         <div class="container">
             <div class="wrapper" ref="prod_wrapper">
                 <div class="content">
@@ -188,6 +188,8 @@ export default {
             attrHover: {},
             skuName: '',
             num: 1,
+            headerOpNum: null, // 滚动时头部透明度的变化
+            headerArrowShow: false // 滚动时头部箭头背景显示
         }
     },
     components: {
@@ -242,9 +244,23 @@ export default {
     },
     mounted() {
         this.$nextTick(() => {
+            let _this = this
             this.scroll = new Bscroll(this.$refs.prod_wrapper, {
-                scrollbar: true
+                scrollbar: true,
+                probeType: 3, // 是否会截流scroll事件
+		        scrollY: true,  // 是否开启Y轴滚动方向
+                useTransition: false, // 防止iphone微信滑动卡顿
             });
+            this.scroll.on('scroll',(position)=>{
+                // 头部滚动事件触发
+                let scrolly = ~position.y
+                if(scrolly >= 0) {
+                    let scroolNum = Math.round((scrolly/88)*10)
+                    _this.headerOpNum = scroolNum >= 10 ? 'header-op0' : (scroolNum === 0 ? null :'header-op' + scroolNum)
+                    _this.headerArrowShow = scroolNum >= 5 ? true : false
+                }
+            })
+
         });
         this.getProductData()
     }

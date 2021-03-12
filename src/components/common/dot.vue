@@ -86,7 +86,7 @@ export default {
             justify-content: center
             img
                 @include wh(48px, 48px)
-                margin-top: 20px 
+                margin-top: 16px 
                 margin-right: 3px
             .grey_bg
                 background: #666
