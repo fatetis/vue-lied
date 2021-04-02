@@ -156,23 +156,25 @@ export default {
     .index_wrapper
         height: $hftop
         overflow: hidden
-        .recommand_index
-            background: #f0f2f5
-            padding-top: 20px
-            margin-top: 20px
-            .recommand_bg
-                margin: 0 20px
-                .content
-                    width: 100%
-                    height: 70px
-                    text-align: center
-                    background: #fff
-                    img
-                        width: calc( 100% - 40px)
-                        vertical-align: bottom
-                        @include minHeight(1px)
-                        max-height: 100%
-                        height: 100%
+        .index_content
+            transform: translate(0px, 0px) scale(1) translateZ(0px)
+            .recommand_index
+                background: #f0f2f5
+                padding-top: 20px
+                margin-top: 20px
+                .recommand_bg
+                    margin: 0 20px
+                    .content
+                        width: 100%
+                        height: 70px
+                        text-align: center
+                        background: #fff
+                        img
+                            width: calc( 100% - 40px)
+                            vertical-align: bottom
+                            @include minHeight(1px)
+                            max-height: 100%
+                            height: 100%
 
         
 </style>

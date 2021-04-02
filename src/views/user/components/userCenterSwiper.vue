@@ -8,6 +8,9 @@
                             <img :src="item.media.data.link" alt="图片加载失败">
                         </a>
                     </div>
+                    <div class="swiper-slide banner_item" v-show="JSON.stringify(this.bannerData) === '[]'">
+                        <img src="../../../assets/images/index/index.jpg" alt="图片加载失败">
+                    </div>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -26,7 +29,6 @@ export default {
                 paginationClickable :true,
                 observer:true,//修改swiper自己或子元素时，自动初始化swiper
                 observeParents:true,//修改swiper的父元素时，自动初始化swiper
-                loop: true
             });
         }
     },
