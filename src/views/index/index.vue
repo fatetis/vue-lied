@@ -36,7 +36,9 @@
                 </div>
             </div>
         </div>
+        <scroll-top :scrollObj="scroll"></scroll-top>
         <footer-index></footer-index>
+
     </div>
 </template>
 
@@ -52,6 +54,8 @@ import copyRight from "@views/index/components/copyRight";
 import footerIndex from "@components/footerIndex";
 import { indexAdv, productList } from "@/service/getData";
 import { group } from '@/util/mUtils'
+import scrollTop from '@components/common/scrollTop'
+
 export default {
     name: "index",
     data() {
@@ -63,7 +67,9 @@ export default {
             productData: [], // 产品列表
             productDataMeta: [],
             page: 0,
-            footShow: false
+            footShow: false,
+            showBackTop: false,
+            scroll: {}, 
         }
     },
     components: {
@@ -75,6 +81,7 @@ export default {
         recommand,
         copyRight,
         footerIndex,
+        scrollTop
     },
     methods: {
         getProductListData(){
@@ -89,14 +96,15 @@ export default {
                     this.footShow = true;
                 }
             })
-        }
-        
+        },
     },
     mounted() {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.index_wrapper, {
                 scrollbar: true,
                 useTransition:false,
+                probeType: 3, // 是否会截流scroll事件
+                useTransition: false, // 防止iphone微信滑动卡顿
                 // 上拉加载
                 pullUpLoad: {
                     // 当上拉距离超过30px时触发 pullingUp 事件
@@ -120,14 +128,14 @@ export default {
                 setTimeout(() => {
                     // 事情做完，需要调用此方法告诉 better-scroll 数据已加载，否则上拉事件只会执行一次
                     this.scroll.finishPullUp()
-                }, 2000)
+                }, 3000)
             });
             // this.scroll.on('pullingDown', () => {
             //     console.log('处理下拉刷新操作')
             //     setTimeout(() => {
             //         // 事情做完，需要调用此方法告诉 better-scroll 数据已加载，否则下拉事件只会执行一次
             //         this.scroll.finishPullDown()
-            //     }, 2000)
+            //     }, 3000)
             // })
         });
         indexAdv({
