@@ -9,7 +9,7 @@
                     </div>
                     <div class="item search">
                         <div class="input">
-                            <div type="text">请输入产品名称</div>
+                            <div type="text">请输入商品名称</div>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@ export default {
     props: {
         title: {
             type: String,
-            default: "八块钱网家装商城",
+            default: "LIED商城",
         },
     },
     components: {

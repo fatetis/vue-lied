@@ -18,7 +18,9 @@
                         <div class="info_edit ct">编辑</div>
                     </div>
                     <div class="item">
+                        <router-link :to="{name: 'addressList'}">
                         <p class="p1">我的收货地址</p>
+                        </router-link>
                     </div>
 
                     <div class="item margin">

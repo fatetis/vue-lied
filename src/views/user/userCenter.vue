@@ -51,7 +51,9 @@
                     <div class="order_item">
                         <div class="top clearfix">
                             <p class="p1 float-left">我的订单</p>
+                            <router-link :to="{name: 'orderList', query: {status: null}}">
                             <p class="p2 float-right">查看全部订单<span></span></p>
+                            </router-link>
                         </div>
                         <div class="bottom">
                                 <div class="item">
@@ -221,6 +223,8 @@ export default {
                     background-color: $fc
                     margin: 98px 20px 20px 20px
                     border-radius: 20px
+                    position: relative
+                    z-index: 99
                     .top
                         padding: 20px
                         border-bottom: 1px solid #ececec

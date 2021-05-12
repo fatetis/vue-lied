@@ -67,7 +67,7 @@ export default {
             productData: [], // 产品列表
             productDataMeta: [],
             page: 0,
-            footShow: false,
+            footShow: true,
             showBackTop: false,
             scroll: {}, 
         }
@@ -92,9 +92,10 @@ export default {
             }).then((res) => {
                 this.productDataMeta = res.meta;
                 this.productData = this.productData.concat(res.data)
-                if(this.productDataMeta.pagination.count <= 1) {
-                    this.footShow = true;
-                }
+                
+                // if(this.productDataMeta.pagination.count <= 1) {
+                //     this.footShow = true;
+                // }
             })
         },
     },

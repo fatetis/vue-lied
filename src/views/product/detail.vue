@@ -256,7 +256,7 @@ export default {
                 let scrolly = ~position.y
                 if(scrolly >= 0) {
                     let scroolNum = Math.round((scrolly/88)*10)
-                    _this.headerOpNum = scroolNum >= 10 ? 'header-op0' : (scroolNum === 0 ? null :'header-op' + scroolNum)
+                    _this.headerOpNum = (scroolNum >= 10) ? 'header-op0' : (scroolNum <= 2 ? null :'header-op' + scroolNum)
                     _this.headerArrowShow = scroolNum >= 5 ? true : false
                 }
             })
