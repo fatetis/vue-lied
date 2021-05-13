@@ -4,12 +4,12 @@
       <div class="content">
         <div class="common_link clearfix border">
           <div class="item">
-            <router-link :to="{path: '/'}">
+            <router-link :to="{name: 'login'}">
               <p>登录</p>
             </router-link>
           </div>
           <div class="item">
-            <router-link :to="{path: '/'}">
+            <router-link :to="{name: 'login'}">
               <p>注册</p>
             </router-link>
           </div>
@@ -20,16 +20,16 @@
           </div>
           <div class="item">
             <router-link :to="{path: '/'}">
-              <p>返回顶部</p>
+              <p>意见反馈</p>
             </router-link>
           </div>
         </div>
         <div class="copy_right border">
-          <!-- <p>粤ICP备74568512号-2</p> -->
-          <!-- <p>Copyright © 2014-2020 lied. All rights reserved.</p> -->
-          <a href="https://m.jd.com">
-            <p>网站仿京东(https://m.jd.com)的风格。如有任何侵权纠纷，可及时联系开发者处理，以免造成不必要的麻烦</p>
-          </a>
+          <!-- <p>粤ICP备74568512号-2</p>
+          <p>Copyright © 2014-2020 lied. All rights reserved.</p> -->
+          
+          <p>网站仿京东(<a href="https://m.jd.com">https://m.jd.com</a>)的风格。如有任何侵权纠纷，可及时联系开发者处理，以免造成不必要的麻烦</p>
+          
           <p>开发者：fatetis QQ：2580926706</p>
         </div>
       </div>
@@ -38,7 +38,7 @@
 </template>
 <script>
 export default {
-  name: "copyRight"
+  name: "copyRight",
 };
 </script>
 <style lang="sass" scoped>

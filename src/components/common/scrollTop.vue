@@ -21,7 +21,7 @@ export default {
     methods: {
         backTop()
         {
-            this.scrollObj.scrollTo(0, 0, 500)
+            this.scrollObj !== undefined && this.scrollObj.scrollTo(0, 0, 500)
         },
     },
     mounted() {

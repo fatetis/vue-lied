@@ -234,7 +234,12 @@ export default {
             // #todo 忘记密码跳转页面
         }
         
-        
+    },
+    mounted() {  
+        this.$store.getters.getLoginStatus === 1 
+        && this.$router.replace({
+            name: 'userCenter'
+        });
     }
     
 }

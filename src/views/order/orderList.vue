@@ -187,7 +187,7 @@ export default {
                 })
             });
             this.orderData = mergeJson(this.orderData, result)
-            if(this.orderDataMeta.pagination.count <= 1) {
+            if(this.orderDataMeta.pagination.current_page == this.orderDataMeta.pagination.total_pages) {
                 this.getProductListData();
             }
         },
