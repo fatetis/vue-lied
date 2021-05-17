@@ -108,5 +108,5 @@ export default {
                     line-height: 64px
                     color: #333
                     border-bottom: 1px solid #f5f5f5
-                    font-size: 14px
+                    font-size: 24px
 </style>

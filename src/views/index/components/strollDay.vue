@@ -84,7 +84,7 @@ export default {
                             max-width: 100%
                             @include overwrap()
                         .p2
-                            @include sc(12px, #222222)
+                            @include sc(24px, #222222)
                             @include overwrap()
                     .img
                         @include wh(120px, 120px)

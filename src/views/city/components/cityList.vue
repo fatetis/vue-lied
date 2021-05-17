@@ -115,7 +115,7 @@ export default {
   border-radius: 7.5px;
   border: 1px solid #ccc;
   padding: 6px 0;
-  font-size: 18px;
+  font-size: 24px;
   text-align: center;
   margin: 8px;
 }
@@ -127,7 +127,7 @@ export default {
   line-height: 64px;
   color: #333;
   border-bottom: 1px solid #f5f5f5;
-  font-size: 14px;
+  font-size: 24px;
   padding: 8px 0;
 }
 </style>

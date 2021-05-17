@@ -1,29 +1,28 @@
 <template>
-    <div class="headerSearch">
+    <div class="headerOnlySearch">
         <div class="container">
-            <div class="wrapper">
-                <div class="content clearfix">
-                    <div class="item left">
-                        <span class="arrow"></span>
-                        <span class="back" @click="back"></span>
+          <div class="wrapper">
+              <div class="content clearfix">
+                  <div class="item left">
+                      <span class="arrow"></span>
+                      <span class="back" @click="back"></span>
+                  </div>
+                  <div class="item search">
+                    <div class="input">
+                      <input type="text" placeholder="请输入搜索名称">
                     </div>
-                    <div class="item search">
-                      <div class="input">
-                        <input type="text" placeholder="请输入搜索名称">
-                      </div>
-                    </div>
-                </div>
-            </div>
+                  </div>
+              </div>
+          </div>
+          <button class="search-button handle-search">搜索</button> 
         </div>
-        <dot></dot>
     </div>
 </template>
 <script>
-import dot from '@components/common/dot'
+
 export default {
-    name: 'headerSearch',
+    name: 'headerOnlySearch',
     components: {
-      dot
     },
     methods:{
       back(){
@@ -33,7 +32,7 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.headerSearch
+.headerOnlySearch
   height: $headerIndexTop
   .container
     position: fixed
@@ -87,7 +86,7 @@ export default {
             position: absolute
             top: 0
             left: 0
-            width: 76vw
+            width: 71vw
             margin-left: 66px
             border-radius: 30px
             padding-left: 30px
@@ -105,7 +104,17 @@ export default {
               background-color: #f7f7f7
               display: inline-block
               margin: 0px 40px
-              width: 70vw
+              width: 65vw
               border-radius: 30px
+    .search-button
+      position: absolute
+      right: 20px
+      top: 18px
+      background-color: $theam
+      text-align: center
+      line-height: 56px
+      border-radius: 10px
+      @include wh(80px, 56px)
+      @include sc(24px, $fc)
 
 </style>

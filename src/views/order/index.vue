@@ -346,7 +346,7 @@ export default {
                 @include sc(28px, #333)
             .p2
                 margin: 16px 0
-                @include sc(12px, #999)
+                @include sc(24px, #999)
         .content 
             float: right
             text-align: right
@@ -401,7 +401,7 @@ export default {
                             .detail_content
                                 padding-right: 20px 
                                 .p1
-                                    @include sc(12px, #666)
+                                    @include sc(24px, #666)
                                 .p2
                                     font-weight: 700
                                     padding: 12px 0
@@ -414,7 +414,7 @@ export default {
                                 @include borderArrow(right, 16px, #666)
                         .address_user
                             width: 100%
-                            @include sc(12px, #666)
+                            @include sc(24px, #666)
                             p
                                 display: inline-block
                                 word-wrap: break-word
@@ -491,7 +491,7 @@ export default {
                                                             max-width: 100%
                                                             line-height: 32px
                                                             margin-bottom: 16px
-                                                            @include sc(12px, #999)
+                                                            @include sc(24px, #999)
                                                             .sku_attr_style
                                                                 display: inline-block
                                                                 max-width: 100%
@@ -534,7 +534,7 @@ export default {
                                         .font_weight
                                             font-weight: 700
                                         .small_size
-                                            font-size: 12px
+                                            font-size: 24px
                                         .change_red_color
                                             color: #f2270c
                                         .change_grey_color

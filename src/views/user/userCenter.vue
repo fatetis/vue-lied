@@ -158,9 +158,9 @@ export default {
 <style lang="sass" scoped>
 .userCenter
     .use-color
-        @include sc(12px, #f2270c)
+        @include sc(24px, #f2270c)
     .receive-color
-        @include sc(12px, $theam)
+        @include sc(24px, $theam)
 .userCenter
     width: 100vw
     height: 100vh

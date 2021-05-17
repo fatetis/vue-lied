@@ -80,7 +80,7 @@ export default {
             padding: 15px 20px
             border-top: none
             p  
-                @include sc(12px, #848689)    
+                @include sc(24px, #848689)    
                 // @include overwrap()
             p:last-child
                 padding-top: 10px

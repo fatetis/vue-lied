@@ -441,7 +441,7 @@ export default {
                                         margin-top: 6px
                                         .item_action
                                             float: right
-                                            @include sc(12px, #333)
+                                            @include sc(24px, #333)
     .fixbar
         .container
             position: fixed

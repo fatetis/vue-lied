@@ -29,9 +29,9 @@ export default {
 <style lang="sass" scoped>
 .couponItem
     .use-color
-        @include sc(12px, #f2270c)
+        @include sc(24px, #f2270c)
     .receive-color
-        @include sc(12px, $theam)
+        @include sc(24px, $theam)
 .couponItem
     .item
         width: 380px
@@ -55,7 +55,7 @@ export default {
                 .p2
                     @include overwrap()
                 .p3
-                    @include sc(12px, #858585)
+                    @include sc(24px, #858585)
                     @include overwrap()
             .button
                 width: 40px

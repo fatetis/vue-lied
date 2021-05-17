@@ -14,6 +14,7 @@ import payResult from '@views/pay/payResult'
 import userCenter from '@views/user/userCenter'
 import orderList from '@views/order/orderList'
 import setting from '@views/user/setting'
+import search from '@views/search'
 
 Vue.use(VueRouter)
 
@@ -95,6 +96,11 @@ Vue.use(VueRouter)
     path: '/user/setting',
     name: 'setting',
     component: setting
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: search
   },
 ]
 

@@ -12,7 +12,9 @@
           <i class="logo"></i>
           <i class="icon"></i>
           <div class="input">
-            <input type="text" name placeholder="请输入搜索名称" />
+            <router-link :to="{name: 'search'}">
+            <input type="text" disabled name placeholder="请输入搜索名称" />
+            </router-link>
           </div>
         </div>
       </div>

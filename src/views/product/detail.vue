@@ -331,7 +331,7 @@ export default {
                         @include sc(32px, #262626)
                     .desc   
                         margin-top: 40px 
-                        @include sc(12px, #666)
+                        @include sc(24px, #666)
                 .bg_wrap
                     margin: 20px 0
                     border-radius: 32px 
@@ -359,7 +359,7 @@ export default {
                                         @include sc(26px, #333)
                                         @include overwrap()
                                     .p2
-                                        @include sc(12px, #8c8c8c)
+                                        @include sc(24px, #8c8c8c)
                                         @include overwrap()
                                         span
                                             color: #f2270c
@@ -383,12 +383,12 @@ export default {
                                     box-sizing: border-box
                                     padding: 0 20px
                                     margin-top: 12px
-                                    @include sc(26px, #333)
+                                    @include sc(26px, #333333)
                                     .text
                                         @include overwrap()
                                     .star
                                         span
-                                            @include sc(12px, #666)
+                                            @include sc(24px, #666666)
                                             margin-right: 4px 
                                         i
                                             display: inline-block
@@ -423,7 +423,7 @@ export default {
                                     float: left
                                     width: 33.33%
                                     text-align: center
-                                    @include sc(12px, #8c8c8c)
+                                    @include sc(24px, #8c8c8c)
                                     em
                                         display: inline-block
                                         margin: 0 10px
