@@ -9,8 +9,11 @@
                   </div>
                   <div class="item search">
                     <div class="input">
-                      <input type="text" placeholder="请输入搜索名称">
+                      <input v-model="keyVal" type="text" placeholder="请输入搜索名称">
                     </div>
+                    <span class="close" v-show="show_close" @click="handleClose">
+                      <i class="icon-close"></i>
+                    </span> 
                   </div>
               </div>
           </div>
@@ -22,10 +25,30 @@
 
 export default {
     name: 'headerOnlySearch',
+    data () {
+      return {
+        keyVal: '',
+        timer: null, // 节流控制
+        show_close: false
+      }
+    },
     components: {
     },
+    watch: {
+      keyVal() {
+        if(this.timer) clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+          this.show_close = this.keyVal.length > 0
+          this.$emit('change', this.keyVal)
+        }, 500)
+      }
+    },
     methods:{
-      back(){
+      handleClose() {
+        this.keyVal = ''
+        this.show_close = false
+      },
+      back() {
           this.$router.go(-1);//返回上一层
       },
     },
@@ -104,8 +127,17 @@ export default {
               background-color: #f7f7f7
               display: inline-block
               margin: 0px 40px
-              width: 65vw
+              width: 58vw
               border-radius: 30px
+          .close
+            // display: inline-block
+            position: absolute
+            top: 16px
+            right: 146px
+            .icon-close
+              display: inline-block
+              @include wh(28px, 28px)
+              @include bis('../assets/images/icon/close.png')
     .search-button
       position: absolute
       right: 20px
