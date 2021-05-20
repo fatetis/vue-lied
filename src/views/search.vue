@@ -3,28 +3,14 @@
     <header-only-search @change="handleSearch"></header-only-search>
     <div class="container">
       <div class="wrapper">
-        <div class="content">
+        <div class="content"  v-show="history_data.length > 0">
           <div class="list">
             <div class="title">
               <p class="p1">最近搜索</p>
-              <i class="trash"></i>
+              <i class="trash" @click="handleTransh"></i>
             </div>
-            <div class="text">
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">aswwwwwwwwwwwwwdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdwwwwwwwwwwas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
-              <span class="span-bg">asdas</span>
+            <div class="text" ref="history_search">
+              <span class="span-bg" v-for="(value, key) of history_data" :key="key">{{ value.key }}</span>
             </div>
           </div>
         </div>
@@ -32,10 +18,9 @@
           <div class="list">
             <div class="title">
               <p class="p1">热门搜索</p>
-              <p class="p2">隐藏</p>
+              <p class="p2" @click="handleHidden">{{ hidden ? '隐藏' : '显示'}}</p>
             </div>
-            <div class="text">
-              <span class="span-bg">asdas</span>
+            <div class="text" v-show="hidden">
               <span class="span-bg">asdas</span>
               <span class="span-bg">aswwwwwwwww3wwwwdas</span>
               <span class="span-bg">aas</span>
@@ -51,6 +36,8 @@
               <span class="span-bg">asdas</span>
               <span class="span-bg">asdas</span>
             </div>
+            <p class="hiden_search" v-show="!hidden">已隐藏搜索发现</p>
+
           </div>
         </div>
 
@@ -85,11 +72,14 @@
 </template>
 <script>
 import headerOnlySearch from '@components/headerOnlySearch'
+import { setStore, getStore, removeStore } from '@/util/mUtils';
 export default {
   name: 'search',
   data () {
     return {
-      filter_show: false
+      filter_show: false,
+      history_data: [],
+      hidden: true,
     }
   },
   components: {
@@ -97,12 +87,42 @@ export default {
   },
   methods: {
     handleSearch (key) {
+      let that = this
+      let change = false
       if(key.length > 0) {
-        this.filter_show = true
+        that.filter_show = true
+        let obj = {
+          key: key,
+          /**
+           * 链接内容
+           */
+          link: '12111'
+        }
+        that.history_data.forEach(function(val){
+          if(val.key === obj.key) {
+            /**
+             * 同名搜索key，只改变链接内容
+             */
+            val.link = 1
+            change = true
+          }
+        })
+        !change && that.history_data.unshift(obj)
+        setStore('search', that.history_data)
       } else {
-        this.filter_show = false
+        that.filter_show = false
       }
+    },
+    handleTransh () {
+      removeStore('search')
+      this.history_data = []
+    },
+    handleHidden() {
+      this.hidden = !this.hidden
     }
+  },
+  mounted() {
+    this.history_data = getStore('search') === null ? [] : eval("(" + getStore('search') + ")")
   }
 }
 </script>
@@ -127,6 +147,10 @@ export default {
           .text
             width: 100%
             margin-top: 20px 
+          .hiden_search
+            text-align: center
+            margin-top: 50px
+            @include sc(24px, #999999)
       .filter
         position: absolute
         box-sizing: border-box

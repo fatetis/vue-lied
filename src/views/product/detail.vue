@@ -46,7 +46,7 @@
                      </div>
 
                     <!-- sku描述 -->
-                     <div class="bg_wrap border_wrap">
+                    <div class="bg_wrap border_wrap">
                          <div class="content padding_container">
                             <div class="item clearfix" @click="handleShowPopup(!showPopup)">
                                 <div class="float st">
@@ -106,7 +106,149 @@
                         </div>
                     </div>
                     <!-- ###TODO 评价&问答 位置空缺-->
+                    <div class="bg_wrap comment_wrap">
+                        <div class="content padding_container">
+                            <div class="item clearfix">
+                            <div class="float st">
+                                <p class="padding">评价</p>
+                            </div>
+                            <div class="arrow">
+                                <small>好评度98% </small>
+                                <span></span>
+                            </div>
+                            </div>
+                            <div class="commen_item">
+                                <div class="list clearfix">
+                                    <div class="first_comment clearfix">
+                                        <div class="img">
+                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
+                                        </div>
+                                        <div class="test">
+                                            <div class="top">
+                                                <p class="name">
+                                                    这是名称
+                                                    <i class="star_icon"></i>
+                                                    <i class="star_icon"></i>
+                                                    <i class="star_icon"></i>
+                                                    <i class="star_icon half"></i>
+                                                    <i class="star_icon empty"></i>
+                                                </p>
+                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                            </div>
+                                            <div class="bottom">
+                                                <p class="time">13小时前</p>
+                                                <div class="right">
+                                                    <small>188</small>
+                                                    <span class="zan"></span>
+                                                    <span class="reply"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reply_comment clearfix">
+                                        <div class="img">
+                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
+                                        </div>
+                                        <div class="test">
+                                            <div class="top">
+                                                <p class="name">
+                                                    <span class="first_name">这是名称2</span> 
+                                                    <span class="arrow"></span>
+                                                    <span class="reply_name">这是名称</span>
+                                                </p>
+                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                            </div>
+                                            <div class="bottom">
+                                                <p class="time">11小时前</p>
+                                                <div class="right">
+                                                    <small>188</small>
+                                                    <span class="zan"></span>
+                                                    <span class="reply"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list clearfix">
+                                    <div class="first_comment clearfix">
+                                        <div class="img">
+                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
+                                        </div>
+                                        <div class="test">
+                                            <div class="top">
+                                                <p class="name">
+                                                    这是名称
+                                                    <i class="star_icon"></i>
+                                                    <i class="star_icon"></i>
+                                                    <i class="star_icon"></i>
+                                                    <i class="star_icon half"></i>
+                                                    <i class="star_icon empty"></i>
+                                                </p>
+                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                            </div>
+                                            <div class="bottom">
+                                                <p class="time">13小时前</p>
+                                                <div class="right">
+                                                    <small>188</small>
+                                                    <span class="zan"></span>
+                                                    <span class="reply"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reply_comment clearfix">
+                                        <div class="img">
+                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
+                                        </div>
+                                        <div class="test">
+                                            <div class="top">
+                                                <p class="name">
+                                                    <span class="first_name">这是名称2</span> 
+                                                    <span class="arrow"></span>
+                                                    <span class="reply_name">这是名称</span>
+                                                </p>
+                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                            </div>
+                                            <div class="bottom">
+                                                <p class="time">11小时前</p>
+                                                <div class="right">
+                                                    <small>188</small>
+                                                    <span class="zan"></span>
+                                                    <span class="reply"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="reply_comment clearfix">
+                                        <div class="img">
+                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
+                                        </div>
+                                        <div class="test">
+                                            <div class="top">
+                                                <p class="name">
+                                                    <span class="first_name">这是名称3</span> 
+                                                    <span class="arrow"></span>
+                                                    <span class="reply_name">这是名称2</span>
+                                                </p>
+                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                            </div>
+                                            <div class="bottom">
+                                                <p class="time">11小时前</p>
+                                                <div class="right">
+                                                    <small>188</small>
+                                                    <span class="zan"></span>
+                                                    <span class="reply"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment_more">
 
+                            </div>
+                        </div>
+                    </div>
                     <!-- 商家描述 -->
                     <div class="bg_wrap">
                          <div class="content padding_container">
@@ -283,8 +425,9 @@ export default {
     opacity: 0
     -ms-transform: scaleY(0)
     transform: scaleY(0)
-
-
+.product .container .wrapper .content .comment_wrap .commen_item div:last-child
+    margin-bottom: 0
+    border-bottom: 0
 .padding_container
     padding: 0 36px
     background-color: #fff
@@ -342,13 +485,24 @@ export default {
                             .float
                                 float: left
                             .st
-                                width: 56px
+                                width: 71px
                                 p
                                     font-weight: 700
+                                    position: relative
+                                    padding-left: 15px 
                                     @include sc(26px, #262626)
+                                p.padding:before
+                                    content: ""
+                                    position: absolute
+                                    left: 0
+                                    top: 50%
+                                    transform: translateY(-50%)
+                                    width: 6px
+                                    height: 28px
+                                    background-image: linear-gradient(180deg,#f5503a,#fad1cb)
                             .mt
                                 .text
-                                    width: calc( 100vw - 168px )
+                                    width: calc( 100vw - 183px )
                                     overflow: hidden
                                     box-sizing: border-box
                                     padding: 0 30px
@@ -371,6 +525,15 @@ export default {
                                     display: block
                                     @include wh(40px, 40px)
                                     @include bis('../../assets/images/icon/prod_dot.png')  
+                            .arrow
+                                float: right
+                                line-height: 1.2
+                                small
+                                    color: #999999
+                                    vertical-align: middle
+                                span
+                                    vertical-align: middle
+                                    @include borderArrow(right, 12px, #999)
                             .seller
                                 .logo
                                     float: left
@@ -390,7 +553,7 @@ export default {
                                         span
                                             @include sc(24px, #666666)
                                             margin-right: 4px 
-                                        i
+                                        .star_icon
                                             display: inline-block
                                             margin: 0 2px
                                             @include wh(20px, 20px)
@@ -430,13 +593,77 @@ export default {
                                     .hover
                                         color: $theam
                                     span
-                                        @include wh(34px, 34px)
                                         text-align: center
                                         line-height: 34px
                                         display: inline-block
                                         background-color: #fafafa
                                         border-radius: 34px
-                                            
+                                        @include wh(34px, 34px)
+                .comment_wrap
+                    .commen_item
+                        .list
+                            border-bottom: 1px solid #ececec
+                            padding-bottom: 20px
+                            margin-bottom: 20px
+                            .img
+                                border-radius: 50%
+                                overflow: hidden
+                                float: left
+                                @include wh(72px, 72px)
+                                img          
+                                    @include wh(100%, 100%) 
+                            .test  
+                                float: left
+                                margin-left: 20px 
+                                margin-top: -4px  
+                                width: calc(100% - 92px)
+                                .top 
+                                    .name
+                                        font-weight: 600
+                                        @include sc(28px, #333333) 
+                                        span.arrow
+                                            display: inline-block
+                                            margin: 0 14px 2px 14px
+                                            @include arrow(right, 8px, #999999)
+                                    .comment
+                                        margin-top: 6px 
+                                        line-height: 1.5
+                                        @include sc(24px, #666666)
+                                .bottom
+                                    display: flex
+                                    justify-content: space-between
+                                    margin-top: 10px
+                                    .time
+                                        @include sc(24px, #999999)
+                                    .right
+                                        small
+                                            display: inline-block
+                                            @include sc(24px, #999999)
+                                        .zan
+                                            display: inline-block
+                                            margin-left: 10px 
+                                            vertical-align: bottom
+                                            @include wh(32px, 32px)
+                                            @include bis('../../assets/images/icon/zan.png')
+                                        .reply
+                                            display: inline-block
+                                            margin-left: 40px 
+                                            vertical-align: bottom
+                                            @include wh(28px, 28px)
+                                            @include bis('../../assets/images/icon/comment.png')
+                            .first_comment
+                                .bottom
+                                    border-bottom: 1px solid #ececec
+                                    padding-bottom: 20px
+                            .reply_comment
+                                margin-left: 92px
+                                margin-top: 20px
+                                .img
+                                    @include wh(40px, 40px)
+                                .test
+                                    width: calc(100% - 60px)
+                    .comment_more
+                        height: 20px
                 .detail_serve_container
                     background-color: #fafafa
                     .detail_serve
@@ -500,5 +727,16 @@ export default {
                     img
                         width: 100%
                         height: 100%
-                        vertical-align: middle                             
+                        vertical-align: middle   
+
+    .star_icon
+        display: inline-block
+        margin: 0 2px
+        @include wh(20px, 20px)
+        @include bis('../../assets/images/icon/star.png')
+    .half
+        @include bis('../../assets/images/icon/star_half.png')
+    .empty
+        @include bis('../../assets/images/icon/star_empty.png')
+                       
 </style>
