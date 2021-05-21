@@ -145,25 +145,27 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="reply_comment clearfix">
-                                        <div class="img">
-                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
-                                        </div>
-                                        <div class="test">
-                                            <div class="top">
-                                                <p class="name">
-                                                    <span class="first_name">这是名称2</span> 
-                                                    <span class="arrow"></span>
-                                                    <span class="reply_name">这是名称</span>
-                                                </p>
-                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                    <div class="reply_comment">
+                                        <div class="content clearfix">
+                                            <div class="img">
+                                            <img src="@assets/images/userCenter/fatetis.jpg" alt="">
                                             </div>
-                                            <div class="bottom">
-                                                <p class="time">11小时前</p>
-                                                <div class="right">
-                                                    <small>188</small>
-                                                    <span class="zan"></span>
-                                                    <span class="reply"></span>
+                                            <div class="test">
+                                                <div class="top">
+                                                    <p class="name">
+                                                        <span class="first_name">这是名称3</span> 
+                                                        <span class="arrow"></span>
+                                                        <span class="reply_name">这是名称2</span>
+                                                    </p>
+                                                    <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                                </div>
+                                                <div class="bottom">
+                                                    <p class="time">11小时前</p>
+                                                    <div class="right">
+                                                        <small>188</small>
+                                                        <span class="zan"></span>
+                                                        <span class="reply"></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,56 +198,63 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="reply_comment clearfix">
-                                        <div class="img">
-                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
-                                        </div>
-                                        <div class="test">
-                                            <div class="top">
-                                                <p class="name">
-                                                    <span class="first_name">这是名称2</span> 
-                                                    <span class="arrow"></span>
-                                                    <span class="reply_name">这是名称</span>
-                                                </p>
-                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                    <div class="reply_comment">
+                                        <div class="content clearfix">
+                                            <div class="img">
+                                            <img src="@assets/images/userCenter/fatetis.jpg" alt="">
                                             </div>
-                                            <div class="bottom">
-                                                <p class="time">11小时前</p>
-                                                <div class="right">
-                                                    <small>188</small>
-                                                    <span class="zan"></span>
-                                                    <span class="reply"></span>
+                                            <div class="test">
+                                                <div class="top">
+                                                    <p class="name">
+                                                        <span class="first_name">这是名称3</span> 
+                                                        <span class="arrow"></span>
+                                                        <span class="reply_name">这是名称2</span>
+                                                    </p>
+                                                    <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                                </div>
+                                                <div class="bottom">
+                                                    <p class="time">11小时前</p>
+                                                    <div class="right">
+                                                        <small>188</small>
+                                                        <span class="zan"></span>
+                                                        <span class="reply"></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="reply_comment clearfix">
-                                        <div class="img">
-                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
-                                        </div>
-                                        <div class="test">
-                                            <div class="top">
-                                                <p class="name">
-                                                    <span class="first_name">这是名称3</span> 
-                                                    <span class="arrow"></span>
-                                                    <span class="reply_name">这是名称2</span>
-                                                </p>
-                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                    <div class="reply_comment">
+                                        <div class="content clearfix">
+                                            <div class="img">
+                                            <img src="@assets/images/userCenter/fatetis.jpg" alt="">
                                             </div>
-                                            <div class="bottom">
-                                                <p class="time">11小时前</p>
-                                                <div class="right">
-                                                    <small>188</small>
-                                                    <span class="zan"></span>
-                                                    <span class="reply"></span>
+                                            <div class="test">
+                                                <div class="top">
+                                                    <p class="name">
+                                                        <span class="first_name">这是名称3</span> 
+                                                        <span class="arrow"></span>
+                                                        <span class="reply_name">这是名称2</span>
+                                                    </p>
+                                                    <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
+                                                </div>
+                                                <div class="bottom">
+                                                    <p class="time">11小时前</p>
+                                                    <div class="right">
+                                                        <small>188</small>
+                                                        <span class="zan"></span>
+                                                        <span class="reply"></span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="comment_more">
+                                            <p class="more">展开其他3条回复</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="comment_more">
-
+                                <p class="all">查看全部评论</p>
                             </div>
                         </div>
                     </div>
@@ -331,7 +340,8 @@ export default {
             skuName: '',
             num: 1,
             headerOpNum: null, // 滚动时头部透明度的变化
-            headerArrowShow: false // 滚动时头部箭头背景显示
+            headerArrowShow: false, // 滚动时头部箭头背景显示
+            active: 0
         }
     },
     components: {
@@ -485,7 +495,7 @@ export default {
                             .float
                                 float: left
                             .st
-                                width: 71px
+                                width: 72px
                                 p
                                     font-weight: 700
                                     position: relative
@@ -502,7 +512,7 @@ export default {
                                     background-image: linear-gradient(180deg,#f5503a,#fad1cb)
                             .mt
                                 .text
-                                    width: calc( 100vw - 183px )
+                                    width: calc( 100vw - 184px )
                                     overflow: hidden
                                     box-sizing: border-box
                                     padding: 0 30px
@@ -658,12 +668,27 @@ export default {
                             .reply_comment
                                 margin-left: 92px
                                 margin-top: 20px
-                                .img
-                                    @include wh(40px, 40px)
-                                .test
-                                    width: calc(100% - 60px)
+                                .content
+                                    margin-bottom: 20px
+                                    .img
+                                        @include wh(40px, 40px)
+                                    .test
+                                        width: calc(100% - 60px)
                     .comment_more
-                        height: 20px
+                        text-align: center
+                        .more
+                            text-align: left
+                            padding-top: 20px
+                            border-top: 1px solid #ececec
+                            @include sc(26px, #3582fb)
+                        .all
+
+                            display: inline-block
+                            padding: 20px 40px
+                            border: 1px solid #ececec
+                            border-radius: 20px
+                            margin-bottom: 20px
+                            @include sc(26px, #666666)
                 .detail_serve_container
                     background-color: #fafafa
                     .detail_serve

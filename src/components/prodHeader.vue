@@ -16,8 +16,9 @@
                     </nav>
                 </div>
             </div>
-            <dot :type="headerArrowShow ? 3 : 2"></dot>
         </div>
+        <dot :type="headerArrowShow ? 3 : 2"></dot>
+
     </div>
 </template>
 <script>
