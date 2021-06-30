@@ -16,8 +16,8 @@ if (process.env.NODE_ENV == 'development') {
     imgBaseUrl = '/img/';
 
 }else if(process.env.NODE_ENV == 'production'){
-	baseUrl = '//elm.cangdu.org';
-    imgBaseUrl = '//elm.cangdu.org/img/';
+	baseUrl = 'http://api.lied.com';
+    imgBaseUrl = 'http://api.lied.com/v1/';
 }
 
 export {

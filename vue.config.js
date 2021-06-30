@@ -6,24 +6,24 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 const resolve = (dir) => path.join(__dirname, dir);
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/vue/lied/dist/' : '/',
     // 公共路径
-    indexPath: 'index.html',
+    publicPath: process.env.NODE_ENV === 'production' ? '/dist/' : '/',
     // 相对于打包路径index.html的路径
-    outputDir: process.env.outputDir || 'dist',
+    indexPath: 'index.html',
     // 'dist', 生产环境构建文件的目录
-    assetsDir: 'static',
+    outputDir: process.env.outputDir || 'dist',
     // 相对于outputDir的静态资源(js、css、img、fonts)目录
-    lintOnSave: false,
+    assetsDir: 'static',
     // 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码
-    runtimeCompiler: true,
+    lintOnSave: false,
     // 是否使用包含运行时编译器的 Vue 构建版本
-    productionSourceMap: !IS_PROD,
+    runtimeCompiler: true,
     // 生产环境的 source map
-    parallel: require("os").cpus().length > 1,
+    productionSourceMap: !IS_PROD,
     // 是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
-    pwa: {},
+    parallel: require("os").cpus().length > 1,
     // 向 PWA 插件传递选项。
+    pwa: {},
     chainWebpack: config => {
         config.resolve.symlinks(true); // 修复热更新失效
         // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
