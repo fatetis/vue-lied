@@ -54,7 +54,6 @@ import copyRight from "@views/index/components/copyRight";
 import footerIndex from "@components/footerIndex";
 import { indexAdv, productList } from "@/service/getData";
 import { group } from '@/util/mUtils'
-import scrollTop from '@components/common/scrollTop'
 
 export default {
     name: "index",
@@ -80,8 +79,7 @@ export default {
         strollDay,
         recommand,
         copyRight,
-        footerIndex,
-        scrollTop
+        footerIndex
     },
     methods: {
         getProductListData(){

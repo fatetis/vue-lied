@@ -5,16 +5,14 @@
                 <div class="content clearfix">
                     <div class="item" v-for="(item, index) of productData" :key="index">
                         <router-link :to="{name: 'product', params: {id: item.id}}">
-                        <div class="show_img">
-                            <img :src="item.medias.data[0].media.data.link" alt="图片加载失败">
-                        </div>
-                        <div class="text">
-                            <p class="title">{{item.name}}</p>
-                            <div class="detail clearfix">
-                                <div class="float price">￥<span>{{item.price.int}}</span>.{{item.price.point}}</div>
-                                <div class="right buy_num">35人付款</div>
+                            <self-image width="100%" :src="item.medias.data[0].media.data.link"/>
+                            <div class="text">
+                                <p class="title">{{item.name}}</p>
+                                <div class="detail clearfix">
+                                    <div class="float price">￥<span>{{item.price.int}}</span>.{{item.price.point}}</div>
+                                    <div class="right buy_num">35人付款</div>
+                                </div>
                             </div>
-                        </div>
                         </router-link>
                     </div>
                     <!-- <div class="item">
@@ -77,6 +75,8 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+.recommand .container .wrapper .content .item:nth-child(2n)
+    margin-right: 0
 .recommand
     .container
         margin: 0 20px
@@ -89,10 +89,11 @@ export default {
                     width: 49%
                     box-sizing: border-box
                     margin-bottom: 8px
-                    margin-right: 1%
+                    margin-right: 2%
                     float: left
                     border-radius: 20px
                     overflow: hidden
+                    background-color: $fc
                     .show_img
                         width: 100%
                         padding-top: 100% 
@@ -107,7 +108,6 @@ export default {
                     .text
                         padding: 18px
                         box-sizing: border-box
-                        vertical-align: top
                         width: 100%
                         background: #fff
                         .title

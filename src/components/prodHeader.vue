@@ -8,11 +8,12 @@
                     </div>
                 </div>
                 <div class="cl nav" v-show="headerOpNum !== null">
-                    <nav>
-                        <span class="hover">商品</span>
-                        <span>评价</span>
-                        <span>推荐</span>
-                        <span>详情</span>
+                    <nav ref="handleNav">
+                        <span class="hover" @click="handleChangeHover">商品</span>
+                        <span @click="handleChangeHover">评价</span>
+                        <span @click="handleChangeHover">推荐</span>
+                        <span @click="handleChangeHover">详情</span>
+                        <p class="slide"></p>
                     </nav>
                 </div>
             </div>
@@ -25,6 +26,11 @@
 import dot from '@components/common/dot'
 export default {
     name: 'prodHeader',
+    data() {
+        return {
+            navScrollStatics: []
+        }
+    },
     props: {
         type: {
             default: 1
@@ -34,7 +40,16 @@ export default {
         },
         headerOpNum: {
             default: null
-        }
+        },
+        navIndex: {
+            default: 0
+        },
+        navScroll: {
+            default: []
+        },
+        scrollObj: {
+            default: {}
+        },
     },
     components: {
         dot
@@ -42,6 +57,30 @@ export default {
     methods: {
         back(){
             this.$router.go(-1);//返回上一层
+        },
+        handleChangeHover(e){
+            let parentObj = this.$refs.handleNav
+            let childObj = parentObj.childNodes
+            let hoverIndex = 0
+            // 点击元素添加高亮效果
+            parentObj.getElementsByClassName('hover')[0].classList.remove('hover')
+            e.target === undefined ? e.setAttribute('class', 'hover') : e.target.classList.add("hover")
+            for(let i = 0; i < childObj.length; i++) {
+                if(childObj[i].getAttribute('class') == 'hover') {
+                    hoverIndex = i
+                }
+            }
+            parentObj.getElementsByClassName('slide')[0].style.left = (hoverIndex*29) + '%';
+            // 点击滑动到对应位置
+            if(e.target !== undefined) {
+                this.scrollObj.scrollToElement(this.navScroll[hoverIndex], 500, 0, -44)
+            }
+        }
+    },
+    watch: {
+        navIndex() {
+            let childObj = this.$refs.handleNav.childNodes
+            this.handleChangeHover(childObj[this.navIndex])
         }
     }
 }
@@ -69,22 +108,31 @@ export default {
                         @include borderArrow(left, 20px, $fc)
         .nav
             position: absolute
-            top: 16px
+            top: 12px
             height: 60px
             line-height: 60px
+            width: 60vw
             z-index: $fixedPositionZIndex
-            span
-                @include sc(32px, $headerBlack)
-                margin: 0 14px 
-                position: relative
-            span.hover:after
-                content: ''
-                width: 100%
-                position: absolute
-                bottom: -8px
-                left: 0
-                height: 4px
-                background-image: linear-gradient(45deg, $theam, $fc 100%)
+            nav
+                display: flex
+                justify-content: space-between
+                span
+                    @include sc(30px, $headerBlack)
+                    font-family: "pingfang"
+                span.hover
+                    font-weight: bold
+                .slide
+                    width: 14%
+                    display: flex
+                    justify-content: space-between
+                    position: absolute
+                    bottom: 2px
+                    height: 4px
+                    left: 0%
+                    background-image: linear-gradient(45deg, $theam, $fc 100%)
+                    transition: all 0.5s
+                .slide-second
+                    left: 29%
     .change-container
         .wrapper
             .content

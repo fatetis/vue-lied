@@ -16,7 +16,6 @@
 <script>
 import headerNotDot from "@components/headerNotDot";
 import { getAddress } from '@/service/getData';
-import { setStore } from '@/util/mUtils'
 
 export default {
     name: 'addressList',

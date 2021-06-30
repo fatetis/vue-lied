@@ -110,7 +110,7 @@ module.exports = {
         },
         host: "localhost",
         // 端口号
-        port: 8082,
+        port: 8088,
         // https:{type:Boolean}
         https: false,
         //配置自动启动浏览器

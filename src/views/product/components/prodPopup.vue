@@ -175,7 +175,7 @@ export default {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.attr_wrapper, {
                 scrollbar: {
-                    fade: false,
+                    fade: true,
                 }
             });
         });

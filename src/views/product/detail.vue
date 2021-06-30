@@ -1,13 +1,13 @@
 <template>
     <div class="product">
-        <prod-header :headerOpNum="headerOpNum" :headerArrowShow="headerArrowShow"></prod-header>
+        <prod-header :headerOpNum="headerOpNum" :headerArrowShow="headerArrowShow" :navIndex="navIndex" :navScroll="navScroll" :scrollObj="scroll"></prod-header>
         <div class="container">
             <div class="wrapper" ref="prod_wrapper">
                 <div class="content">
-                    <!-- 产品轮播图 -->
+                     <!-- 产品轮播图 -->
                      <prod-swiper :bannerData="bannerData"></prod-swiper>
                      <!-- 产品名称 -->
-                     <div class="title_wrap padding_container">
+                     <div class="title_wrap padding_container" ref="refProduct">
                          <div class="content">
                             <div class="price clearfix">
                                 <p class="p1">
@@ -106,154 +106,21 @@
                         </div>
                     </div>
                     <!-- ###TODO 评价&问答 位置空缺-->
-                    <div class="bg_wrap comment_wrap">
+                    <div class="bg_wrap comment_wrap" ref="refComment">
                         <div class="content padding_container">
                             <div class="item clearfix">
                             <div class="float st">
                                 <p class="padding">评价</p>
                             </div>
-                            <div class="arrow">
+                            <div class="arrow" @click="handleShowComment(!showComment)">
                                 <small>好评度98% </small>
                                 <span></span>
                             </div>
                             </div>
                             <div class="commen_item">
-                                <div class="list clearfix">
-                                    <div class="first_comment clearfix">
-                                        <div class="img">
-                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
-                                        </div>
-                                        <div class="test">
-                                            <div class="top">
-                                                <p class="name">
-                                                    这是名称
-                                                    <i class="star_icon"></i>
-                                                    <i class="star_icon"></i>
-                                                    <i class="star_icon"></i>
-                                                    <i class="star_icon half"></i>
-                                                    <i class="star_icon empty"></i>
-                                                </p>
-                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
-                                            </div>
-                                            <div class="bottom">
-                                                <p class="time">13小时前</p>
-                                                <div class="right">
-                                                    <small>188</small>
-                                                    <span class="zan"></span>
-                                                    <span class="reply"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="reply_comment">
-                                        <div class="content clearfix">
-                                            <div class="img">
-                                            <img src="@assets/images/userCenter/fatetis.jpg" alt="">
-                                            </div>
-                                            <div class="test">
-                                                <div class="top">
-                                                    <p class="name">
-                                                        <span class="first_name">这是名称3</span> 
-                                                        <span class="arrow"></span>
-                                                        <span class="reply_name">这是名称2</span>
-                                                    </p>
-                                                    <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
-                                                </div>
-                                                <div class="bottom">
-                                                    <p class="time">11小时前</p>
-                                                    <div class="right">
-                                                        <small>188</small>
-                                                        <span class="zan"></span>
-                                                        <span class="reply"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list clearfix">
-                                    <div class="first_comment clearfix">
-                                        <div class="img">
-                                        <img src="@assets/images/userCenter/fatetis.jpg" alt="">
-                                        </div>
-                                        <div class="test">
-                                            <div class="top">
-                                                <p class="name">
-                                                    这是名称
-                                                    <i class="star_icon"></i>
-                                                    <i class="star_icon"></i>
-                                                    <i class="star_icon"></i>
-                                                    <i class="star_icon half"></i>
-                                                    <i class="star_icon empty"></i>
-                                                </p>
-                                                <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
-                                            </div>
-                                            <div class="bottom">
-                                                <p class="time">13小时前</p>
-                                                <div class="right">
-                                                    <small>188</small>
-                                                    <span class="zan"></span>
-                                                    <span class="reply"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="reply_comment">
-                                        <div class="content clearfix">
-                                            <div class="img">
-                                            <img src="@assets/images/userCenter/fatetis.jpg" alt="">
-                                            </div>
-                                            <div class="test">
-                                                <div class="top">
-                                                    <p class="name">
-                                                        <span class="first_name">这是名称3</span> 
-                                                        <span class="arrow"></span>
-                                                        <span class="reply_name">这是名称2</span>
-                                                    </p>
-                                                    <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
-                                                </div>
-                                                <div class="bottom">
-                                                    <p class="time">11小时前</p>
-                                                    <div class="right">
-                                                        <small>188</small>
-                                                        <span class="zan"></span>
-                                                        <span class="reply"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="reply_comment">
-                                        <div class="content clearfix">
-                                            <div class="img">
-                                            <img src="@assets/images/userCenter/fatetis.jpg" alt="">
-                                            </div>
-                                            <div class="test">
-                                                <div class="top">
-                                                    <p class="name">
-                                                        <span class="first_name">这是名称3</span> 
-                                                        <span class="arrow"></span>
-                                                        <span class="reply_name">这是名称2</span>
-                                                    </p>
-                                                    <p class="comment">这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论这是评论</p>
-                                                </div>
-                                                <div class="bottom">
-                                                    <p class="time">11小时前</p>
-                                                    <div class="right">
-                                                        <small>188</small>
-                                                        <span class="zan"></span>
-                                                        <span class="reply"></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="comment_more">
-                                            <p class="more">展开其他3条回复</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                <prod-comment-content></prod-comment-content>
                             </div>
-                            <div class="comment_more">
+                            <div class="comment_more" @click="handleShowComment(!showComment)">
                                 <p class="all">查看全部评论</p>
                             </div>
                         </div>
@@ -293,8 +160,11 @@
                          </div>
                     </div>
                     <!-- 猜你喜欢 -->
-                    <prod-recommand></prod-recommand>
-                    <div class="prod_desc">
+                    <div class="nav_recommand" ref="refRecommand">
+                        <prod-recommand></prod-recommand>
+                    </div>
+
+                    <div class="prod_desc" ref="refDetail">
                         <div class="divide-bar">
                             <span class="line"></span>
                             <div class="icon-info">
@@ -314,6 +184,9 @@
         <transition name="fade">
             <prod-popup  @change="handleShowPopup" @handleChangeNum="handleChangeNum" @handleAttrSelect="handleAttrSelect" v-show="showPopup" :showPopup="showPopup" :skuData="skuData" :attrData="attrData" :attrHover="attrHover" :num="num"></prod-popup>
         </transition>
+        <transition name="fade">
+            <prod-comment  @change="handleShowComment" v-show="showComment" :showComment="showComment" ></prod-comment>
+        </transition>
     </div>
 </template>
 <script>
@@ -323,6 +196,8 @@ import prodSwiper from '@views/product/components/prodSwiper'
 import prodRecommand from '@views/product/components/prodRecommand'
 import prodFooter from '@components/prodFooter'
 import prodPopup from '@views/product/components/prodPopup'
+import prodCommentContent from '@views/product/components/prodCommentContent'
+import prodComment from '@views/product/components/prodComment'
 import { productDetail } from '@/service/getData'
 
 export default {
@@ -330,6 +205,7 @@ export default {
     data () {
         return {
             showPopup: false,
+            showComment: false,
             zindex: true,
             bannerData: [],
             productData: [],
@@ -341,7 +217,10 @@ export default {
             num: 1,
             headerOpNum: null, // 滚动时头部透明度的变化
             headerArrowShow: false, // 滚动时头部箭头背景显示
-            active: 0
+            active: 0,
+            navIndex: 0,
+            navScroll: [],
+            scroll: {},
         }
     },
     components: {
@@ -349,7 +228,9 @@ export default {
         prodSwiper,
         prodRecommand,
         prodFooter,
-        prodPopup
+        prodPopup,
+        prodCommentContent,
+        prodComment
     },
     methods: {
         async getProductData () {
@@ -368,6 +249,16 @@ export default {
         },
         handleShowPopup (bool) {
             this.showPopup = bool
+            if(bool === false) {
+                setTimeout((bool) => {
+                    this.zindex = !bool
+                }, 600)
+            }else{
+                this.zindex = !bool
+            }
+        },
+        handleShowComment (bool) {
+            this.showComment = bool
             if(bool === false) {
                 setTimeout((bool) => {
                     this.zindex = !bool
@@ -403,6 +294,12 @@ export default {
 		        scrollY: true,  // 是否开启Y轴滚动方向
                 useTransition: false, // 防止iphone微信滑动卡顿
             });
+            this.navScroll = [
+                this.$refs.prod_wrapper,
+                this.$refs.refComment,
+                this.$refs.refRecommand,
+                this.$refs.refDetail,
+            ]
             this.scroll.on('scroll',(position)=>{
                 // 头部滚动事件触发
                 let scrolly = ~position.y
@@ -411,6 +308,19 @@ export default {
                     _this.headerOpNum = (scroolNum >= 10) ? 'header-op0' : (scroolNum <= 2 ? null :'header-op' + scroolNum)
                     _this.headerArrowShow = scroolNum >= 5 ? true : false
                 }
+                let scrollStatics = [
+                    this.$refs.refProduct.getBoundingClientRect(),
+                    this.$refs.refComment.getBoundingClientRect(),
+                    this.$refs.refRecommand.getBoundingClientRect(),
+                    this.$refs.refDetail.getBoundingClientRect(),
+                ]
+                scrollStatics.forEach((value, index) => {
+                    let range = value.top + value.height
+                    // （页面最大可见高度/2）> 元素与顶部距离 && 元素高度 > 头部高度 && 元素与顶部距离 > 头部距离
+                    if((window.document.body.clientHeight/2) > value.top && range > 44 && value.top > 44) {
+                        _this.navIndex = index
+                    }
+                }) 
             })
 
         });
@@ -451,6 +361,7 @@ export default {
     background-color: #f2f2f2
     .container
         .wrapper
+            position: relative
             height: $hfprodtop
             overflow: hidden
             .content
@@ -489,6 +400,10 @@ export default {
                     margin: 20px 0
                     border-radius: 32px 
                     overflow: hidden
+                    // position: relative
+                    // .nav_recommand
+                    //     position: absolute
+                    //     bottom: -40px
                     .content
                         .item
                             padding: 36px 0
@@ -610,79 +525,9 @@ export default {
                                         border-radius: 34px
                                         @include wh(34px, 34px)
                 .comment_wrap
-                    .commen_item
-                        .list
-                            border-bottom: 1px solid #ececec
-                            padding-bottom: 20px
-                            margin-bottom: 20px
-                            .img
-                                border-radius: 50%
-                                overflow: hidden
-                                float: left
-                                @include wh(72px, 72px)
-                                img          
-                                    @include wh(100%, 100%) 
-                            .test  
-                                float: left
-                                margin-left: 20px 
-                                margin-top: -4px  
-                                width: calc(100% - 92px)
-                                .top 
-                                    .name
-                                        font-weight: 600
-                                        @include sc(28px, #333333) 
-                                        span.arrow
-                                            display: inline-block
-                                            margin: 0 14px 2px 14px
-                                            @include arrow(right, 8px, #999999)
-                                    .comment
-                                        margin-top: 6px 
-                                        line-height: 1.5
-                                        @include sc(24px, #666666)
-                                .bottom
-                                    display: flex
-                                    justify-content: space-between
-                                    margin-top: 10px
-                                    .time
-                                        @include sc(24px, #999999)
-                                    .right
-                                        small
-                                            display: inline-block
-                                            @include sc(24px, #999999)
-                                        .zan
-                                            display: inline-block
-                                            margin-left: 10px 
-                                            vertical-align: bottom
-                                            @include wh(32px, 32px)
-                                            @include bis('../../assets/images/icon/zan.png')
-                                        .reply
-                                            display: inline-block
-                                            margin-left: 40px 
-                                            vertical-align: bottom
-                                            @include wh(28px, 28px)
-                                            @include bis('../../assets/images/icon/comment.png')
-                            .first_comment
-                                .bottom
-                                    border-bottom: 1px solid #ececec
-                                    padding-bottom: 20px
-                            .reply_comment
-                                margin-left: 92px
-                                margin-top: 20px
-                                .content
-                                    margin-bottom: 20px
-                                    .img
-                                        @include wh(40px, 40px)
-                                    .test
-                                        width: calc(100% - 60px)
                     .comment_more
                         text-align: center
-                        .more
-                            text-align: left
-                            padding-top: 20px
-                            border-top: 1px solid #ececec
-                            @include sc(26px, #3582fb)
                         .all
-
                             display: inline-block
                             padding: 20px 40px
                             border: 1px solid #ececec
@@ -753,7 +598,6 @@ export default {
                         width: 100%
                         height: 100%
                         vertical-align: middle   
-
     .star_icon
         display: inline-block
         margin: 0 2px
