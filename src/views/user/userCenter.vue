@@ -97,7 +97,7 @@
                         </div>
                     </div>
 
-                    <div class="order_item coupon_container">
+                    <!-- <div class="order_item coupon_container">
                         <div class="top clearfix">
                             <p class="p1 float-left">我的优惠券</p>
                             <p class="p2 float-right">更多<span></span></p>
@@ -105,7 +105,7 @@
                         <div class="coupon_content">
                             <coupon-swiper></coupon-swiper>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -117,7 +117,7 @@
 <script>
 import footerIndex from "@components/footerIndex";
 import userCenterSwiper from "@views/user/components/userCenterSwiper";
-import couponSwiper from "@views/user/components/couponSwiper";
+// import couponSwiper from "@views/user/components/couponSwiper";
 import { userCenter } from "@/service/getData"
 export default {
     name: 'userCenter',
@@ -137,7 +137,7 @@ export default {
     components: {
         footerIndex,
         userCenterSwiper,
-        couponSwiper
+        // couponSwiper
     },
     methods: {
         async userCenter() {

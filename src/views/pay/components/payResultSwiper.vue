@@ -1,64 +1,47 @@
 <template>
     <div class="payResultSwiper">
         <div class="content">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <!-- <div class="swiper-slide banner_item" v-for="(item, index) of bannerData" :key="index"> -->
-                    <div class="swiper-slide banner_item">
-                        <!-- <a :href="item.url"> -->
-                            <!-- <img :src="item.media.data.link" alt="图片加载失败"> -->
-                            <img src="@/assets/images/index/index.jpg" alt="图片加载失败">
-                        <!-- </a> -->
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
+            <van-swipe style="width: 100%; height: 90px;">
+                <van-swipe-item v-for="(image, index) in images" :key="index">
+                <!-- <a :href="image.url"> -->
+                    <self-image 
+                        :src="image"
+                    />
+                <!-- </a> -->
+                </van-swipe-item>
+            </van-swipe>
         </div>
-        
     </div>
 </template>
 <script>
 export default {
     name: 'payResultSwiper',
-    // props: ['bannerData'],
-    methods: {
-        initSwiper() {
-            new Swiper(".swiper-container", {
-                pagination: '.swiper-pagination',
-                paginationClickable :true,
-                observer:true,//修改swiper自己或子元素时，自动初始化swiper
-                observeParents:true,//修改swiper的父元素时，自动初始化swiper
-                loop: true
-            });
+    data() {
+        return {
+            images: [
+                'https://img.yzcdn.cn/vant/apple-1.jpg',
+                'https://img.yzcdn.cn/vant/apple-2.jpg',
+            ],
         }
     },
-    mounted() {
-        this.initSwiper();
-    },
-
 }
 </script>
-<style lang="sass">
-.payResultSwiper
-    .swiper-container
-        overflow: hidden
-        .swiper-pagination
-            text-align: center
-            .swiper-pagination-bullet:first-child
-                border-radius: 30px 0 0 30px
-            .swiper-pagination-bullet:last-child
-                border-radius: 0 30px 30px 0
-            .swiper-pagination-bullet
-                width: 30px
-                height: 4px
-                margin: 0
-            .swiper-pagination-bullet-active
-                width: 30px
-                height: 4px
-                background-color: $theam
-</style>
 <style lang="sass" scoped>
-@import "../../../assets/css/plugins/swiper.min.css";
+.payResultSwiper /deep/ .van-swipe__indicators
+    text-align: center
+    bottom: 10px
+    .van-swipe__indicator:first-child
+        border-radius: 30px 0 0 30px
+    .van-swipe__indicator:last-child
+        border-radius: 0 30px 30px 0
+    .van-swipe__indicator
+        width: 30px
+        height: 4px
+        margin: 0
+    .van-swipe__indicator--active
+        width: 30px
+        height: 4px
+        background-color: $theam
 .payResultSwiper
     box-sizing: border-box
     width: 100%
@@ -66,11 +49,5 @@ export default {
     .content
         @include wh(100%, 180px)
         border-radius: 20px
-        overflow: hidden
-        .banner_item
-            @include wh(100%, 180px)
-            img
-                width: 100%
-                vertical-align: top
-                
+        overflow: hidden         
 </style>

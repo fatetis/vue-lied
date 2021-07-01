@@ -166,9 +166,9 @@ export default {
         .index_content
             transform: translate(0px, 0px) scale(1) translateZ(0px)
             .recommand_index
-                background: #f0f2f5
+                // background: #f0f2f5
                 padding-top: 20px
-                margin-top: 20px
+                // margin-top: 20px
                 .recommand_bg
                     margin: 0 20px
                     .content

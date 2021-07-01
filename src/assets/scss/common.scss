@@ -36,14 +36,21 @@ a,a:hover,a:active,a:visited,a:link,a:focus, button{
 sup { vertical-align:text-top; } 
 sub{ vertical-align:text-bottom; } 
 legend { color:#000; } 
-fieldset, img { border:0; } 
+fieldset, img { border:0; vertical-align: middle;} 
 button, input, select, textarea { font-size:100%; } 
 table { border-collapse:collapse; border-spacing:0; }
 input { 
     outline: none; 
     border: 0 
 }
-
+// 轮播图页码颜色
+/deep/ .van-swipe__indicator {
+    opacity: 1;
+    background-color: #ccc
+}
+/deep/ .van-swipe__indicator--active {
+    background-color: #ff8620
+}
                         
 $blue: #3190e8;  
 $bc: #e4e4e4;

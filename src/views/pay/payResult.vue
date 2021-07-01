@@ -16,28 +16,7 @@
                     <div class="adv">
                         <pay-result-swiper></pay-result-swiper>
                     </div>
-                    <!-- 今日推荐 -->
-                    <!-- <div class="recommand_pay">
-                        <div class="recommand_bg">
-                            <div class="title clearfix">
-                                <p class="left">
-                                    <i class="small"></i>
-                                    <i class="middle"></i>
-                                    <i class="big"></i>
-                                </p>
-                                <p class="">继续剁手</p>
-                                <p class="right ">
-                                    <i class="big"></i>
-                                    <i class="middle"></i>
-                                    <i class="small"></i>
-                                </p>
-                                
-                            </div>
-                        </div>
-                        <recommand 
-                        :productData="productData"
-                        v-show="!(JSON.stringify(productData) == '[]')"></recommand>
-                    </div> -->
+                    <!-- 继续剁手 -->
                     <pay-recommand :productData="productData" ></pay-recommand>
 
                 </div>

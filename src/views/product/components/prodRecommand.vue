@@ -4,10 +4,10 @@
             <div class="content padding_container">
                 <div class="item clearfix">
                     <p class="like_title">猜你喜欢</p>
-                    <div class="swiper-container1">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="prod_wrap">
+                    <div class="swiper_item">
+                        <van-swipe style="width: 100%; padding-bottom: 10px">
+                            <van-swipe-item>
+                                <div class="prod_wrap clearfix">
                                     <div class="prod_item">
                                         <div class="show_img">
                                             <img src="@assets/images/index/product_2.jpg" alt />
@@ -81,15 +81,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="prod_wrap">
+                            </van-swipe-item>
+                            <van-swipe-item>
+                                <div class="prod_wrap clearfix">
                                     <div class="prod_item">
                                         <div class="show_img">
                                             <img src="@assets/images/index/product_2.jpg" alt />
                                         </div>
                                         <div class="content">
-                                            <p class="name">产产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题品标题产品标题产品标题</p>
+                                            <p class="name">产产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题产品标题品标题产品标题产品标题2222</p>
                                             <div class="price">
                                                 ￥
                                                 <span>20</span>.00
@@ -157,9 +157,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="swiper-pagination1"></div>
+                            </van-swipe-item>
+                        </van-swipe>
                     </div>
                 </div>
             </div>
@@ -169,41 +168,12 @@
 <script>
 export default {
     name: "prodRecommand",
-    mounted() {
-        this.initSwiper();
-    },
-    methods: {
-        initSwiper() {
-            new Swiper(".swiper-container1", {
-                pagination: '.swiper-pagination1',
-                paginationClickable :true,
-                loop: true
-            });
-        }
-    }
 };
 </script>
-<style lang="sass">
-.prodRecommand
-    .swiper-container1
-        overflow: hidden
-        .swiper-pagination1
-            text-align: center
-            .swiper-pagination-bullet:first-child
-                border-radius: 30px 0 0 30px
-            .swiper-pagination-bullet:last-child
-                border-radius: 0 30px 30px 0
-            .swiper-pagination-bullet
-                width: 30px
-                height: 6px
-                margin: 0
-            .swiper-pagination-bullet-active
-                width: 30px
-                height: 6px
-                background-color: $theam
-</style>
 <style lang="sass" scoped>
-@import "../../../assets/css/plugins/swiper.min.css";
+.prodRecommand /deep/ .van-swipe__indicators
+  position: absolute
+  bottom: 0
 .prodRecommand
     .bg_wrap
         margin: 20px 0
@@ -229,37 +199,38 @@ export default {
                     padding-left: 18px
                     margin-bottom: 36px 
                     @include sc(30px, #262626)
-                .prod_wrap
-                    .prod_item
-                        float: left
-                        width: 33.33%
-                        box-sizing: border-box
-                        padding-right: 10px
-                        padding-bottom: 10px
-                        overflow: hidden
-                        .show_img
-                            position: relative
-                            width: 100%
-                            padding-top: 100%
-                            border-radius: 6px
+                .swiper_item
+                    .prod_wrap
+                        .prod_item
+                            float: left
+                            width: 33.33%
+                            box-sizing: border-box
+                            padding-right: 10px
+                            padding-bottom: 10px
                             overflow: hidden
-                            img
-                                position: absolute
-                                max-width: 100%
-                                max-height: 100%
-                                left: 50%
-                                top: 50%
-                                transform: translate(-50%,-50%)
+                            .show_img
+                                position: relative
+                                width: 100%
+                                padding-top: 100%
                                 border-radius: 6px
-                        .content
-                            .name
-                                margin: 10px 0
-                                @include overwraps(2)
-                            .price
-                                color: #f23030
-                                font-weight: 700
-                                span
-                                    font-size: 32px
+                                overflow: hidden
+                                img
+                                    position: absolute
+                                    max-width: 100%
+                                    max-height: 100%
+                                    left: 50%
+                                    top: 50%
+                                    transform: translate(-50%,-50%)
+                                    border-radius: 6px
+                            .content
+                                .name
+                                    margin: 10px 0
+                                    @include overwraps(2)
+                                .price
+                                    color: #f23030
+                                    font-weight: 700
+                                    span
+                                        font-size: 32px
                                 
 
 </style>

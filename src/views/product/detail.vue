@@ -5,7 +5,7 @@
             <div class="wrapper" ref="prod_wrapper">
                 <div class="content">
                      <!-- 产品轮播图 -->
-                     <prod-swiper :bannerData="bannerData"></prod-swiper>
+                     <prod-swiper :bannerData="bannerData" :bannerDataLength="bannerDataLength"></prod-swiper>
                      <!-- 产品名称 -->
                      <div class="title_wrap padding_container" ref="refProduct">
                          <div class="content">
@@ -210,6 +210,7 @@ export default {
             bannerData: [],
             productData: [],
             brandData: [],
+            bannerDataLength: 0,
             attrData: [],
             skuData: [],
             attrHover: {},
@@ -238,6 +239,7 @@ export default {
                 include: 'attrs,skus,medias,brand'
             }, this.$route.params.id)
             this.bannerData = res.data.medias.data
+            this.bannerDataLength = this.bannerData.length
             this.productData = res.data
             this.brandData = res.data.brand.data
             this.attrData = res.data.attrs.data
