@@ -10,7 +10,11 @@ import {
     ImagePreview, 
     Lazyload, 
     Swipe, 
-    SwipeItem
+    SwipeItem,
+    Field,
+    Uploader,
+    Checkbox,
+    CheckboxGroup, 
 } from 'vant';
 
 Vue.prototype.$toast = Toast;
@@ -27,3 +31,7 @@ Vue.use(Lazyload, {
 })
 Vue.use(Swipe)
 Vue.use(SwipeItem)
+Vue.use(Field)
+Vue.use(Uploader)
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);

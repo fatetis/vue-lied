@@ -15,6 +15,8 @@ import userCenter from '@views/user/userCenter'
 import orderList from '@views/order/orderList'
 import setting from '@views/user/setting'
 import search from '@views/search'
+import comment from '@views/order/comment'
+import commentReview from '@views/order/commentReview'
 
 Vue.use(VueRouter)
 
@@ -101,6 +103,16 @@ Vue.use(VueRouter)
     path: '/search',
     name: 'search',
     component: search
+  },
+  {
+    path: '/comment',
+    name: 'comment',
+    component: comment
+  },
+  {
+    path: '/comment/review',
+    name: 'commentReview',
+    component: commentReview
   },
 ]
 

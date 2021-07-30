@@ -131,7 +131,9 @@
                             <div class="item clearfix">
                                 <div class="seller clearfix">
                                     <div class="logo">
-                                        <img :src="brandData.media && brandData.media.data.link" alt="">
+                                        <self-image 
+                                            :src="brandData.media && brandData.media.data.link"
+                                        />
                                     </div>
                                     <div class="name">
                                         <p class="text">{{ brandData.name }}</p>

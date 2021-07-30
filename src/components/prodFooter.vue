@@ -100,9 +100,9 @@ export default {
                         text-align: center
                         border-radius: 40px
                     .p1
-                        background-color: #f2270c
+                        background-image: linear-gradient(-45deg, #f97590, #f90336 50%)
                     .p2
-                        background-color: $theam
+                        background-image: linear-gradient(-45deg, #f6ba7d, $theam 50%)
     .nozindex
         z-index: 0
 </style>

@@ -154,7 +154,7 @@ export default {
 
 <style lang="sass" scoped>
 .index
-    background-color: #f6f6f6
+    background-color: $bc2
     overflow: hidden
     height: 100vh
     width: 100%

@@ -315,9 +315,9 @@ export default {
                             .margin
                                 margin-right: 3%
                             .p1
-                                background-color: #f2270c
+                                background-image: linear-gradient(-45deg, #f97590, #f90336 50%)
                             .p2
-                                background-color: $theam
+                                background-image: linear-gradient(-45deg, #f6ba7d, $theam 50%)
                             
                                 
                                     
