@@ -334,21 +334,6 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-// 从下往上进入tr动画
-.fade-enter-active, .fade-leave-active 
-    opacity: 1
-    -ms-transform: scaleY(1)
-    transform: scaleY(1)
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.1s,
-    opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s
-    -ms-transform-origin: center top
-    transform-origin: center top
-    transition: scaleY(1) .5s
-    transform-origin: center bottom
-.fade-enter, .fade-leave-to
-    opacity: 0
-    -ms-transform: scaleY(0)
-    transform: scaleY(0)
 .product .container .wrapper .content .comment_wrap .commen_item div:last-child
     margin-bottom: 0
     border-bottom: 0

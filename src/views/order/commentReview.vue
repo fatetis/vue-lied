@@ -1,7 +1,6 @@
 <template>
     <div class="commentReview">
         <header-not-dot :title="title" :type="2"></header-not-dot>
-
         <div class="container">
             <div class="wrapper" ref="commentreview_wrapper">
                 <div class="content">
@@ -51,6 +50,4 @@ export default {
             .vir-height
                 height: 10px
                 background-color: $bc2
-            .commentComponents
-                padding: 0 20px
 </style>

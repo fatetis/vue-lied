@@ -187,4 +187,17 @@ $highestPositionZIndex: 1000;
 .float-right {
     float: right;
 }
-        
+// 从下往上进入tr动画
+.fade-enter-active, .fade-leave-active {
+    opacity: 1;
+    transform: scaleY(1);
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.1s,
+    opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+    transform-origin: center bottom;
+}
+
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+    transform: scaleY(0);
+}

@@ -21,12 +21,12 @@
                                 name="message[]"
                                 v-model="message"
                                 rows="3"
-                                autosize
+                                :autosize="autosize"
                                 type="textarea"
                                 left-icon="edit"
                                 placeholder="已经用了一段时间了，有更多宝贝使用心得？分享给想买的他们吧"
-                                :autosize="autosizes"
                                 show-word-limit
+                                maxlength="150"
                             />
                         </div>
                         <div class="uploader">
@@ -70,12 +70,12 @@
                                 name="message[]"
                                 v-model="message"
                                 rows="3"
-                                autosize
+                                :autosize="autosize"
                                 type="textarea"
                                 left-icon="edit"
                                 placeholder="已经用了一段时间了，有更多宝贝使用心得？分享给想买的他们吧"
                                 show-word-limit
-                                :autosize="autosizes"
+                                maxlength="150"
                             />
                         </div>
                         <div class="uploader">
@@ -94,7 +94,7 @@
                                 公开
                                 </van-checkbox>
                             </div>
-                            <div class="input">
+                            <div class="input" @click="handleShowQuestion(!showQuestion)">
                                 <van-field value="公开头像昵称，大家可以看得到我的主页" disabled right-icon="question-o"/>
                             </div>
                         </div>
@@ -104,10 +104,12 @@
                 </div>
             </div>
         </div>
+        <question :showQuestion='showQuestion' @change="handleShowQuestion"></question>
     </div>
 </template>
 <script>
 import selfUploader from '@components/common/selfUploader'
+import question from '@views/order/components/question'
 export default {
     name: 'commentReviewContent',
     data() {
@@ -115,12 +117,18 @@ export default {
             message: '',
             checked: true,
             image: require('@assets/images/userCenter/fatetis.jpg'),
-            autosizes: { maxHeight: 100}
-
+            autosize: { maxHeight: 100},
+            showQuestion: false
         }
     },
     components: {
-        selfUploader
+        selfUploader,
+        question
+    },
+    methods: {
+        handleShowQuestion(bool) {
+            this.showQuestion = bool
+        },
     }
 }
 </script>
@@ -132,11 +140,11 @@ export default {
 .commentReviewContent /deep/ .van-uploader .van-uploader__upload .van-uploader__upload-text
     color: #656565
 .commentReviewContent /deep/ .van-uploader .van-uploader__upload
-    width: 220px
+    width: 202px
     color: #656565
     margin: 26px 12px
 .commentReviewContent /deep/ .van-uploader .van-image
-    @include wh(206px, 206px)
+    @include wh(203px, 203px)
 .commentReviewContent /deep/ .anonymous .van-checkbox__label
     font-size: 12px
 .commentReviewContent /deep/ .anonymous .input .van-cell
@@ -144,6 +152,7 @@ export default {
 .commentReviewContent
     .container
         .wrapper
+            padding: 0 20px
             .content
                 .item
                     background-color: $fc
@@ -161,7 +170,7 @@ export default {
                             margin-left: 20px 
                             width: calc( 100% - 100px )
                             .title
-                                color: #656565
+                                color: #949494
                                 font-size: 30px
                                 @include overwrap()
                             .sku-name
