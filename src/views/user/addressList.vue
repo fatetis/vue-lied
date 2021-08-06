@@ -54,6 +54,7 @@ export default {
         },
         onSelect(item, index) {
             let orderQuery = eval("("+this.$store.getters.getOrderQuery+")");
+            if(orderQuery === null) return false;
             orderQuery.addressId = item.id
             this.$store.commit('setOrderQuery', orderQuery);
             this.$router.go(-1);
