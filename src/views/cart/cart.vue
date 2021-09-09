@@ -24,12 +24,15 @@
                                 </div>
                                 
                                 <div class="text clearfix">
-                                    <div class="img_wrap">
-                                        <img class="prod_thumb" :src="i.media" alt="图片加载失败">
-                                    </div>
-                                    <div class="right">
-                                        <div class="name">{{ i.name }}
+                                    <router-link :to="{name: 'product', params: {id: i.productId}}">
+                                        <div class="img_wrap">
+                                            <img class="prod_thumb" :src="i.media" alt="图片加载失败">
                                         </div>
+                                    </router-link>
+                                    <div class="right">
+                                        <router-link :to="{name: 'product', params: {id: i.productId}}">
+                                            <div class="name">{{ i.name }}</div>
+                                        </router-link>
                                         <div class="sku_line_style sku_line">
                                             <div class="sku sku_style">
                                                 <span class="sku_attr sku_attr_style">{{ i.skuName }}</span>
@@ -52,7 +55,7 @@
                                                     </span>
                                             </div>
                                             <div class="num_wrap">
-                                                <input-num :min="1" :value="i.num" @change="handleChangeNum" :unique='i.skuId'></input-num>
+                                                <input-num :min="1" :max="i.max" :value="i.num" @change="handleChangeNum" :unique='i.skuId'></input-num>
                                             </div>
                                         </div>
                                         <div class="action clearfix">
@@ -98,7 +101,6 @@ import headerDot from "@components/headerDot";
 import footerIndex from "@components/footerIndex";
 import inputNum from "@views/cart/components/inputNum";
 import { getCart, modifyCart, deleteCart, productValidate } from '@/service/getData'
-import { upFixed } from "@/util/mUtils";
 export default {
     name: 'cart',
     data () {
@@ -143,6 +145,7 @@ export default {
                 result[brandData.id]['product'][skuData.id]['skuId'] = skuData.id
                 result[brandData.id]['product'][skuData.id]['name'] = productData.name
                 result[brandData.id]['product'][skuData.id]['num'] = item.number
+                result[brandData.id]['product'][skuData.id]['max'] = skuData.stock.data.quantity
                 result[brandData.id]['product'][skuData.id]['price'] = skuData.price
                 result[brandData.id]['product'][skuData.id]['media'] = skuData.media.data.link
                 result[brandData.id]['product'][skuData.id]['is_selected'] = item.is_selected
@@ -182,14 +185,14 @@ export default {
         },
         async handleChangeNum(num, skuId) {
             // 改变购物车数据的num值
+            let res = await modifyCart({
+                sku_id: skuId,
+                num : num
+            })
             for(let key in this.cartData) {
                 if(this.cartData[key].product[skuId] !== undefined) 
                 this.cartData[key].product[skuId].num = num
             }
-            await modifyCart({
-                sku_id: skuId,
-                num : num
-            })
         },
         /**
          * 产品input框

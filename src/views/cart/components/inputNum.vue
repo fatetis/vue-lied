@@ -2,7 +2,7 @@
     <div class="inputNum">
         <button class="common min" @click="handleDown" :disabled="currentValue <= min"></button>
         <input class="input" type="text" :value="currentValue" @change="handleChange" @keyup.up='handleUp' @keyup.down='handleDown'/>
-        <button class="common max" @click="handleUp" :disabled="currentValue >= max"></button>
+        <button class="common max" @click="handleUp" :disabled="currentValue >= max" :class="currentValue >= max ? 'max-disable' : ''"></button>
     </div>
 </template>
 <script>
@@ -146,6 +146,20 @@ export default {
         width: 16px
         height: 4px
         background-color: #333
+        transform: translate(-50%,-50%)
+    .max-disable:after
+        content: ''
+        position: absolute
+        width: 4px
+        height: 16px
+        background-color: #f2f2f2
+        transform: translate(-50%,-50%)
+    .max-disable:before
+        content: ''
+        position: absolute
+        width: 16px
+        height: 4px
+        background-color: #f2f2f2
         transform: translate(-50%,-50%)
 
 </style>

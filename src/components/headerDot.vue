@@ -3,8 +3,12 @@
       <div class="wrapper"  :class=" type === 1 ? 'wrapper_fff' : ''">
         <span class="back" @click="back"></span>
         <p class="arrow text" :class="type === 1 ? 'text_grey' : ''">{{ title }}</p>
+        <slot name="title"></slot>
+        <div class="content">
+          <slot name="content"></slot>
+        </div>
       </div>
-      <dot></dot>
+      <dot :type="type"></dot>
   </div>
 </template>
 <script>
@@ -36,9 +40,9 @@ export default {
     background: $fc 
     border-bottom: 1px solid $headerBorderColor  
   .wrapper
-    background: $theam
+    background-image: linear-gradient(45deg, #f8bf37, #fb5c25 60%)
     z-index: $fixedPositionZIndex
-    height: $headerIndexTop
+    // height: $headerIndexTop
     position: relative
     padding: 0 20px
     .back

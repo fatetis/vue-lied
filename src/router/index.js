@@ -17,6 +17,8 @@ import setting from '@views/user/setting'
 import search from '@views/search'
 import comment from '@views/order/comment'
 import commentReview from '@views/order/commentReview'
+import orderAddressModify from '@views/order/orderAddressModify'
+import orderDetail from '@views/order/orderDetail'
 
 Vue.use(VueRouter)
 
@@ -113,6 +115,16 @@ Vue.use(VueRouter)
     path: '/comment/review',
     name: 'commentReview',
     component: commentReview
+  },
+  {
+    path: '/order/address/modify',
+    name: 'orderAddressModify',
+    component: orderAddressModify
+  },
+  {
+    path: '/order/detail/:orderno',
+    name: 'orderDetail',
+    component: orderDetail
   },
 ]
 

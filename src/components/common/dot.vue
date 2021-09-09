@@ -8,6 +8,7 @@
                     <img class="grey_bg" v-if="type == 2" src="@assets/images/icon/write_dot.png" alt="">
                     <!-- 不带阴影的灰色省略号 -->
                     <img v-else-if="type == 3" src="@assets/images/icon/dot_black.png" alt="">
+                    <img v-else-if="type == 4" src="@assets/images/icon/write_big_dot.png" alt="">
                     <img v-else src="@assets/images/icon/dot.png" alt="">
                 </div>
             </div>

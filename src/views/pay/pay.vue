@@ -7,7 +7,7 @@
                     <div class="price_content">
                         ¥<span>
                         <em>{{ this.price.int }}</em>
-                        .{{ this.price.point }}
+                        {{ this.price.point == '' ? '' : '.' + this.price.point }}
                         </span>
                     </div>
                     <div class="type_container">

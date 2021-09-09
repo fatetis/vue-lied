@@ -67,7 +67,6 @@ $arrowGrey: #8b8b8b;
 // 头部下边框的border颜色
 $headerBorderColor: #e5e5e5;
 // 城市选择页面距离顶部的距离
-
 $cityTop: 192px;
 // 头部标准高度
 $headerIndexTop: 88px;
@@ -88,6 +87,7 @@ $hpopupmintop: calc(36vh - 304px);
 $hpopupContainerMaxtop: 68vh;
 $hpopupContainerMintop: calc(36vh + 94px);
 $horderlisttop: calc(100vh - 188px);
+$hOrderdetailTop: calc(100vh - 360px);
 // 头部与尾部的z-index层级
 $fixedPositionZIndex: 99;
 // 头部左边箭头大小

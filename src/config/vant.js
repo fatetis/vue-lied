@@ -15,6 +15,7 @@ import {
     Uploader,
     Checkbox,
     CheckboxGroup, 
+    Popover 
 } from 'vant';
 
 Vue.prototype.$toast = Toast;
@@ -35,3 +36,4 @@ Vue.use(Field)
 Vue.use(Uploader)
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
+Vue.use(Popover);

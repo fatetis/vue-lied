@@ -27,13 +27,13 @@
                                             {{ item.name }}
                                             <i class="icon_arrow_right"></i>
                                         </div>
-                                        <div class="status">{{ item.status }}</div>
+                                        <div class="status">{{ item.show_status_text }}</div>
                                     </div>
+                                    <router-link :to="{name: 'orderDetail', params: {orderno: item.orderno}}">
                                     <div class="detail"  v-for="(i, k) of item.product" :key="k">
-                                        <router-link :to="{name: 'product', params: {id: i.productId}}">
                                             <div class="wrapper">
                                                 <div class="img">
-                                                    <img :src="i.skuImg" alt="图片加载失败">
+                                                    <self-image width="100%" :src="i.skuImg" radius="5"/>
                                                 </div>
                                                 <div class="content">
                                                     <p class="p1">{{ i.productName }}</p>
@@ -43,15 +43,14 @@
                                                 <div class="price">
                                                     ¥
                                                     <span>
-                                                        {{ i.price }}
-                                                        <!-- <em>50000</em>.00 -->
-                                                    </span>
+                                                        <em>{{i.int}}</em>
+                                                        {{ i.point == '' ? '' : '.' + i.point }}
+                                                    </span> 
                                                     <p class="num">×{{ i.number }}</p>
                                                 </div>
                                             </div>
-                                        </router-link>
                                     </div>
-                                    <!-- <div class="extra">
+                                    <div class="extra">
                                         <div class="label">
                                             <p class="title">运费险</p>
                                         </div>
@@ -59,31 +58,56 @@
                                             <p class="p1">退换货可自动理赔</p>
                                             <p class="p2">¥&nbsp;0.00×1</p>
                                         </div>
-                                    </div> -->
+                                    </div>
+                                    </router-link>
                                     <div class="order_price clearfix">
-                                        <div class="price " v-if="item.pay_price.price != null">
-                                            <em>&nbsp;实付款&nbsp;</em>¥
+                                        <div class="price " v-if="item.pay_price.price != 0">
+                                            <em class="bold">&nbsp;实付款&nbsp;</em>¥
                                             <span>
-                                                <em>{{ item.pay_price.int }}</em>.{{ item.pay_price.point }}
-                                            </span>
+                                                <em>{{ item.pay_price.int }}</em>
+                                                {{ item.pay_price.point == '' ? '' : '.' + item.pay_price.point }}
+                                            </span> 
                                         </div>
-                                        <!-- <div class="price grey">
+                                        <div class="price " v-if="item.show_status == 0">
+                                            <em class="bold">&nbsp;需付款&nbsp;</em>¥
+                                            <span>
+                                                <em>{{ item.price.int }}</em>
+                                                {{ item.price.point == '' ? '' : '.' + item.price.point }}
+                                            </span> 
+                                        </div>
+                                        <div class="price grey" v-if="item.discount_price.int != 0">
                                             <em>优惠&nbsp;</em>¥
                                             <span>
-                                                <em>50000</em>.00
+                                                <em>{{ item.discount_price.int }}</em>
+                                                {{ item.discount_price.point == '' ? '' : '.' + item.discount_price.point }}
                                             </span>
-                                        </div> -->
-                                        <div class="price" :class="{grey: (item.pay_price.price != null)}" v-if="item.price.price != null">
+                                        </div>
+                                        <div class="price grey" v-if="item.price.price != 0">
                                             <em>总价&nbsp;</em>¥
                                             <span>
-                                                <em>{{ item.price.int }}</em>.{{ item.price.point }}&nbsp;
+                                                <em>{{ item.price.int }}</em>
+                                                {{ item.price.point == '' ? '' : '.' + item.price.point }}&nbsp;
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="button">
+                                    <div class="button clearfix">
+                                        <div class="more">
+                                            <van-popover
+                                            v-model="item.showPopover"
+                                            trigger="click"
+                                            :actions="actions"
+                                            :offset="[0,8]"
+                                            placement="bottom-start"
+                                            @select="onSelect(index)"
+                                            >
+                                                <template #reference>
+                                                    <p class="more_text">更多</p>
+                                                </template>
+                                            </van-popover>
+                                        </div>
                                         <div class="text">
-                                            <p class="p1">删除订单</p>
-                                            <p class="p2">加入购物车</p>
+                                            <p>修改地址 </p>
+                                            <p class="hover" @click="handlePay(item.orderno)" v-if="item.show_status == 0">付款</p>
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +140,8 @@ export default {
             productDataMeta: [],
             orderPage: 0,
             orderStatus: null,
-            orderDataLength: 1
+            orderDataLength: 1,
+            actions: [{ text: '加入购物车' }, { text: '取消订单' }],
         }
     },
     components: {
@@ -148,27 +173,36 @@ export default {
             let res = await orderList({
                 page: this.orderPage,
                 status: this.orderStatus,
-                include: 'order,order.orderchild,snapshot,order.brand'
+                include: 'productOrderChild,order,order.snapshot,brand'
             })
             let data = res.data
             let result = {}
             this.orderDataMeta = res.meta
             this.orderDataLength = data.length
-            data.forEach(item => {
-                let orderId = item.order.data.id
-                let snapshotData = item.snapshot
-                let orderChildData = item.order.data.orderchild.data
-                let brandData = item.order.data.brand.data
+            data.forEach(item => {  
+                let orderId = item.id
+                let snapshotData = item.order.data.snapshot
+                let orderChildData = item.productOrderChild.data
+                let brandData = item.brand.data
                 let snapshot = eval('(' + snapshotData.data.value + ')')
                 result[orderId] = result[orderId] === undefined ? {} : result[orderId]
                 result[orderId]['name'] = brandData.name
-                result[orderId]['status'] = item.order_status_text
-                result[orderId]['price'] = item.price
-                result[orderId]['pay_price'] = item.pay_price
+                result[orderId]['showPopover'] = false
+                result[orderId]['price'] = item.order.data.price
+                result[orderId]['discount_price'] = item.order.data.discount_price
+                result[orderId]['pay_price'] = item.order.data.pay_price
+                result[orderId]['show_status'] = item.show_status
+                result[orderId]['show_status_text'] = item.show_status_text
+                result[orderId]['orderno'] = item.order.data.orderno
                 orderChildData.forEach(i => {
-                    result[orderId]['product'] = result[orderId]['product'] === undefined ? {} : result[orderId]['product']
-                    result[orderId]['product'][i.sku_id] = result[orderId]['product'][i.sku_id] === undefined ? {} : result[orderId]['product'][i.sku_id]
-                    result[orderId]['product'][i.sku_id]['price'] = i.product_price
+                    result[orderId]['product'] = result[orderId]['product'] === undefined 
+                    ? {} 
+                    : result[orderId]['product']
+                    result[orderId]['product'][i.sku_id] = result[orderId]['product'][i.sku_id] === undefined 
+                    ? {} 
+                    : result[orderId]['product'][i.sku_id]
+                    result[orderId]['product'][i.sku_id]['int'] = i.product_price.int
+                    result[orderId]['product'][i.sku_id]['point'] = i.product_price.point
                     result[orderId]['product'][i.sku_id]['number'] = i.number
                     result[orderId]['product'][i.sku_id]['skuName'] = ''
                     for(let s in snapshot.sku_info) {
@@ -195,6 +229,21 @@ export default {
             let orderStatus = this.$route.query.status
             if(orderStatus !== undefined) this.orderStatus = orderStatus
             this.getOrderListData()
+        },
+        /**
+         * 查看更多-选项框点击
+         */
+        onSelect(action) {
+            console.log(action);
+        },
+        /**
+         * 付款
+         */
+        handlePay(orderno) {
+            this.$router.push({
+                name: 'payIndex',
+                params: {id: orderno}
+            })
         }
         
     },
@@ -263,9 +312,7 @@ export default {
                                 .seller
                                     display: flex
                                     justify-content: space-between
-                                    
                                     .name
-                                        margin-left: 12px
                                         line-height: 32px
                                         font-weight: 700
                                         color: #333
@@ -275,7 +322,7 @@ export default {
                                             @include wh(32px, 32px)
                                             @include bis('../../assets/images/icon/cart_shop.png')
                                         .icon_arrow_right
-                                            @include borderArrow('right', 10px, #123)
+                                            @include borderArrow('right', 10px, #999999)
                                             margin-bottom: 2px
                                     .status
                                         color: $theam
@@ -286,18 +333,8 @@ export default {
                                         justify-content: space-between
                                         .img
                                             width: 26%
-                                            padding-bottom: 26%
-                                            overflow: hidden
-                                            border-radius: 10px 
-                                            position: relative
-                                            img
-                                                position: absolute
-                                                width: 100%
-                                                height: 100%
-                                                top: 0
-                                                left: 0
                                         .content
-                                            width: 52%
+                                            width: 54%
                                             box-sizing: border-box
                                             padding: 0 18px
                                             .p1
@@ -305,18 +342,22 @@ export default {
                                                 @include overwraps(2)
                                                 font-weight: bold
                                             .p2
+                                                margin: 10px 0
                                                 @include sc(24px, #999999)
                                                 @include overwraps(2)
                                             .p3
                                                 @include sc(24px, #DCA94F)
                                         .price
+                                            width: 20%
+                                            text-align: right
                                             span
                                                 em
                                                     font-weight: 600
-                                                    font-size: 28px
+                                                    font-size: 32px
+
                                             .num
+                                                margin: 10px 0
                                                 color: #999999
-                                                text-align: right
                                 .extra
                                     display: flex
                                     justify-content: space-between
@@ -338,36 +379,46 @@ export default {
                                 .order_price
                                     margin: 28px 0
                                     .price
-                                        margin: 0 8px
+                                        margin-right: 10px
                                         float: right
                                         font-size: 24px
+                                        em.bold
+                                            font-weight: bold
                                         em
-                                            font-size: 28px
+                                            font-size: 32px
                                         span
                                             em
                                                 font-weight: 600
-                                                font-size: 28px
+                                                font-size: 32px
                                     .grey
                                         color: #999999
-                                    .price:last-child
-                                        margin: 0
                                     .price:first-child
                                         margin: 0
                                 .button
+                                    .more
+                                        position: relative
+                                        float: left   
+                                        .more_text
+                                            padding-top: 14px 
+                                            @include sc(12px, #999999)
                                     .text
-                                        width: 60%
-                                        display: flex
-                                        justify-content: space-between
+                                        width: 80%
                                         float: right
+                                        text-align: right
                                         p
-                                            width: 46%
+                                            display: inline-block
                                             border-radius: 50px
-                                            text-align: center
-                                            line-height: 64px
-                                            color: #626262
-                                            font-size: 28px
+                                            font-size: 24px
+                                            padding: 14px 18px
                                             border: 1px solid #cfcfcf
-                                        
+                                            margin-left: 16px 
+                                            min-width: 18%
+                                            text-align: center
+                                        p:first-child
+                                            margin-left: 0
+                                        p.hover
+                                            border: 1px solid $theam
+                                            color: $theam
 
                                 
 

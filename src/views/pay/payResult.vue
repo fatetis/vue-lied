@@ -24,7 +24,6 @@
         </div>
     </div>
 </template>
-                        <!-- {{ result === true ? '支付成功' : '支付失败'}} -->
 <script>
 import Bscroll from "better-scroll";
 import headerOnlyReturn from "@components/headerOnlyReturn";
@@ -67,6 +66,7 @@ export default {
                 scrollbar: true
             });
         });
+        if(this.orderno == undefined) this.$router.replace({name: 'userCenter'})
         this.getProductListData()
     }
 }
