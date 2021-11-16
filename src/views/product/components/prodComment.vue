@@ -74,7 +74,9 @@ export default {
             this.scroll = new Bscroll(this.$refs.inner_wrapper, {
                 scrollbar: {
                     fade: true,
-                }
+                },
+                click: true,
+                useTransition: false
             });
         });
     }

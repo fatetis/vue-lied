@@ -12,6 +12,10 @@ import selfImage from '@components/common/selfImage'
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', function() {
       FastClick.attach(document.body);
+      /**
+       * 兼容ios端vant框架组件Popover需点击两次才触发选中事件的问题
+       */
+      FastClick.attach(document.getElementById("app"));
   }, false);
 }
 

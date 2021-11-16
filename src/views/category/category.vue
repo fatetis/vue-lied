@@ -67,10 +67,14 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.left_wrapper, {
-                scrollbar: true
+                scrollbar: true,
+                click: true,
+                useTransition: false
             });
             this.scroll = new Bscroll(this.$refs.right_wrapper, {
-                scrollbar: true
+                scrollbar: true,
+                click: true,
+                useTransition: false
             });
         });
         this.getProductData()
@@ -115,17 +119,17 @@ export default {
                 .title
                     font-size: 28px
                     color: #333
-                    height: 96px
-                    line-height: 96px
+                    padding-top: 30px 
+                    padding-bottom: 10px
                     font-weight: 700
                 .list
-                    padding-bottom: 34px
                     ul
                         li
                             float: left
                             width: 33.3%
                             box-sizing: border-box
                             text-align: center
+                            padding-top: 20px 
                             /deep/ .van-image
                                     display: inline-block
                                     width: 140px

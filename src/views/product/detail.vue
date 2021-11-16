@@ -297,6 +297,7 @@ export default {
                 probeType: 3, // 是否会截流scroll事件
 		        scrollY: true,  // 是否开启Y轴滚动方向
                 useTransition: false, // 防止iphone微信滑动卡顿
+                click: true
             });
             this.navScroll = [
                 this.$refs.prod_wrapper,

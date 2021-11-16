@@ -319,6 +319,8 @@ export default {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.order_wrapper, {
                 // scrollbar: true
+                click: true,
+                useTransition: false
             });
         });
         this.init()  

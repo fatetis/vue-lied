@@ -67,7 +67,9 @@ export default {
   mounted() {
     this.$nextTick(() => {
       this.scroll = new Bscroll(this.$refs.list, {
-        scrollbar: true
+        scrollbar: true,
+        click: true,
+        useTransition: false
       });
     });
   }

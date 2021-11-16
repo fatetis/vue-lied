@@ -3,7 +3,7 @@
         <div class="container">
             <div class="content">
                 <div class="item">
-                    <div class="more">
+                    <div class="more needsclick">
                         <van-popover
                         v-model="showPopover"
                         trigger="click"
@@ -35,6 +35,7 @@ export default {
             actions: [{ text: '加入购物车' }, { text: '取消订单' }],
         }
     },
+    props: ["orderno"],
     methods: {
         /**
          * 查看更多-选项框点击

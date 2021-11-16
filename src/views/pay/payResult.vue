@@ -63,7 +63,9 @@ export default {
     mounted() {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.pay_wrapper, {
-                scrollbar: true
+                scrollbar: true,
+                click: true,
+                useTransition: false
             });
         });
         if(this.orderno == undefined) this.$router.replace({name: 'userCenter'})

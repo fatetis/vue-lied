@@ -126,6 +126,8 @@ export default {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.pay_wrapper, {
                 // scrollbar: true
+                click: true,
+                useTransition: false
             });
         });
         this.init()

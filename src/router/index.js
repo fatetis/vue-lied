@@ -117,9 +117,9 @@ Vue.use(VueRouter)
     component: commentReview
   },
   {
-    path: '/order/address/modify',
-    name: 'orderAddressModify',
-    component: orderAddressModify
+    path: '/order/address/notify',
+    name: 'orderAddressNotify',
+    component: orderAddressNotify
   },
   {
     path: '/order/detail/:orderno',

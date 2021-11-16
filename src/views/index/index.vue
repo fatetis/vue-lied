@@ -109,6 +109,7 @@ export default {
                     // 当上拉距离超过30px时触发 pullingUp 事件
                     threshold: -30
                 },
+                click: true
                 // 下拉刷新
                 // pullDownRefresh: {
                 //     // 下拉距离超过30px触发pullingDown事件

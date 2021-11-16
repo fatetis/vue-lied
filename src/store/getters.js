@@ -39,7 +39,7 @@ export default {
                     }  
                 }
             }
-        }, 1000)
+        }, 500)
         return state.loginStatus
     },
 

@@ -4,7 +4,7 @@
         <div class="container">
             <div class="wrapper">
                 <div class="content">
-                    <div class="order_status">
+                    <div class="order_status" :class="hidden_order_status ? 'hidden_order_status' : ''">
                         <div class="order_status_item">
                             <ul>
                                 <li :class="{hover: orderStatus == null}" @click="handleClickStatus">全部</li>
@@ -90,7 +90,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="button clearfix">
+                                    <div class="button clearfix ">
                                         <div class="more">
                                             <van-popover
                                             v-model="item.showPopover"
@@ -98,7 +98,8 @@
                                             :actions="actions"
                                             :offset="[0,8]"
                                             placement="bottom-start"
-                                            @select="onSelect(index)"
+                                            @select="handlePopoverSelect"
+                                            @opened="handlePopoverOpened(index)"
                                             >
                                                 <template #reference>
                                                     <p class="more_text">更多</p>
@@ -106,12 +107,14 @@
                                             </van-popover>
                                         </div>
                                         <div class="text">
-                                            <p>修改地址 </p>
+                                            <p>修改地址</p>
                                             <p class="hover" @click="handlePay(item.orderno)" v-if="item.show_status == 0">付款</p>
                                         </div>
                                     </div>
                                 </div>
-                                <pay-recommand :productData="productData" :title="recommandTitle"></pay-recommand>
+                                <div ref="refPayRecommand">
+                                    <pay-recommand :productData="productData" :title="recommandTitle" ></pay-recommand>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -142,6 +145,8 @@ export default {
             orderStatus: null,
             orderDataLength: 1,
             actions: [{ text: '加入购物车' }, { text: '取消订单' }],
+            operating: '',
+            hidden_order_status: false
         }
     },
     components: {
@@ -230,11 +235,23 @@ export default {
             if(orderStatus !== undefined) this.orderStatus = orderStatus
             this.getOrderListData()
         },
+        handlePopoverSelect(action, index) {
+            index === 0 ? this.handleAddCart() : this.handleCancelOrder() 
+        },
+        handlePopoverOpened(index) {
+            this.operating = index
+        },
         /**
-         * 查看更多-选项框点击
+         * 加入购物车
          */
-        onSelect(action) {
-            console.log(action);
+        handleAddCart() {
+            console.log(this.operating, 1111111)
+        },
+        /**
+         * 取消订单
+         */
+        handleCancelOrder() {
+            console.log(this.operating, 123123);
         },
         /**
          * 付款
@@ -251,12 +268,13 @@ export default {
         this.$nextTick(() => {
             this.scroll = new Bscroll(this.$refs.order_wrapper, {
                 scrollbar: true,
-                useTransition:false,
                 // 上拉加载
                 pullUpLoad: {
                     // 当上拉距离超过30px时触发 pullingUp 事件
                     threshold: -30
                 },
+                useTransition: false, // 防止iphone微信滑动卡顿
+                click: true
             });
 
             this.scroll.on('pullingUp', () => {
@@ -269,11 +287,19 @@ export default {
                     if (this.productDataMeta.length !== 0 && this.recommandPage < this.productDataMeta.pagination.total_pages)
                      this.getProductListData(); 
                 }
+                
                 // 事情做完，需要调用此方法告诉 better-scroll 数据已加载，否则上拉事件只会执行一次
                 this.scroll.finishPullUp()
             });
+            // this.scroll.on('scroll',(position)=>{
+            //     // todo：订单状态滑到“你可能还喜欢”模块时需要隐藏 待实现 
+            //     let payRecommand = this.$refs.refPayRecommand.getBoundingClientRect()
+            // });
+            
         });
         this.init()
+        
+
     }
 }
 </script>
@@ -284,6 +310,8 @@ export default {
     .container
         .wrapper
             .content
+                .hidden_order_status
+                    display: none
                 .order_status
                     padding: 0 20px
                     margin-bottom: 20px 

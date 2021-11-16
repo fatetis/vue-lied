@@ -98,7 +98,7 @@
                             </div>
                             <div class="r-data">
                                 <p>20210705052052202</p>
-                                <p class="copy">复制</p>
+                                <p class="copy" @click="handleCopy(20210705052052202)">复制</p>
                             </div>
                         </div>
                         <div class="detail">
@@ -113,12 +113,12 @@
                 </div>
                 <div class="link">
                     <p class="p1"><span></span>联系卖家</p>
-                    <p class="p2"><span></span>拨打电话</p>
+                    <p class="p2"><span></span><a href="tel://18825099087">拨打电话</a></p>
                 </div>
-                <pay-recommand :productData="productData" :title="recommandTitle"></pay-recommand>
+                <!-- <pay-recommand :productData="productData" :title="recommandTitle"></pay-recommand> -->
             </div>
         </div>
-        <order-detail-footer></order-detail-footer>
+        <order-detail-footer orderno="02021323"></order-detail-footer>
     </div>
 </template>
 <script>
@@ -127,6 +127,8 @@ import headerDot from "@components/headerDot";
 import orderDetailFooter from "@components/orderDetailFooter";
 import payRecommand from "@views/pay/components/payRecommand";
 import { productList } from "@/service/getData";
+import { copy } from '@/util/mUtils';
+
 export default {
     name: 'orderDetail',
     data() {
@@ -155,6 +157,11 @@ export default {
                 this.productDataMeta = res.meta
             })
         },
+        handleCopy(text) {
+            copy(text) 
+            ? this.$toast.success('复制成功') 
+            : this.$toast.fail('不支持复制,该浏览器不支持自动复制') 
+        }
     },
     mounted() {  
         this.$nextTick(() => {
@@ -166,6 +173,7 @@ export default {
                     // 当上拉距离超过30px时触发 pullingUp 事件
                     threshold: -30
                 },
+                click: true,
             });
             this.scroll.on('pullingUp', () => {
                 // console.log(this.productDataMeta.length)
