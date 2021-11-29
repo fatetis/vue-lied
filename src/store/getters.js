@@ -34,7 +34,6 @@ export default {
                             })
                         }else{
                             saveAccessToken(state, null)
-                            state.loginStatus = 0
                         }
                     }  
                 }

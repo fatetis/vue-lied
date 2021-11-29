@@ -8,11 +8,11 @@
                     <div class="info clearfix">
                         <div class="clearfix">
                             <div class="float-left user_img">
-                                <img src="@assets/images/userCenter/fatetis.jpg" alt="图片加载失败">
+                                <img :src="img">
                             </div>
                             <div class="float-left user">
-                                <p class="p1">不对劲的上班</p>
-                                <p class="p2">手机号：188****9087</p>
+                                <p class="p1">{{ name }}</p>
+                                <p class="p2">手机号：{{ mobile }}</p>
                             </div>
                         </div>
                         <div class="info_edit ct">编辑</div>
@@ -42,17 +42,32 @@
 </template>
 <script>
 import headerNotDot from "@components/headerNotDot";
+import { getStore } from '@/util/mUtils'
 
 export default {
     name: 'setting',
     data() {
         return {
-            title: '设置'
+            title: '设置',
+            name: "",
+            img: "",
+            mobile: "",
         }
     },
     components: {
         headerNotDot,
     },
+    methods: {
+        init() {
+            let userInfo = eval("(" + getStore('userInfo') + ")")
+            this.img = userInfo.data.media ? userInfo.data.media.data.link : null
+            this.name = userInfo.data.name
+            this.mobile = userInfo.data.mobile
+        }
+    },
+    mounted() {
+        this.init()
+    }
 }
 </script>
 <style lang="sass" scoped>

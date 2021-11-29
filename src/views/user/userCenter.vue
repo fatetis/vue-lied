@@ -13,10 +13,11 @@
                     <div class="user_content ">
                         <div class="clearfix">
                             <div class="float-left user_img">
-                                <img :src="userImg" alt="">
+                                <self-image :src="userImg" width="100%" height="52px"/>
+                                <!-- <img :src="userImg" alt=""> -->
                             </div>
                             <div class="float-left user">
-                                <p class="p1">{{ userName }}</p>
+                                <p class="p1">{{ userName || '请设置昵称' }}</p>
                             </div>
                             <div class="float-right setting">
                                 <router-link :to="{name: 'setting'}">
@@ -119,6 +120,8 @@ import footerIndex from "@components/footerIndex";
 import userCenterSwiper from "@views/user/components/userCenterSwiper";
 // import couponSwiper from "@views/user/components/couponSwiper";
 import { userCenter } from "@/service/getData"
+import { setStore } from '@/util/mUtils'
+
 export default {
     name: 'userCenter',
     data() {
@@ -144,9 +147,10 @@ export default {
             let that = this
             let res = await userCenter({})
             that.orderData = res.order
-            that.userImg = res.user_info.data.media.data.link
+            that.userImg = res.user_info.data.media ? res.user_info.data.media.data.link : null
             that.userName = res.user_info.data.name
             that.adv = res.adv.data
+            setStore('userInfo', res.user_info)
         }
     },
     mounted() {

@@ -1,5 +1,5 @@
 <template>
-    <div class="orderDetail">
+    <div class="orderDetail"  v-show="JSON.stringify(shipping_data) !== '{}'">
         <header-dot :title="title" :type="4">
             <template v-slot:title>
                 <p class="t-title">剩余23小时59分自动关闭</p>
@@ -12,47 +12,47 @@
                         </div>
                         <div class="detail">
                             <div class="user-info">
-                                <span class="name">何达哒</span>
-                                <span class="mobile">18825099088</span>
+                                <span class="name">{{ shipping_data.name }}</span>
+                                <span class="mobile">{{ shipping_data.mobile }}</span>
                             </div>
                             <div class="address-info">
-                                广东省 东莞事 莞城街道 莞城罗沙装饰材料新兴北路13号莞城罗沙装饰材料莞城罗沙装饰材料莞城罗沙装饰材料
+                                {{shipping_data.pca + " " + shipping_data.address}}
                             </div>
                         </div>
                         <div class="modify">
-                            <p>修改</p>
+                            <p @click="handleRedirectAddressList()">修改</p>
                         </div>
                     </div>
                 </div>
             </template>
         </header-dot>
-        <div class="vir-height"></div>
-        <div class="container"  ref="order_wrapper">
+        <div class="container"  ref="order_wrapper" >
             <div class="content">
-                <div class="item">
+                <div class="item" v-for="(item, index) of orderData" :key="index">
                     <div class="seller">
                         <div class="name">
                             <i class="icon_shop"></i>
-                            哈拉雷了
+                            {{ item.name }}
                             <i class="icon_arrow_right"></i>
                         </div>
                     </div>
-                    <div class="detail">
+                    <div class="detail" v-for="(i, k) of item.product" :key="k">
                         <div class="wrapper">
                             <div class="img">
-                                <self-image width="100%" :src="img" radius="5"/>
+                                <self-image width="100%" :src="i.skuImg" radius="5"/>
                             </div>
                             <div class="content">
-                                <p class="p1">lied</p>
-                                <p class="p2">绿色，大号</p>
+                                <p class="p1">{{ i.productName }}</p>
+                                <p class="p2">{{ i.skuName }}</p>
                                 <p class="p3">3天内发货</p>
                             </div>
                             <div class="price">
                                 ¥
                                 <span>
-                                    <em>1</em>.01
+                                    <em>{{i.int}}</em>
+                                    {{ i.point == '' ? '' : '.' + i.point }}
                                 </span> 
-                                <p class="num">×1</p>
+                                <p class="num">×{{ i.number }}</p>
                             </div>
                         </div>
                     </div>
@@ -61,32 +61,30 @@
                             <p class="p1">商品总价</p>
                             <p class="p2">
                                 <span>¥</span>
-                                389<span>.00</span>
+                                {{orderOtherData.origin_price.int}}<span>{{ orderOtherData.origin_price.point == '' ? '' : '.' + orderOtherData.origin_price.point }}</span>
                             </p>
                         </div>
                         <div class="list">
                             <p class="p1">运费</p>
                             <p class="p2">
-                                <span>¥</span>
-                                0<span>.00</span>
+                                <span>¥</span>{{orderOtherData.shipping_price.int}}<span>{{ orderOtherData.shipping_price.point == '' ? '' : '.' + orderOtherData.shipping_price.point }}</span>
                             </p>
                         </div>
                         <div class="list list-hover">
-                            <p class="p1">满389减10</p>
+                            <p class="p1">优惠</p>
                             <p class="p2">
-                                <span>¥</span>
-                                10<span>.00</span>
+                                <span>¥</span>{{orderOtherData.discount_price.int}}<span>{{ orderOtherData.discount_price.point == '' ? '' : '.' + orderOtherData.discount_price.point }}</span>
                             </p>
                         </div>
                     </div>
                     <div class="total_price">
                         <span class="text">实付款&nbsp;</span>
                         <span class="price">
-                            <span class="scale">¥</span>
-                            340<span class="scale">.21</span>
+                            <span class="scale">¥</span>{{orderOtherData.price.int}}<span class="scale">{{ orderOtherData.price.point == '' ? '' : '.' + orderOtherData.price.point }}</span>
                         </span>
                     </div>
                 </div>
+                
                 <div class="order-item">
                     <div class="content">
                         <div class="title">
@@ -97,8 +95,8 @@
                                 <p>订单编号：</p>
                             </div>
                             <div class="r-data">
-                                <p>20210705052052202</p>
-                                <p class="copy" @click="handleCopy(20210705052052202)">复制</p>
+                                <p>{{orderno}}</p>
+                                <p class="copy" @click="handleCopy(orderno)">复制</p>
                             </div>
                         </div>
                         <div class="detail">
@@ -106,7 +104,7 @@
                                 <p>创建时间：</p>
                             </div>
                             <div class="r-data">
-                                <p>2021-09-02 13:40:16</p>
+                                <p>{{ orderOtherData.time }}</p>
                             </div>
                         </div>
                     </div>
@@ -118,17 +116,40 @@
                 <!-- <pay-recommand :productData="productData" :title="recommandTitle"></pay-recommand> -->
             </div>
         </div>
-        <order-detail-footer orderno="02021323"></order-detail-footer>
+        <div class="orderDetailFooter">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-item">
+                        <div class="footer-more needsclick">
+                            <van-popover
+                            v-model="showPopover"
+                            trigger="click"
+                            :actions="actions"
+                            placement="top-start"
+                            @select="onSelect"
+                            >
+                                <template #reference>
+                                    <p class="footer-more_text">更多</p>
+                                </template>
+                            </van-popover>
+                        </div>
+                        <div class="footer-operate">
+                            <p class="footer-p" @click="handleRedirectAddressList()">修改地址</p>
+                            <p class="footer-p">帮我付</p>
+                            <p class="footer-p footer-hover">付款</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import Bscroll from "better-scroll";
 import headerDot from "@components/headerDot";
-import orderDetailFooter from "@components/orderDetailFooter";
 import payRecommand from "@views/pay/components/payRecommand";
-import { productList } from "@/service/getData";
+import { productList, findOrder, findAddress } from "@/service/getData";
 import { copy } from '@/util/mUtils';
-
 export default {
     name: 'orderDetail',
     data() {
@@ -138,15 +159,20 @@ export default {
             recommandPage: 0,
             productData: [], // 产品列表
             productDataMeta: [],
-            img: 'http://www.lied.com/uploads/images/sku/20210311/894843ece059e130b083710916c90be0.png'
+            orderno: '',
+            orderData: {},
+            orderOtherData: {},
+            shipping_data: {},
+            showPopover: false,
+            actions: [{ text: '加入购物车' }, { text: '取消订单' }],
         }
     },
     components: {
         headerDot,
-        payRecommand,
-        orderDetailFooter
+        payRecommand
     },
     methods: {
+        // 获取推荐产品--暂取消
         async getProductListData(){
             this.recommandPage++;
             await productList({
@@ -161,7 +187,81 @@ export default {
             copy(text) 
             ? this.$toast.success('复制成功') 
             : this.$toast.fail('不支持复制,该浏览器不支持自动复制') 
-        }
+        },
+        async init() {
+            this.orderno = this.$route.params.orderno
+            let res = await findOrder({
+                include: "productOrder,snapshot,productOrder.brand,productOrder.productOrderChild,productOrder.shippingAddress"
+            }, this.orderno)
+            let data = res.data
+            let productOrderData = data.productOrder.data
+            let result = {}
+            let snapshot = eval('(' + data.snapshot.data.value + ')')
+            let addressId = '';
+            
+            // 订单详情数据
+            productOrderData.forEach(item => {
+                let brand_id = item.brand_id
+                result[brand_id] = result[brand_id] === undefined ? {} : result[brand_id]
+                result[brand_id]['name'] = item.brand.data.name
+                let orderChildData = item.productOrderChild.data
+                // 地址数据
+                if(addressId === '') {
+                    let params = eval("("+this.$store.getters.getOrderQuery+")")
+                    addressId = (params == null || params.addressId == null) ? item.shippingAddress.data.id : params.addressId
+                    findAddress({id: addressId}).then((res) => {
+                        let shipped_data = {
+                            name: res.data.name,
+                            mobile: res.data.tel,
+                            pca: res.data.province + ' ' + res.data.city + ' ' + res.data.county,
+                            address: res.data.addressDetail,
+                        };
+                        this.shipping_data = shipped_data
+                    })
+                }
+                orderChildData.forEach(i => {
+                    result[brand_id]['product'] = result[brand_id]['product'] === undefined ? {} : result[brand_id]['product']
+                    result[brand_id]['product'][i.sku_id] = result[brand_id]['product'][i.sku_id] === undefined 
+                    ? {} 
+                    : result[brand_id]['product'][i.sku_id]
+                    result[brand_id]['product'][i.sku_id]['int'] = i.product_price.int
+                    result[brand_id]['product'][i.sku_id]['point'] = i.product_price.point
+                    result[brand_id]['product'][i.sku_id]['number'] = i.number
+                    result[brand_id]['product'][i.sku_id]['skuName'] = ''
+                    for(let s in snapshot.sku_info) {
+                        let snapshotSkuData = snapshot.sku_info[s]
+                        if(snapshotSkuData.id != i.sku_id) continue
+                        let attrKey = snapshotSkuData.attr_key.split('-')
+                        let attrValues = snapshotSkuData.attr_values
+                        result[brand_id]['product'][i.sku_id]['productId'] = i.product_id
+                        result[brand_id]['product'][i.sku_id]['productName'] = snapshotSkuData.product.name
+                        result[brand_id]['product'][i.sku_id]['skuImg'] = snapshotSkuData.media.link
+                        attrKey.forEach(a => {
+                            result[brand_id]['product'][i.sku_id]['skuName'] += ',' + attrValues[a].name
+                        })
+                        result[brand_id]['product'][i.sku_id]['skuName'] = result[brand_id]['product'][i.sku_id]['skuName'].substr(1)
+                    }
+                })
+            })
+            this.orderData = result
+            this.orderOtherData.time = data.created_at
+            this.orderOtherData.shipping_price = data.shipping_price
+            this.orderOtherData.discount_price = data.discount_price
+            this.orderOtherData.price = data.price
+            this.orderOtherData.origin_price = data.origin_price
+        },
+        handleRedirectAddressList() {
+            this.$store.commit('setOrderQuery', {
+                addressId: null
+            });
+            this.$router.push({name: 'addressList'})
+        },
+        /**
+         * 查看更多-选项框点击
+         */
+        onSelect(action) {
+            console.log(action);
+        },
     },
     mounted() {  
         this.$nextTick(() => {
@@ -175,21 +275,26 @@ export default {
                 },
                 click: true,
             });
-            this.scroll.on('pullingUp', () => {
-                // console.log(this.productDataMeta.length)
-                // 判断请求页数与总页数来显示底部区域
-                if(this.productDataMeta.length == 0) this.getProductListData();
-                if (this.productDataMeta.length !== 0 && this.recommandPage < this.productDataMeta.pagination.total_pages)
-                    this.getProductListData(); 
-                // 事情做完，需要调用此方法告诉 better-scroll 数据已加载，否则上拉事件只会执行一次
-                this.scroll.finishPullUp()
-            });
+            // this.scroll.on('pullingUp', () => {
+            //     // console.log(this.productDataMeta.length)
+            //     // 判断请求页数与总页数来显示底部区域
+            //     if(this.productDataMeta.length == 0) this.getProductListData();
+            //     if (this.productDataMeta.length !== 0 && this.recommandPage < this.productDataMeta.pagination.total_pages)
+            //         this.getProductListData(); 
+            //     // 事情做完，需要调用此方法告诉 better-scroll 数据已加载，否则上拉事件只会执行一次
+            //     this.scroll.finishPullUp()
+            // });
+            this.init()
+            
         });
-        this.getProductListData()
     }
 }
 </script>
 <style lang="sass" scoped>
+.orderDetail /deep/ .van-popover__action-text
+    font-size: 24px
+.orderDetail /deep/ .headerDot 
+    height: auto
 .orderDetail /deep/ .headerDot .wrapper .text
     padding-top: 20px
     padding-bottom: 0px 
@@ -204,12 +309,13 @@ export default {
     .address-container
         padding: 20px 20px
         .address-content
-            padding: 20px
+            padding: 0 20px
             background-color: $fc
             border-radius: 10px
             display: flex
             justify-content: space-between
             align-items: center
+            height: 156px
             .icon
                 background-image: linear-gradient(45deg, #f8bf37, #fb5c25 60%)
                 border-radius: 50%
@@ -235,7 +341,7 @@ export default {
             .modify
                 p
                     padding: 10px 28px
-                    @include sc(28px, #999999)
+                    @include sc(26px, #999999)
                     border: 1px solid #999999
                     border-radius: 50px
     .vir-height
@@ -432,6 +538,35 @@ export default {
                     position: absolute
                     left: 0
                     background-color: #999999
+    .orderDetailFooter
+        height: $footerIndexTop
+        background-color: $fc
+        display: flex
+        align-items: center
+        .footer-container
+            width: 100%
+            .footer-content
+                .footer-item
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    padding: 0 20px
+                    .footer-more
+                        .footer-more_text
+                            color: #999999
+                    .footer-operate
+                        width: 60%
+                        display: flex
+                        justify-content: space-between  
+                        align-items: center
+                        .footer-p
+                            padding: 10px 24px
+                            border-radius: 50px
+                            border: 1px solid #cccccc
+                            @include sc(26px, #666666)
+                        .footer-hover
+                            border: 1px solid $theam
+                            color: $theam
                 
 
 

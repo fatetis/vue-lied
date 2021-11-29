@@ -86,7 +86,10 @@ const errorHandle = (status, other) => {
 	switch (status) {
 		// 401: 未登录状态，跳转登录页
 		case 401:
-			toLogin();
+			store.commit('setToken', null);
+			setTimeout(() => {
+				toLogin();
+			}, 1500);
 			break;
 		// 403 token过期
 		// 清除token并跳转登录页

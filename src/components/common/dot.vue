@@ -81,19 +81,16 @@ export default {
     z-index: $fixedPositionZIndex
     .wrapper
         .content
-            width: 80px
+            width: 88px
             height: $headerIndexTop
             display: flex
             justify-content: center
+            align-items: center
             img
                 @include wh(48px, 48px)
-                margin-top: 16px 
-                margin-right: 3px
             .grey_bg
                 background: #666
                 border-radius: 60px
-                margin-right: 8px
-                margin-top: 16px
                 @include wh(60px, 60px)
 .show_nav
     .list

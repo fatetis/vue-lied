@@ -1,9 +1,21 @@
 <template>
     <div class="cart">
-        <header-dot :title="title" :type="1"></header-dot>
+          <div class="cartHeader">
+            <div class="wrapper">
+                <div class="content">
+                    <p class="p1">购物车<span>{{ totalCartLength ? '(' + totalCartLength + ')' : '' }}</span></p>
+                    <p class="p2" @click="handleEditCart" v-show="totalCartLength !== 0">{{ showSettlement ? '编辑' : '完成' }}</p>
+                </div>
+            </div>
+            <div class="more"  :class="showSettlement ? '' : 'no-show'">
+                <dot :type="1"></dot>
+            </div>
+        </div>
         <div class="container" ref="cart_container">
             <div class="wrapper">
                 <div class="content">
+                    <!-- 空购物车 -->
+                    <null-slot v-show="totalCartLength === 0" tip="空空如也"></null-slot>
                     <div class="item" v-for="(item, index) of cartData" :key="index">
                         <!-- 商家模块 -->
                         <div class="seller clearfix">
@@ -59,26 +71,25 @@
                                             </div>
                                         </div>
                                         <div class="action clearfix">
-                                            <span class="item_action" @click="handleDeleteCart" :data-cartid="i.id" :data-skuid="i.skuId" :data-brandid="item.brandId">删除</span>
+                                            <span class="item_action" @click="handleDeleteCart(i.id, item.brandId, i.skuId)" :data-cartid="i.id" :data-skuid="i.skuId" :data-brandid="item.brandId">删除</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-        <div class="fixbar">
+        <div class="fixbar" v-show="totalCartLength !== 0">
             <div class="container">
                 <div class="wrapper">
-                    <div class="content clearfix">
+                    <div class="content">
                         <div class="total_checkbox">
                             <i class="checkbox checkbox_total" :class="{checkbox_selected: selectedTotalShow}" @click="handleTotalSelected"></i>
                             全选
                         </div>
-                        <div class="text clearfix">
+                        <div class="text" :class="showSettlement ? '' : 'no-show'">
                             <div class="price clearfix">
                                 <p class="p1">
                                     总计:
@@ -87,6 +98,16 @@
                                 <p class="p2">已优惠¥1232.00</p>
                             </div>
                             <button class="settlement" @click="handleBuyValidate">去结算(<em>{{ totalData.totalNum }}</em>件)</button>
+                        </div>
+                        <div class="text" :class="showSettlement ? 'no-show' : ''">
+                            <div class="operation">
+                                <p class="p1">
+                                    <span class="icon"></span>
+                                    <span>清理</span>
+                                </p>
+                                <p class="p2" @click="handleCollection()">移入收藏夹</p>
+                                <p class="p3" @click="handleDeleted()">删除</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -97,10 +118,11 @@
 </template>
 <script>
 import Bscroll from "better-scroll";
-import headerDot from "@components/headerDot";
+import dot from '@components/common/dot'
 import footerIndex from "@components/footerIndex";
 import inputNum from "@views/cart/components/inputNum";
 import { getCart, modifyCart, deleteCart, productValidate } from '@/service/getData'
+import nullSlot from "@components/nullSlot";
 export default {
     name: 'cart',
     data () {
@@ -113,12 +135,16 @@ export default {
             selectedTotalShow: false,
             skuIds: {},
             cartIds: [],
+            showSettlement: true,
+            totalCartLength: '',
+            selectedData: [],
         }
     },
     components: {
-        headerDot,
+        dot,
         footerIndex,
-        inputNum
+        inputNum,
+        nullSlot
     },
     methods: {
         async getCart() {
@@ -163,15 +189,13 @@ export default {
                 }
                 result[brandData.id]['product'][skuData.id]['skuName'] = result[brandData.id]['product'][skuData.id]['skuName'].substr(1)
             });
+            this.totalCartLength = data.length;
             this.cartData = result;
         },
         // 购物车删除
-        async handleDeleteCart(e) {
-            let cartid = e.currentTarget.dataset.cartid
-            let skuid = e.currentTarget.dataset.skuid
-            let brandid = e.currentTarget.dataset.brandid
+        async handleDeleteCart(cartid, brandid, skuid) {
             let _this = this
-            let res = await deleteCart({
+            await deleteCart({
                 id: cartid
             })
             // 删除对象里购物车的属性
@@ -181,6 +205,9 @@ export default {
             // 一个商家里若无其他商品则将商家信息一并清除了
             if(Object.keys(_this.cartData[brandid].product).length <= 0) {
                 _this.$delete(_this.cartData, brandid)
+            }
+            if(JSON.stringify(_this.cartData) == '{}') {
+                this.totalCartLength = 0
             }
         },
         async handleChangeNum(num, skuId) {
@@ -258,10 +285,14 @@ export default {
         },
         // 下单操作
         handleBuyValidate() {
-            let param = new FormData();
+            let param = new FormData()
             for(let key in this.skuIds){
                 param.append('sku_id[' + key + ']', this.skuIds[key])
             }
+            if(JSON.stringify(this.skuIds) == '{}') {
+                this.$toast("你还没有选择宝贝哦")
+                return false
+            } 
             productValidate(param).then((res) => {
                 this.$store.commit('setOrderQuery', {
                     skuIds: this.skuIds,
@@ -279,6 +310,32 @@ export default {
                     }
                 }
             }
+        },
+        handleEditCart() {
+            this.showSettlement = !this.showSettlement
+        },
+        handleCollection() {
+            console.log('移入收藏夹')
+        },
+        handleDeleted() {
+            if(this.selectedData.length <= 0) {
+                this.$toast("你还没有选择宝贝哦")
+                return false
+            }
+            this.$dialog.confirm({
+                title: '确认删除?',
+                confirmButtonText: '删除',
+                cancelButtonText: '我在想想'
+            })
+            .then(() => {
+                this.selectedData.forEach(item => {
+                    let split_arr = item.split('-')
+                    this.handleDeleteCart(split_arr[0], split_arr[1], split_arr[2])
+                })
+            })
+            .catch(() => {
+                console.log('取消')
+            });
         }
     },
     mounted() {
@@ -295,6 +352,9 @@ export default {
         totalData: function() {
             let total = 0;
             let num = 0;
+            this.skuIds = {}
+            this.selectedData = []
+            this.cartIds = []
             this.selectedRange.forEach(item => {
                 for(let key in this.cartData) {
                     if(this.cartData[key].product[item] !== undefined) {
@@ -302,6 +362,8 @@ export default {
                         num += this.cartData[key].product[item].num
                         this.skuIds[item] = this.cartData[key].product[item].num
                         this.cartIds.push(this.cartData[key].product[item].id)
+                        let selectedData = this.cartData[key].product[item].id + '-' + this.cartData[key].brandId + '-' + item
+                        this.selectedData.push(selectedData)
                     }
                 }
             })
@@ -312,6 +374,26 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
+// 头部样式
+.cartHeader
+  height: $headerIndexTop
+  .wrapper
+    .content
+      height: $headerIndexTop
+      width: 84%
+      padding-left: 4%
+      display: flex
+      justify-content: space-between
+      align-items: center
+      p.p1
+        @include sc(32px, #333333)
+        font-weight: bold
+        span
+          font-weight: normal
+          @include sc(26px, #666666)
+      p.p2
+        @include sc(24px, #666666)
+//body样式
 .checkbox
     float: left
     display: inline-block
@@ -332,6 +414,7 @@ export default {
         .wrapper
             .content
                 padding: 20px
+                padding-top: 0
                 .item
                     background-color: #fff
                     padding: 20px
@@ -418,7 +501,6 @@ export default {
                                             .sku_attr_style
                                                 display: inline-block
                                                 @include overwrap()
-                                                // max-width: calc( 100% - 96px )
                                                 max-width: calc( 100% - 0px )
                                                 vertical-align: top
                                             .sku_service_style
@@ -459,18 +541,21 @@ export default {
             width: 100%
             border-top: 1px solid #f2f2f2
             .wrapper
-                margin: 0px 20px
                 .content
+                    height: 100px
+                    padding: 0 20px
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
                     .total_checkbox
-                        float: left
-                        padding-top: 14px 
                         @include sc(26px, #333)
                         .checkbox_total
-                            margin-right: 20px
+                            margin-right: 10px
                     .text
-                        float: right
+                        display: flex
+                        justify-content: space-between
+                        align-items: center
                         .price
-                            float: left
                             color: #333
                             margin-top: -10px
                             .p1
@@ -479,11 +564,36 @@ export default {
                                     font-size: 32px
                                     font-weight: 700
                             .p2   
-                                float: right
+                        .operation
+                            display: flex
+                            justify-content: space-between
+                            align-items: center
+                            width: 100%
+                            p
+                                margin: 0 10px
+                                font-size: 24px
+                            .p1
+                                display: flex
+                                justify-content: center
+                                color: #444444
+                                margin-left: 0
+                                .icon
+                                    display: inline-block
+                                    @include wh(36px, 36px)
+                                    @include bis('../../assets/images/icon/deleted.png')
+                            .p2
+                                border: 1px solid $theam
+                                padding: 18px 12px  
+                                border-radius: 50px
+                                color: $theam
+                            .p3
+                                background-image: linear-gradient(-45deg, #f97590, #f90336 50%)
+                                color: $fc
+                                padding: 18px 40px
+                                border-radius: 50px
+                                margin-right: 0
                         .settlement
-                            float: right
                             margin-left: 20px
-                            margin-top: -8px
                             border-radius: 40px
                             line-height: 76px
                             text-align: center

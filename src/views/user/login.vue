@@ -236,10 +236,14 @@ export default {
         
     },
     mounted() {  
-        this.$store.getters.getLoginStatus === 1 
-        && this.$router.replace({
-            name: 'userCenter'
-        });
+        if(this.$store.getters.getLoginStatus === 1) {
+            let redirect = this.$route.query.redirect
+            if(redirect === undefined) {
+                this.$router.replace({ name: 'userCenter' });
+            } else {
+                this.$router.replace({ path: redirect });
+            }
+        }
     }
     
 }

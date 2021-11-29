@@ -72,14 +72,15 @@ export default {
         headerNotDot
     },
     methods: {
-        findOrder() {
-            findOrder({
+        async findOrder() {
+            await findOrder({
             }, this.orderno).then(res => {
                 let data = res.data
                 if(data.order_status !== 0) {
                     this.$toast.fail('该笔订单已支付');
-                    // todo 这里需要跳转页面 跳到订单详情页面
-                    return false;
+                    setTimeout(function() {
+                        this.$router.replace({name: 'orderDetail', params: {orderno: item.orderno}});
+                    }, 500)
                 }
                 this.price = res.data.price
             })

@@ -1,6 +1,6 @@
 <template>
     <div class="inputNum">
-        <button class="common min" @click="handleDown" :disabled="currentValue <= min"></button>
+        <button class="common min" @click="handleDown" :disabled="currentValue <= min" :class="currentValue <= min ? 'min-disable' : ''"></button>
         <input class="input" type="text" :value="currentValue" @change="handleChange" @keyup.up='handleUp' @keyup.down='handleDown'/>
         <button class="common max" @click="handleUp" :disabled="currentValue >= max" :class="currentValue >= max ? 'max-disable' : ''"></button>
     </div>
@@ -125,6 +125,13 @@ export default {
         transform: translate(-50%,-50%)
     .min
         position: relative
+    .min-disable:before
+        content: ''
+        position: absolute
+        width: 16px
+        height: 4px
+        background-color: #f2f2f2
+        transform: translate(-50%,-50%)
     .input
         width: 72px
         height: 30px

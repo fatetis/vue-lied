@@ -4,7 +4,7 @@
             <div class="wrapper">
                 <div class="content">
                     <div class="left" @click="back">
-                        <span></span>
+                    <div class="arrow"></div>
                     </div>
                 </div>
                 <div class="cl nav" v-show="headerOpNum !== null">
@@ -96,16 +96,21 @@ export default {
             height: $headerIndexTop
             z-index: $fixedPositionZIndex
             .content
-                margin: 16px 20px 0 20px
+                width: 88px
+                height: $headerIndexTop
+                display: flex
+                justify-content: center
+                align-items: center
                 .left
                     background-color: #666
                     border-radius: 60px
                     @include wh(60px, 60px)
-                    line-height: 60px
-                    text-align: center
-                    span
+                    display: flex
+                    justify-content: center
+                    align-items: center
+                    .arrow
                         margin-left: 10px
-                        @include borderArrow(left, 20px, $fc)
+                        @include borderArrow(left, 18px, $fc)
         .nav
             position: absolute
             top: 12px

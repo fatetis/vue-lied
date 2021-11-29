@@ -17,7 +17,7 @@ import setting from '@views/user/setting'
 import search from '@views/search'
 import comment from '@views/order/comment'
 import commentReview from '@views/order/commentReview'
-import orderAddressModify from '@views/order/orderAddressModify'
+import orderAddressNotify from '@views/order/orderAddressModify'
 import orderDetail from '@views/order/orderDetail'
 
 Vue.use(VueRouter)
