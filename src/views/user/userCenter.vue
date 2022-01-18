@@ -13,7 +13,7 @@
                     <div class="user_content ">
                         <div class="clearfix">
                             <div class="float-left user_img">
-                                <self-image :src="userImg" width="100%" height="52px"/>
+                                <self-image :src="userImg" width="100%" />
                                 <!-- <img :src="userImg" alt=""> -->
                             </div>
                             <div class="float-left user">
@@ -201,7 +201,7 @@ export default {
                             width: 104px
                             height: 104px
                             overflow: hidden
-                            border-radius: 100px
+                            border-radius: 104px
                             img
                                 width: 100%
                         .user

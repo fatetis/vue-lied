@@ -28,7 +28,7 @@ export default {
 <style lang="sass" scoped>
 .category /deep/ .van-swipe__indicators
   position: absolute
-  bottom: -40px
+  bottom: -32px
 .category
     position: relative
     width: 100%

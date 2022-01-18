@@ -15,7 +15,11 @@
                                 <p class="p2">手机号：{{ mobile }}</p>
                             </div>
                         </div>
-                        <div class="info_edit ct">编辑</div>
+                        <router-link :to="{name: 'userInfo'}">
+                        <div class="info_edit ct">
+                            编辑
+                        </div>
+                        </router-link>
                     </div>
                     <div class="item">
                         <router-link :to="{name: 'addressList'}">

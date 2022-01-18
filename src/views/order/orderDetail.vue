@@ -136,7 +136,7 @@
                         <div class="footer-operate">
                             <p class="footer-p" @click="handleRedirectAddressList()">修改地址</p>
                             <p class="footer-p">帮我付</p>
-                            <p class="footer-p footer-hover">付款</p>
+                            <p class="footer-p footer-hover" @click="handleRedirectPayIndex()">付款</p>
                         </div>
                     </div>
                 </div>
@@ -262,6 +262,12 @@ export default {
         onSelect(action) {
             console.log(action);
         },
+        handleRedirectPayIndex() {
+            this.$router.push({
+                name: 'payIndex',
+                params: {id: this.orderno}
+            })
+        }
     },
     mounted() {  
         this.$nextTick(() => {

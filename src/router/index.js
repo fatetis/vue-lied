@@ -19,6 +19,7 @@ import comment from '@views/order/comment'
 import commentReview from '@views/order/commentReview'
 import orderAddressNotify from '@views/order/orderAddressModify'
 import orderDetail from '@views/order/orderDetail'
+import userInfo from '@views/user/userInfo'
 
 Vue.use(VueRouter)
 
@@ -125,6 +126,11 @@ Vue.use(VueRouter)
     path: '/order/detail/:orderno',
     name: 'orderDetail',
     component: orderDetail
+  },
+  {
+    path: '/user/info',
+    name: 'userInfo',
+    component: userInfo
   },
 ]
 
